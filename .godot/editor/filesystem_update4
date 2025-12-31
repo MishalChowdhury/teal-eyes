@@ -1,0 +1,8 @@
+res://entities/player/MovementComponent.gd
+res://entities/player/InputComponent.gd
+res://entities/player/Player.gd
+res://entities/player/StateMachine.gd
+res://levels/TestPlayerMovement.tscn
+res://components/DebugHUD.gd
+res://entities/player/AnimationComponent.gd
+res://scripts/auto_load/Events.gd

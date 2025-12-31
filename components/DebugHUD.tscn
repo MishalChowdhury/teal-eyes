@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwhp2kdt5q7m8"]
+
+[ext_resource type="Script" path="res://components/DebugHUD.gd" id="1_1"]
+
+[node name="DebugHUD" type="CanvasLayer"]
+script = ExtResource("1_1")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 400.0
+offset_bottom = 300.0
+theme_override_colors/font_color = Color(0, 1, 0.4, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 16
+text = "Debug Info"
