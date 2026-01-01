@@ -119,7 +119,7 @@ res://
 - [EiTaNBaRiBoA/AsyncScene](https://github.com/EiTaNBaRiBoA/AsyncScene) - Async level loading pattern
 
 ### Art
-All art assets created by [Spouse's Name/Credit] - Hand-drawn original artwork
+All art assets created by Shanthini shanmugarajah ([@esvitez](https://github.com/esvitez)) - Hand-drawn original artwork
 
 ---
 
