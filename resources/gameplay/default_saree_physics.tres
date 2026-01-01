@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SareePhysicsData" load_steps=2 format=3 uid="uid://dp1234saree01"]
+
+[ext_resource type="Script" uid="uid://btvyqbgt71qqj" path="res://resources/gameplay/SareePhysicsData.gd" id="1_1"]
+
+[resource]
+script = ExtResource("1_1")
+segment_length = 12.0
+stiffness = 0.934
+drag = 0.94
+gravity_scale = 0.4
+damping_coefficient = 0.06
+simulation_iterations = 5
+wind_strength = 500.0
+wind_direction = Vector2(-1, 0)

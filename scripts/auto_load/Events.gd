@@ -1,8 +1,9 @@
 extends Node
 
-## Camera & Level Signals
-signal request_camera_snap(target_rect: Rect2, zoom_level: float, duration: float)
+## Camera & Level Management
+signal request_camera_snap(target_position: Vector2, zoom_level: float)
 signal room_entered(room_id: String)
+signal room_transition_triggered(from_room: String, to_room: String)
 signal cutscene_started()
 signal cutscene_ended()
 

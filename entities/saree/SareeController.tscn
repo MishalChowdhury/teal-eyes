@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bq5hdgxj8j7wu"]
+
+[ext_resource type="Script" path="res://entities/saree/SareeController.gd" id="1_1"]
+[ext_resource type="Script" path="res://entities/saree/VerletSolver.gd" id="2_1"]
+[ext_resource type="Resource" uid="uid://dp1234saree01" path="res://resources/gameplay/default_saree_physics.tres" id="3_1"]
+
+[sub_resource type="Curve" id="Curve_1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.25), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="SareeController" type="Node2D"]
+script = ExtResource("1_1")
+saree_data = ExtResource("3_1")
+
+[node name="SareeVisual" type="Line2D" parent="."]
+texture_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+width_curve = SubResource("Curve_1")
+default_color = Color(1, 0.9, 0.7, 0.9)
+
+[node name="VerletSolver" type="Node" parent="."]
+script = ExtResource("2_1")

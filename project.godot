@@ -12,7 +12,7 @@ config_version=5
 
 config/name="teal-eyes"
 config/description="2D side-scroller with Saree-Lasso physics and snap-camera room exploration"
-run/main_scene="uid://cq3yv8v4n5x8p"
+run/main_scene="res://levels/MainLevel.tscn"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 Events="*res://scripts/auto_load/Events.gd"
 Global="*res://scripts/auto_load/Global.gd"
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 
 [debug]
 
@@ -32,6 +33,10 @@ window/size/viewport_height=1080
 window/size/mode=2
 window/stretch/mode="canvas_items"
 window/size/vsync/vsync_mode=1
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
 
 [input]
 
@@ -85,6 +90,7 @@ saree_release={
 [physics]
 
 common/physics_jitter_fix=0.0
+common/physics_interpolation=true
 
 [rendering]
 
