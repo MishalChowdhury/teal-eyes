@@ -12,7 +12,7 @@ config_version=5
 
 config/name="teal-eyes"
 config/description="2D side-scroller with Saree-Lasso physics and snap-camera room exploration"
-run/main_scene="res://levels/MainLevel.tscn"
+run/main_scene="uid://o5no338uxfsy"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 

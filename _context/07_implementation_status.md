@@ -59,12 +59,43 @@
 **States Planned**: DoubleJump, Glide, LassoAim, LassoSwing, LassoRelease
 
 ### 1.5 Animation System
-**Status**: 🚧 Scaffold Complete  
-**Files**: [`AnimationComponent.gd`](file:///Users/mishal/Documents/teal-eyes/entities/player/AnimationComponent.gd)
+**Status**: ✅ Complete (Procedurally Generated)  
+**Files**: 
+- [`AnimationComponent.gd`](file:///Users/mishal/Documents/teal-eyes/entities/player/AnimationComponent.gd)
+- [`PlayerRig.tscn`](file:///Users/mishal/Documents/teal-eyes/entities/player/PlayerRig.tscn)
+- [`AnimationGenerator.gd`](file:///Users/mishal/Documents/teal-eyes/entities/player/AnimationGenerator.gd)
 
-- Listens to StateMachine state changes
-- Ready for AnimationPlayer integration
-- Awaiting sprite assets
+**Implementation Date**: 2026-01-01
+
+**Architecture**: Skeleton2D-based character rig with Polygon2D limbs
+
+**Skeletal System**:
+- 14-bone hierarchy (Hip → Torso → Head/Shoulders/Legs)
+- 14 Polygon2D meshes (torso, saree, head, hair, arms, legs)
+- Bone-skinned mesh system with proper rest transforms
+- Z-index layering (right arm z=2, saree z=1, left arm z=-1)
+
+**AnimationPlayer**:
+- 5 fully animated clips: idle, run, jump, fall, wall_slide
+- Procedurally generated using sine-wave mathematics
+- Cubic interpolation for organic motion
+- State-to-animation mapping in AnimationComponent
+
+**Procedural Generation**:
+- `AnimationGenerator.gd` EditorScript tool
+- Sine-wave motion with organic leg lag (shin trails thigh by 0.15 rad)
+- Run cycle: 8 keyframes, symmetric leg/arm swing
+- Idle: Breathing cycle with subtle head tilt
+- Jump/Fall/Wall_slide: Ease curves with appropriate poses
+
+**Integration**:
+- PlayerRig instanced into Player.tscn/Visuals
+- Scene instantiation pattern (encapsulated rig)
+- AnimationComponent connects StateMachine state changes to AnimationPlayer
+- Saree RemoteTransform2D connection to Bone_Shoulder_R
+- Fixed signal parameter mismatch (old_state, new_state)
+
+**Current Status**: All 5 animations working in-game with smooth state transitions
 
 ---
 
@@ -159,12 +190,20 @@ new_pos = current_pos + velocity * drag + forces * delta²
 
 ### 2.4 Player Integration
 **Status**: ✅ Complete  
-**Modified**: [`Player.tscn`](file:///Users/mishal/Documents/teal-eyes/entities/player/Player.tscn)
+**Modified**: 
+- [`Player.tscn`](file:///Users/mishal/Documents/teal-eyes/entities/player/Player.tscn)
+- [`SareeController.gd`](file:///Users/mishal/Documents/teal-eyes/entities/saree/SareeController.gd)
 
-**Changes**:
-- Added `SareeAnchor` Marker2D at shoulder height (y=-30)
-- SareeController instance attached to Player
-- Proper UID reference (`uid://bq5hdgxj8j7wu`)
+**Integration Method**:
+- SareeAnchor: RemoteTransform2D inside PlayerRig skeleton (Bone_Shoulder_R)
+- SareeController anchor type: Node2D (supports both Marker2D and RemoteTransform2D)
+- Dynamic anchor discovery: `find_child("SareeAnchor", recursive: true)`
+- Fallback chain: Skeletal anchor → Old Visuals/SareeAnchor → Player root
+
+**PlayerRig Connection**:
+- RemoteTransform2D at `Visuals/Skeleton/Bone_Hip/Bone_Torso/Bone_Shoulder_R/SareeAnchor`
+- Updates rotation: false, scale: false (position-only tracking)
+- Saree follows shoulder movement during animations
 
 ### 2.5 Saree Grappling Mechanics
 **Status**: ❌ Not Implemented  
@@ -344,6 +383,7 @@ parallex_speed = 1.0 - (abs(z_index) / 50.0)
 - **Resource-Driven**: ✅ Zero hardcoded values
 - **Signal-Based**: ✅ Loose coupling maintained
 - **Performance**: ✅ Optimized (60 FPS stable)
+- **Skeletal Animation**: ✅ Skeleton2D + Polygon2D system implemented
 
 ---
 

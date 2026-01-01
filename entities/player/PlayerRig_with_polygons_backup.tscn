@@ -1,0 +1,212 @@
+[gd_scene load_steps=12 format=3 uid="uid://psxegnx3758e"]
+
+[ext_resource type="Texture2D" uid="uid://cvpj4li3wnj2r" path="res://assets/art/characters/player/parts/Full character.png" id="1_reference"]
+[ext_resource type="Texture2D" uid="uid://bs5vkidr0ui52" path="res://assets/art/characters/player/parts/torso.png" id="2_torso"]
+[ext_resource type="Texture2D" uid="uid://66u7b82lcu05" path="res://assets/art/characters/player/parts/saree.png" id="3_saree"]
+[ext_resource type="Texture2D" uid="uid://cp50yg4oyrlbs" path="res://assets/art/characters/player/parts/head.png" id="4_head"]
+[ext_resource type="Texture2D" uid="uid://dtmxxj1ga8muq" path="res://assets/art/characters/player/parts/right_upper_arm.png" id="6_upper_arm"]
+[ext_resource type="Texture2D" uid="uid://ci1j3vknhgiku" path="res://assets/art/characters/player/parts/right_lower_arm.png" id="7_lower_arm"]
+[ext_resource type="Texture2D" uid="uid://d1ulyrtby716d" path="res://assets/art/characters/player/parts/right_fist.png" id="8_fist"]
+[ext_resource type="Texture2D" uid="uid://d2v3qvc2gnvwi" path="res://assets/art/characters/player/parts/right_upper_leg.png" id="9_upper_leg"]
+[ext_resource type="Texture2D" uid="uid://bipt7gsmfknk5" path="res://assets/art/characters/player/parts/right_lower_leg.png" id="10_lower_leg"]
+[ext_resource type="Texture2D" uid="uid://c3lirrv6x3lch" path="res://assets/art/characters/player/parts/right_foot.png" id="11_foot"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1"]
+radius = 20.0
+height = 100.0
+
+[node name="PlayerRig" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -50)
+shape = SubResource("CapsuleShape2D_1")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="ReferenceFull" type="Sprite2D" parent="Visuals"]
+position = Vector2(-48.000023, -56)
+scale = Vector2(0.34570313, 0.34570313)
+texture = ExtResource("1_reference")
+
+[node name="Skeleton" type="Skeleton2D" parent="Visuals"]
+
+[node name="Bone_Hip" type="Bone2D" parent="Visuals/Skeleton"]
+position = Vector2(0, -50)
+rest = Transform2D(1, 0, 0, 1, 0, -50)
+
+[node name="Bone_Torso" type="Bone2D" parent="Visuals/Skeleton/Bone_Hip"]
+position = Vector2(0, -30)
+rest = Transform2D(1, 0, 0, 1, 0, -30)
+
+[node name="Part_Torso" type="Polygon2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso"]
+position = Vector2(-170, -69)
+scale = Vector2(0.42944622, 0.4294463)
+texture = ExtResource("2_torso")
+skeleton = NodePath("../..")
+polygon = PackedVector2Array(359.0864, 252.84723, 357.84674, 230.11996, 366.93762, 215.24393, 360.7393, 142.51666, 385.53268, 102.847244, 404.54092, 102.847244, 446.6897, 162.76459, 443.3839, 251.60757, 427.80005, 272.89508, 401.3538, 275.37442)
+uv = PackedVector2Array(359.0864, 252.84723, 357.84674, 230.11996, 366.93762, 215.24393, 360.7393, 142.51666, 385.53268, 102.847244, 404.54092, 102.847244, 446.6897, 162.76459, 443.3839, 251.60757, 427.80005, 272.89508, 401.3538, 275.37442)
+
+[node name="Part_Saree" type="Polygon2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso"]
+z_index = 1
+texture = ExtResource("3_saree")
+skeleton = NodePath("../..")
+
+[node name="Bone_Head" type="Bone2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso"]
+position = Vector2(0, -35)
+rest = Transform2D(1, 0, 0, 1, 0, -35)
+
+[node name="Part_Head" type="Polygon2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso/Bone_Head"]
+position = Vector2(-141.00002, -28.000004)
+scale = Vector2(0.3543446, 0.35434458)
+texture = ExtResource("4_head")
+skeleton = NodePath("../../..")
+polygon = PackedVector2Array(383.56866, 105.69558, 389.5276, 78.52292, 377.84808, 71.37222, 372.3659, 49.205055, 383.33032, 29.421452, 418.6071, 27.276241, 432.43176, 40.385857, 435.76877, 64.93659, 430.76328, 86.15033, 425.75778, 98.06817, 412.40982, 98.06817, 411.21802, 108.07915, 413.12488, 120.473694, 403.1139, 129.05453, 388.09744, 124.52576)
+uv = PackedVector2Array(383.56866, 105.69558, 389.5276, 78.52292, 377.84808, 71.37222, 372.3659, 49.205055, 383.33032, 29.421452, 418.6071, 27.276241, 432.43176, 40.385857, 435.76877, 64.93659, 430.76328, 86.15033, 425.75778, 98.06817, 412.40982, 98.06817, 411.21802, 108.07915, 413.12488, 120.473694, 403.1139, 129.05453, 388.09744, 124.52576)
+
+[node name="Part_Hair" type="Polygon2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso/Bone_Head"]
+z_index = 2
+skeleton = NodePath("../../..")
+
+[node name="Bone_Shoulder_R" type="Bone2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso"]
+position = Vector2(0, -25)
+rest = Transform2D(1, 0, 0, 1, 0, -25)
+
+[node name="SareeAnchor" type="RemoteTransform2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso/Bone_Shoulder_R"]
+update_rotation = false
+update_scale = false
+
+[node name="Bone_UpperArm_R" type="Bone2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso/Bone_Shoulder_R"]
+position = Vector2(0, 20)
+rest = Transform2D(1, 0, 0, 1, 0, 20)
+
+[node name="Part_UpperArm_R" type="Polygon2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso/Bone_Shoulder_R/Bone_UpperArm_R"]
+position = Vector2(-102.99999, -48)
+scale = Vector2(0.26094854, 0.26094848)
+texture = ExtResource("6_upper_arm")
+skeleton = NodePath("../../../..")
+polygon = PackedVector2Array(390.0728, 111.98198, 374.7552, 118.54668, 372.29346, 145.07898, 374.20813, 166.68777, 379.4052, 185.56128, 380.77283, 209.3583, 376.94342, 219.47888, 386.79047, 227.68474, 401.83456, 220.84653, 413.32278, 160.67014, 410.5875, 120.18785)
+uv = PackedVector2Array(390.0728, 111.98198, 374.7552, 118.54668, 372.29346, 145.07898, 374.20813, 166.68777, 379.4052, 185.56128, 380.77283, 209.3583, 376.94342, 219.47888, 386.79047, 227.68474, 401.83456, 220.84653, 413.32278, 160.67014, 410.5875, 120.18785)
+
+[node name="Bone_LowerArm_R" type="Bone2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso/Bone_Shoulder_R/Bone_UpperArm_R"]
+position = Vector2(0, 30)
+rest = Transform2D(1, 0, 0, 1, 0, 30)
+
+[node name="Part_LowerArm_R" type="Polygon2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso/Bone_Shoulder_R/Bone_UpperArm_R/Bone_LowerArm_R"]
+position = Vector2(-123.5969, -61.207535)
+scale = Vector2(0.30740538, 0.30740547)
+texture = ExtResource("7_lower_arm")
+skeleton = NodePath("../../../../..")
+polygon = PackedVector2Array(382.2925, 209.83629, 378.99716, 218.70834, 382.546, 238.48036, 391.41803, 259.01282, 393.9653, 282.2437, 396.90533, 294.00388, 407.13428, 304.38705, 421.58304, 294.50107, 421.58304, 283.85458, 416.5133, 278.53137, 412.96448, 259.77332, 412.4575, 241.52222, 403.83893, 221.24323, 403.58545, 210.85025, 382.2925, 207.5549)
+uv = PackedVector2Array(382.2925, 209.83629, 378.99716, 218.70834, 382.546, 238.48036, 391.41803, 259.01282, 401.30405, 279.2918, 405.86682, 291.7127, 407.13428, 304.38705, 421.58304, 294.50107, 421.58304, 283.85458, 416.5133, 278.53137, 412.96448, 259.77332, 412.4575, 241.52222, 403.83893, 221.24323, 403.58545, 210.85025, 382.2925, 207.5549)
+
+[node name="Bone_Hand_R" type="Bone2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso/Bone_Shoulder_R/Bone_UpperArm_R/Bone_LowerArm_R"]
+position = Vector2(0, 25)
+rest = Transform2D(1, 0, 0, 1, 0, 25)
+
+[node name="Part_Hand_R" type="Polygon2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso/Bone_Shoulder_R/Bone_UpperArm_R/Bone_LowerArm_R/Bone_Hand_R"]
+position = Vector2(-177, -121)
+scale = Vector2(0.43273535, 0.43273538)
+texture = ExtResource("8_fist")
+skeleton = NodePath("../../../../../..")
+polygon = PackedVector2Array(416.16144, 279.62424, 410.3562, 280.29407, 403.43463, 290.34155, 405.6674, 301.05884, 415.49158, 305.97095, 424.86923, 297.48642, 425.53906, 285.87598, 418.1709, 279.62424)
+uv = PackedVector2Array(416.16144, 279.62424, 410.3562, 280.29407, 403.43463, 290.34155, 405.6674, 301.05884, 415.49158, 305.97095, 424.86923, 297.48642, 425.53906, 285.87598, 418.1709, 279.62424)
+
+[node name="Bone_Shoulder_L" type="Bone2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso"]
+position = Vector2(0, -20)
+rest = Transform2D(1, 0, 0, 1, 0, -20)
+
+[node name="Bone_UpperArm_L" type="Bone2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso/Bone_Shoulder_L"]
+position = Vector2(0, 20)
+rest = Transform2D(1, 0, 0, 1, 0, 20)
+
+[node name="Part_UpperArm_L" type="Polygon2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso/Bone_Shoulder_L/Bone_UpperArm_L"]
+texture = ExtResource("6_upper_arm")
+skeleton = NodePath("../../../..")
+
+[node name="Bone_LowerArm_L" type="Bone2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso/Bone_Shoulder_L/Bone_UpperArm_L"]
+position = Vector2(0, 30)
+rest = Transform2D(1, 0, 0, 1, 0, 30)
+
+[node name="Part_LowerArm_L" type="Polygon2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso/Bone_Shoulder_L/Bone_UpperArm_L/Bone_LowerArm_L"]
+texture = ExtResource("7_lower_arm")
+skeleton = NodePath("../../../../..")
+
+[node name="Bone_Hand_L" type="Bone2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso/Bone_Shoulder_L/Bone_UpperArm_L/Bone_LowerArm_L"]
+position = Vector2(0, 25)
+rest = Transform2D(1, 0, 0, 1, 0, 25)
+
+[node name="Part_Hand_L" type="Polygon2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Torso/Bone_Shoulder_L/Bone_UpperArm_L/Bone_LowerArm_L/Bone_Hand_L"]
+texture = ExtResource("8_fist")
+skeleton = NodePath("../../../../../..")
+
+[node name="Bone_Thigh_R" type="Bone2D" parent="Visuals/Skeleton/Bone_Hip"]
+position = Vector2(5, 0)
+rest = Transform2D(1, 0, 0, 1, 5, 0)
+
+[node name="Part_Thigh_R" type="Polygon2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Thigh_R"]
+position = Vector2(-90.06036, -53.06516)
+scale = Vector2(0.23491198, 0.23491195)
+texture = ExtResource("9_upper_leg")
+skeleton = NodePath("../..")
+polygon = PackedVector2Array(384.91687, 216.85599, 358.0158, 225.22519, 339.484, 258.7021, 340.67957, 285.60315, 359.21143, 319.08002, 368.17847, 348.9701, 371.16748, 372.28436, 380.13446, 379.45798, 407.03552, 381.84918, 428.5564, 335.81848, 438.71906, 279.02734, 429.752, 238.97464)
+uv = PackedVector2Array(384.91687, 216.85599, 358.0158, 225.22519, 339.484, 258.7021, 340.67957, 285.60315, 359.21143, 319.08002, 368.17847, 348.9701, 371.16748, 372.28436, 380.13446, 379.45798, 407.03552, 381.84918, 428.5564, 335.81848, 438.71906, 279.02734, 429.752, 238.97464)
+
+[node name="Bone_Shin_R" type="Bone2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Thigh_R"]
+position = Vector2(0, 35)
+rest = Transform2D(1, 0, 0, 1, 0, 35)
+
+[node name="Part_Shin_R" type="Polygon2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Thigh_R/Bone_Shin_R"]
+position = Vector2(-133.591, -112.24235)
+scale = Vector2(0.30739892, 0.30739886)
+texture = ExtResource("10_lower_leg")
+skeleton = NodePath("../../..")
+polygon = PackedVector2Array(420.14038, 373.14282, 400.03296, 358.39737, 380.37238, 363.75934, 372.7762, 389.6756, 381.71286, 428.10312, 388.86218, 451.33838, 387.07483, 475.02045, 395.11783, 485.2976, 414.7784, 476.8078, 409.86325, 457.59402, 410.3101, 428.9968, 419.24673, 394.14392)
+uv = PackedVector2Array(420.14038, 373.14282, 400.03296, 358.39737, 380.37238, 363.75934, 372.7762, 389.6756, 381.71286, 428.10312, 388.86218, 451.33838, 387.07483, 475.02045, 395.11783, 485.2976, 414.7784, 476.8078, 409.86325, 457.59402, 410.3101, 428.9968, 419.24673, 394.14392)
+
+[node name="Bone_Foot_R" type="Bone2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Thigh_R/Bone_Shin_R"]
+position = Vector2(0, 35)
+rest = Transform2D(1, 0, 0, 1, 0, 35)
+
+[node name="Part_Foot_R" type="Polygon2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Thigh_R/Bone_Shin_R/Bone_Foot_R"]
+position = Vector2(-130, -148)
+scale = Vector2(0.3076276, 0.3076276)
+texture = ExtResource("11_foot")
+skeleton = NodePath("../../../..")
+polygon = PackedVector2Array(394.1162, 463.3184, 384.40265, 468.17517, 384.40265, 476.53958, 377.38733, 482.47565, 380.35535, 490.3004, 404.6392, 490.3004, 437.8271, 489.49097, 451.85773, 487.60223, 446.73114, 481.39636, 424.06622, 475.4603, 412.7338, 471.413, 410.03558, 465.74677)
+uv = PackedVector2Array(394.1162, 463.3184, 384.40265, 468.17517, 384.40265, 476.53958, 377.38733, 482.47565, 380.35535, 490.3004, 404.6392, 490.3004, 437.8271, 489.49097, 451.85773, 487.60223, 446.73114, 481.39636, 424.06622, 475.4603, 412.7338, 471.413, 410.03558, 465.74677)
+
+[node name="Bone_Thigh_L" type="Bone2D" parent="Visuals/Skeleton/Bone_Hip"]
+position = Vector2(-5, 0)
+rest = Transform2D(1, 0, 0, 1, -5, 0)
+
+[node name="Part_Thigh_L" type="Polygon2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Thigh_L"]
+position = Vector2(-106.00001, -61.999996)
+scale = Vector2(0.27128354, 0.27128354)
+texture = ExtResource("9_upper_leg")
+skeleton = NodePath("../..")
+polygon = PackedVector2Array(360.8717, 224.44044, 346.40692, 240.71335, 340.07855, 278.2314, 351.37918, 310.3252, 367.6521, 346.9392, 379.85678, 383.55322, 406.97827, 385.81335, 423.7032, 353.26758, 437.26395, 292.69623, 439.07205, 249.75385, 406.97827, 220.37222, 374.43246, 215.85196)
+uv = PackedVector2Array(360.8717, 224.44044, 346.40692, 240.71335, 340.07855, 278.2314, 351.37918, 310.3252, 367.6521, 346.9392, 379.85678, 383.55322, 406.97827, 385.81335, 423.7032, 353.26758, 437.26395, 292.69623, 439.07205, 249.75385, 406.97827, 220.37222, 374.43246, 215.85196)
+
+[node name="Bone_Shin_L" type="Bone2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Thigh_L"]
+position = Vector2(0, 35)
+rest = Transform2D(1, 0, 0, 1, 0, 35)
+
+[node name="Part_Shin_L" type="Polygon2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Thigh_L/Bone_Shin_L"]
+position = Vector2(-138, -129)
+scale = Vector2(0.34729424, 0.34729418)
+texture = ExtResource("10_lower_leg")
+skeleton = NodePath("../../..")
+polygon = PackedVector2Array(393.71417, 353.37506, 378.45874, 361.31412, 376.12375, 376.41388, 372.38773, 381.5509, 369.82346, 394.99307, 375.11615, 417.87622, 383.05518, 430.79663, 383.3645, 476.92365, 395.03958, 485.174, 408.89398, 480.971, 414.1867, 472.56494, 408.73834, 459.3332, 411.87994, 405.65283, 419.28165, 366.31842)
+uv = PackedVector2Array(393.71417, 353.37506, 378.45874, 361.31412, 376.12375, 376.41388, 372.38773, 381.5509, 369.82346, 394.99307, 375.11615, 417.87622, 383.05518, 430.79663, 383.3645, 476.92365, 395.03958, 485.174, 408.89398, 480.971, 414.1867, 472.56494, 408.73834, 459.3332, 411.87994, 405.65283, 419.28165, 366.31842)
+
+[node name="Bone_Foot_L" type="Bone2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Thigh_L/Bone_Shin_L"]
+position = Vector2(0, 35)
+rest = Transform2D(1, 0, 0, 1, 0, 35)
+
+[node name="Part_Foot_L" type="Polygon2D" parent="Visuals/Skeleton/Bone_Hip/Bone_Thigh_L/Bone_Shin_L/Bone_Foot_L"]
+position = Vector2(-153, -189)
+scale = Vector2(0.39598867, 0.39598855)
+texture = ExtResource("11_foot")
+skeleton = NodePath("../../../..")
+polygon = PackedVector2Array(384.16284, 468.89716, 382.16776, 474.99332, 379.17508, 480.53528, 378.3992, 484.30383, 381.83524, 489.95663, 392.69748, 490.9542, 445.01364, 489.8458, 452.32904, 486.5206, 450.99896, 482.41956, 425.39508, 474.6608, 416.97128, 472.1115, 410.98596, 468.34296, 409.10168, 463.79855, 401.4538, 460.69504, 391.25656, 462.02512)
+uv = PackedVector2Array(384.16284, 468.89716, 382.16776, 474.99332, 379.17508, 480.53528, 378.3992, 484.30383, 381.83524, 489.95663, 392.69748, 490.9542, 445.01364, 489.8458, 452.32904, 486.5206, 450.99896, 482.41956, 425.39508, 474.6608, 416.97128, 472.1115, 410.98596, 468.34296, 409.10168, 463.79855, 401.4538, 460.69504, 391.25656, 462.02512)
