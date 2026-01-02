@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b1hns1kcm8igy" path="res://entities/player/Player.gd" id="1_1"]
 [ext_resource type="Script" uid="uid://15fpysi53wp8" path="res://entities/player/InputComponent.gd" id="2_1"]
-[ext_resource type="PackedScene" uid="uid://cxh0m5y8qv3ob" path="res://entities/player/PlayerRig.tscn" id="2_mq27t"]
+[ext_resource type="PackedScene" uid="uid://kcwy4wicyv80" path="res://entities/player/PlayerRigv2-m.tscn" id="2_2rv2u"]
 [ext_resource type="Script" uid="uid://wkdmrxhphk6x" path="res://entities/player/MovementComponent.gd" id="3_1"]
 [ext_resource type="Resource" uid="uid://dyvg7kxmx0g4l" path="res://resources/gameplay/DefaultMovementData.tres" id="4_1"]
 [ext_resource type="Script" uid="uid://cl4a5wq8vfuex" path="res://entities/player/AnimationComponent.gd" id="5_1"]
@@ -12,11 +12,11 @@
 [ext_resource type="Script" uid="uid://d134vd38f2nlx" path="res://entities/player/states/Jump.gd" id="9_1"]
 [ext_resource type="Script" uid="uid://cj3u3xxi4iepn" path="res://entities/player/states/Fall.gd" id="10_1"]
 [ext_resource type="Script" uid="uid://d3l6slaecgt7o" path="res://entities/player/states/WallSlide.gd" id="11_1"]
-[ext_resource type="PackedScene" uid="uid://bq5hdgxj8j7wu" path="res://entities/saree/SareeController.tscn" id="13_saree"]
+[ext_resource type="Script" uid="uid://bjooim503vaxm" path="res://entities/player/states/Walk.gd" id="13_mq27t"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1"]
-radius = 12.0
-height = 86.0
+radius = 21.0
+height = 42.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -24,12 +24,13 @@ collision_mask = 5
 script = ExtResource("1_1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -50)
+position = Vector2(-3, 203)
 shape = SubResource("CapsuleShape2D_1")
 
 [node name="Visuals" type="Node2D" parent="."]
 
-[node name="PlayerRig" parent="Visuals" instance=ExtResource("2_mq27t")]
+[node name="PlayerRigv2-m" parent="Visuals" instance=ExtResource("2_2rv2u")]
+position = Vector2(-395, -289)
 
 [node name="Components" type="Node" parent="."]
 
@@ -61,5 +62,5 @@ script = ExtResource("10_1")
 [node name="WallSlide" type="Node" parent="Components/StateMachine"]
 script = ExtResource("11_1")
 
-[node name="SareeSystem" parent="." instance=ExtResource("13_saree")]
-position = Vector2(28, 53)
+[node name="Walk" type="Node" parent="Components/StateMachine"]
+script = ExtResource("13_mq27t")

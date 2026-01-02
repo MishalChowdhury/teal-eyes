@@ -22,6 +22,6 @@ func update(delta: float) -> String:
 	
 	# Check for movement input (MovementComponent tracks this)
 	if movement._move_direction.x != 0:
-		return "Run"
+		return "Walk"
 	
 	return ""  # Stay in Idle

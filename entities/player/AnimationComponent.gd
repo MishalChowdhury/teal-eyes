@@ -11,10 +11,10 @@ signal animation_finished(anim_name: String)
 
 ## Cache the AnimationPlayer from the instanced PlayerRig
 func _find_animation_player() -> AnimationPlayer:
-	# Path: Player/Visuals/PlayerRig/AnimationPlayer
-	var player_rig = owner.get_node_or_null("Visuals/PlayerRig")
+	# Path: Player/Visuals/PlayerRigv2/AnimationPlayer
+	var player_rig = owner.get_node_or_null("Visuals/PlayerRigv2-m")
 	if not player_rig:
-		push_error("AnimationComponent: Could not find Visuals/PlayerRig")
+		push_error("AnimationComponent: Could not find Visuals/PlayerRigv2-m")
 		return null
 	
 	var anim_player = player_rig.get_node_or_null("AnimationPlayer")
@@ -25,13 +25,19 @@ func _find_animation_player() -> AnimationPlayer:
 	return anim_player
 
 func _ready() -> void:
+	print("[AnimationComponent] _ready() called")
+	print("[AnimationComponent] animation_player: ", animation_player)
+	print("[AnimationComponent] state_machine: ", state_machine)
+	
 	if not animation_player:
 		push_error("AnimationComponent: AnimationPlayer not found. Disabling.")
 		set_process(false)
 		return
 	
-	# Connect to state machine
-	state_machine.state_changed.connect(_on_state_changed)
+	# NOTE: Signal connection is done in Player.gd line 27
+	# Do NOT connect here to avoid "already connected" error
+	# state_machine.state_changed.connect(_on_state_changed)
+	print("[AnimationComponent] Signal connection handled by Player.gd")
 	
 	# Connect to AnimationPlayer for finish signals
 	animation_player.animation_finished.connect(_on_animation_finished)

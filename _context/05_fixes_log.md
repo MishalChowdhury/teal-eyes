@@ -211,3 +211,76 @@ Performance improvements:
 3. **Profile before and after** adding debug features
 4. **Remove all debug prints** before considering code "done"
 5. **Use event-driven input handling** (`_unhandled_input()`) instead of polling in `_process()`
+
+---
+
+## FIX-006: Animation System Integration - Duplicate Signal Connection Crash
+**Date**: 2026-01-02  
+**Category**: Bug - Runtime Crash  
+**Reporter**: User switching from PlayerRig to PlayerRigv2-m
+
+### Root Cause
+**Duplicate Signal Connection**: `state_changed` signal was connected in TWO places:
+1. `Player.gd:27`: `state_machine.state_changed.connect(animation_component._on_state_changed)`
+2. `AnimationComponent.gd:34`: `state_machine.state_changed.connect(_on_state_changed)`
+
+When `AnimationComponent._ready()` tried to connect to the signal that `Player._ready()` had already connected, Godot threw `ERR_INVALID_PARAMETER` error, causing entire `Player._ready()` to fail. This prevented ALL component initialization, resulting in:
+- No animation playback
+- No state machine updates
+- No debug output (components never initialized)
+
+**Secondary Issues**:
+1. **Animation Name Mismatch**: AnimationComponent used `.to_lower()` to convert state names (e.g., "Idle" → "idle"), but PlayerRigv2 had capitalized animation names ("Idle", "Walk")
+2. **Node Path Mismatch**: AnimationComponent looked for `"Visuals/PlayerRig"` but user renamed to `"Visuals/PlayerRigv2-m"`
+3. **Empty Animation Tracks**: Walk animation had 8 empty tracks (no keyframes), causing `AnimationMixer` errors preventing scene from loading
+
+### Solution
+**Signal Connection Fix**:
+- Removed duplicate connection in `AnimationComponent.gd:34`
+- Added comment explaining Player.gd handles connection
+- Single connection point prevents error
+
+**Animation Name Fix**:
+- Renamed all animations to lowercase in PlayerRigv2-m.tscn:
+  - "Idle" → "idle"
+  - "Walk" → "walk"  
+  - "JumpFloaty" → "jump"
+  - "FallFloaty" → "fall"
+  - "LandFloaty" → "land"
+  - "RunFloaty" → "run"
+  - "WallSlideFloaty" → "wallslidefloaty"
+  - "TurnAround" → "turnaround"
+
+**Node Path Fix**:
+- Updated `AnimationComponent.gd:15`: `"Visuals/PlayerRigv2-m"`
+- Updated error message to match new path
+
+**Empty Track Fix**:
+- Deleted 8 empty animation tracks in Walk animation (Spine, Shoulders, Arms, Wrists)
+- Kept only tracks with actual keyframe data
+
+### Files Modified
+- `res://entities/player/AnimationComponent.gd:14-17,34-38`
+- `res://entities/player/PlayerRigv2-m.tscn` (animation names + track cleanup)
+
+### Status
+✅ **Fixed** - Animations playing correctly, no crashes
+
+---
+
+## Statistics
+- **Total Fixes**: 6
+- **Critical Bugs**: 3 (FIX-001, FIX-002, FIX-006)
+- **Performance Issues**: 3 (FIX-003, FIX-004, FIX-005)
+- **Architecture Violations**: 0 (caught and prevented)
+
+---
+
+## Performance Best Practices (Learned)
+1. **Never use `print()` in frequently-called code** (state transitions, _process, signals)
+2. **Use DebugHUD with Timer throttling** for runtime debugging
+3. **Profile before and after** adding debug features
+4. **Remove all debug prints** before considering code "done"
+5. **Use event-driven input handling** (`_unhandled_input()`) instead of polling in `_process()`
+6. **Avoid heavy parallax backgrounds in test scenes** - use simple ColorRect for better performance
+

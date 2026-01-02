@@ -1,7 +1,7 @@
 # 07 Implementation Status & Feature Catalog
 
 > **Purpose**: Living document cataloging all implemented features and their current status for auditing and knowledge transfer.  
-> **Last Updated**: 2026-01-01
+> **Last Updated**: 2026-01-02 - PlayerRigv2-m integration, Walk/Run system, test scene optimization
 
 ---
 
@@ -19,13 +19,15 @@
 ### 1.2 Input System
 **Status**: ✅ Complete  
 **Files**: [`InputComponent.gd`](file:///Users/mishal/Documents/teal-eyes/entities/player/InputComponent.gd)
+**Last Updated**: 2026-01-02
 
 **Features**:
 - Godot InputMap integration
 - Signal-based event emission
 - Keyboard + gamepad support
+- Sprint/Run detection (Shift key)
 
-**Signals**: `move_input_changed`, `jump_pressed`, `jump_released`
+**Signals**: `move_input_changed`, `jump_pressed`, `jump_released`, `sprint_started`, `sprint_stopped`
 
 ### 1.3 Movement System
 **Status**: ✅ Complete  
@@ -46,56 +48,66 @@
 ### 1.4 State Machine
 **Status**: ✅ Complete  
 **Files**: [`StateMachine.gd`](file:///Users/mishal/Documents/teal-eyes/entities/player/StateMachine.gd)
+**Last Updated**: 2026-01-02
 
 **Pattern**: Component/Node-based states (Reference 3 from 06_verified_references.md)
 
-**States Implemented** (5):
+**States Implemented** (6):
 1. **Idle**: [`Idle.gd`](file:///Users/mishal/Documents/teal-eyes/entities/player/states/Idle.gd) - Standing still
-2. **Run**: [`Run.gd`](file:///Users/mishal/Documents/teal-eyes/entities/player/states/Run.gd) - Ground movement
-3. **Jump**: [`Jump.gd`](file:///Users/mishal/Documents/teal-eyes/entities/player/states/Jump.gd) - Ascending
-4. **Fall**: [`Fall.gd`](file:///Users/mishal/Documents/teal-eyes/entities/player/states/Fall.gd) - Descending
-5. **WallSlide**: [`WallSlide.gd`](file:///Users/mishal/Documents/teal-eyes/entities/player/states/WallSlide.gd) - Wall sliding
+2. **Walk**: [`Walk.gd`](file:///Users/mishal/Documents/teal-eyes/entities/player/states/Walk.gd) - Ground movement (default)
+3. **Run**: [`Run.gd`](file:///Users/mishal/Documents/teal-eyes/entities/player/states/Run.gd) - Sprint movement (Shift held)
+4. **Jump**: [`Jump.gd`](file:///Users/mishal/Documents/teal-eyes/entities/player/states/Jump.gd) - Ascending
+5. **Fall**: [`Fall.gd`](file:///Users/mishal/Documents/teal-eyes/entities/player/states/Fall.gd) - Descending
+6. **WallSlide**: [`WallSlide.gd`](file:///Users/mishal/Documents/teal-eyes/entities/player/states/WallSlide.gd) - Wall sliding
+
+**State Transitions** (January 2nd):
+- Idle → Walk (D pressed)
+- Walk → Run (Shift + D pressed)
+- Run → Walk (Shift released)
+- Walk/Run → Idle (D released)
 
 **States Planned**: DoubleJump, Glide, LassoAim, LassoSwing, LassoRelease
 
 ### 1.5 Animation System
-**Status**: ✅ Complete (Procedurally Generated)  
+**Status**: ✅ Complete (Integrated with PlayerRigv2-m)  
 **Files**: 
 - [`AnimationComponent.gd`](file:///Users/mishal/Documents/teal-eyes/entities/player/AnimationComponent.gd)
-- [`PlayerRig.tscn`](file:///Users/mishal/Documents/teal-eyes/entities/player/PlayerRig.tscn)
-- [`AnimationGenerator.gd`](file:///Users/mishal/Documents/teal-eyes/entities/player/AnimationGenerator.gd)
+- [`PlayerRigv2-m.tscn`](file:///Users/mishal/Documents/teal-eyes/entities/player/PlayerRigv2-m.tscn) - **Active Rig**
+- [`PlayerRig.tscn`](file:///Users/mishal/Documents/teal-eyes/entities/player/PlayerRig.tscn) - Legacy procedural rig
+- [`AnimationGenerator.gd`](file:///Users/mishal/Documents/teal-eyes/entities/player/AnimationGenerator.gd) - Legacy tool
 
-**Implementation Date**: 2026-01-01
+**Implementation Date**: 2026-01-01 (PlayerRig), 2026-01-02 (PlayerRigv2-m integration)
 
-**Architecture**: Skeleton2D-based character rig with Polygon2D limbs
+**Active Rig: PlayerRigv2-m** (Hand-Crafted AAA Animations)
+- **Source**: Manually animated in Godot Editor following `07_animation_standards.md` GRIS aesthetic
+- **Quality**: Phase 3 "Polish/AAA" tier (cubic interpolation, phase-offset secondary motion)
+- **Integration**: January 2nd - Fixed signal connection crash, animation name mismatches, empty track cleanup
 
 **Skeletal System**:
-- 14-bone hierarchy (Hip → Torso → Head/Shoulders/Legs)
-- 14 Polygon2D meshes (torso, saree, head, hair, arms, legs)
-- Bone-skinned mesh system with proper rest transforms
-- Z-index layering (right arm z=2, saree z=1, left arm z=-1)
+- 14-bone hierarchy (Hip → Spine → Head/Shoulders/Arms/Legs)
+- 14 Polygon2D meshes (head, hair, torso, arms, wrists, legs, feet)
+- Bone-skinned with proper rest transforms
+- Z-index layering for correct depth
 
-**AnimationPlayer**:
-- 5 fully animated clips: idle, run, jump, fall, wall_slide
-- Procedurally generated using sine-wave mathematics
-- Cubic interpolation for organic motion
-- State-to-animation mapping in AnimationComponent
-
-**Procedural Generation**:
-- `AnimationGenerator.gd` EditorScript tool
-- Sine-wave motion with organic leg lag (shin trails thigh by 0.15 rad)
-- Run cycle: 8 keyframes, symmetric leg/arm swing
-- Idle: Breathing cycle with subtle head tilt
-- Jump/Fall/Wall_slide: Ease curves with appropriate poses
+**AnimationPlayer** (PlayerRigv2-m):
+- 10 hand-crafted animations (lowercase names for state machine compatibility):
+  - `idle` - 4s breathing cycle with subtle hip/head movement
+  - `walk` - 1.2s cycle, floaty GRIS-style locomotion  
+  - `run` - 0.8s cycle, faster sprint animation
+  - `jump` - 0.6s ascent with extended hang time
+  - `fall` - 0.8s loop with limb sway
+  - `land` - 0.4s impact with squash/stretch
+  - `wallslidefloaty` - 1.2s friction slide
+  - `turnaround` - 0.4s direction change
+  - Additional: `oldwalk`, `RESET`
 
 **Integration**:
-- PlayerRig instanced into Player.tscn/Visuals
-- Scene instantiation pattern (encapsulated rig)
+- PlayerRigv2-m instanced into `Player.tscn/Visuals`
 - AnimationComponent connects StateMachine state changes to AnimationPlayer
-- Saree RemoteTransform2D connection to Bone_Shoulder_R
-- Fixed signal parameter mismatch (old_state, new_state)
+- Fixed duplicate signal connection (see `05_fixes_log.md#FIX-006`)
+- State-to-animation lowercase mapping: `"Walk"` state → `"walk"` animation
 
-**Current Status**: All 5 animations working in-game with smooth state transitions
+**Current Status**: All animations working in-game with smooth Walk/Run/Jump transitions
 
 ---
 
@@ -299,16 +311,27 @@ parallex_speed = 1.0 - (abs(z_index) / 50.0)
 - PackedStringArray for string building
 
 ### 4.2 Test Environment
-**Status**: ✅ Complete  
+**Status**: ✅ Complete (Optimized)  
 **Files**: [`TestPlayerMovement.tscn`](file:///Users/mishal/Documents/teal-eyes/levels/TestPlayerMovement.tscn)
+**Last Updated**: 2026-01-02
 
 **Features**:
-- Testing environment for player movement
-- Saree physics validation
-- Platform/wall collision testing
-- Parallax background system (3 depth layers)
-- Watercolor sky background
+- Minimal high-performance testing environment
+- Simple gray floor (4000px × 100px)
 - 1920×1080 viewport with camera zoom (1.5×)
+- Player movement validation
+- Saree physics validation
+- DebugHUD for runtime info
+
+**Optimizations** (January 2nd):
+- **Removed**: Heavy ParallaxBackground with 4K sky texture (massive lag source)
+- **Removed**: 3 empty parallax layers (FarBackground, MidGround, Foreground)
+- **Result**: "WAY smoother" performance - ParallaxBackground was main bottleneck
+- **Design**: Bare essentials for fast iteration (Player + Floor + Camera + DebugHUD)
+
+**Performance Impact**:
+- Before: Noticeable lag with 4K texture + 3 parallax layers
+- After: Smooth 60 FPS with simple ColorRect floor
 
 ---
 
@@ -361,29 +384,32 @@ parallex_speed = 1.0 - (abs(z_index) / 50.0)
 ## Summary Statistics
 
 ### Completed Systems
-- **Player Controller**: 100% (All 5 states functional)
+- **Player Controller**: 100% (All 6 states functional - Walk/Run separation added Jan 2nd)
 - **Saree Physics**: 80% (Simulation + Smoothing complete, grappling pending)
-- **Environment & Visuals**: 40% (Parallax system complete, awaiting more assets)
+- **Environment & Visuals**: 40% (Assets ready, test scene optimized for performance)
 - **Level Management**: 50% (Manager complete, rooms not implemented)
 - **Debug Tools**: 100%
 - **Global Systems**: 100%
 - **Camera System**: 0% (Planned)
 
-### Code Metrics
-- **GDScript Files**: 19
-- **Scene Files**: 4
+### Code Metrics (as of 2026-01-02)
+- **GDScript Files**: 20 (+1 Walk.gd)
+- **Scene Files**: 5 (Player, PlayerRigv2-m, SareeController, DebugHUD, TestPlayerMovement)
 - **Resource Types**: 2 (PlayerMovementData, SareePhysicsData)
 - **Autoload Scripts**: 2
-- **Environment Assets**: 1 (sky_background.png)
-- **Total Bug Fixes**: 9 (see [`05_fixes_log.md`](file:///Users/mishal/Documents/teal-eyes/_context/05_fixes_log.md))
-- **Latest Addition**: Parallax Background System (2026-01-01)
+- **Environment Assets**: 1 (sky_background.png - not used in test scene)
+- **Total Bug Fixes**: 6 (see [`05_fixes_log.md`](file:///Users/mishal/Documents/teal-eyes/_context/05_fixes_log.md))
+- **Latest Additions** (2026-01-02):
+  - PlayerRigv2-m integration with hand-crafted AAA animations
+  - Walk/Run sprint system with Shift key detection
+  - TestPlayerMovement scene optimization (removed ParallaxBackground bottleneck)
 
 ### Architecture Compliance
 - **Component-Based**: ✅ Enforced (no god scripts)
 - **Resource-Driven**: ✅ Zero hardcoded values
 - **Signal-Based**: ✅ Loose coupling maintained
-- **Performance**: ✅ Optimized (60 FPS stable)
-- **Skeletal Animation**: ✅ Skeleton2D + Polygon2D system implemented
+- **Performance**: ✅ Optimized (60 FPS stable after test scene cleanup)
+- **Skeletal Animation**: ✅ Skeleton2D + Polygon2D system with AAA quality hand-crafted animations
 
 ---
 
@@ -391,6 +417,8 @@ parallex_speed = 1.0 - (abs(z_index) / 50.0)
 
 1. **Camera System**: Integrate Phantom Camera for room snapping
 2. **Saree Grappling**: Implement RayCast targeting and pull mechanics
-3. **Animation**: Add sprite assets and AnimationPlayer setup
-4. **Room System**: Create room templates and connection definitions
-5. **Advanced States**: Implement DoubleJump, Glide, and Saree substates
+3. **Movement Tuning**: Differentiate Walk vs Run speeds in MovementData
+4. **Animation Polish**: Add more secondary motion (hair, cloth layers)
+5. **Room System**: Create room templates and connection definitions
+6. **Advanced States**: Implement DoubleJump, Glide, and Saree substates
+

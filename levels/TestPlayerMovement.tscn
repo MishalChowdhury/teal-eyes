@@ -1,51 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://o5no338uxfsy"]
+[gd_scene load_steps=4 format=3 uid="uid://o5no338uxfsy"]
 
 [ext_resource type="PackedScene" uid="uid://bkr1f8qxvn2ej" path="res://entities/player/Player.tscn" id="1_1"]
 [ext_resource type="PackedScene" uid="uid://cwhp2kdt5q7m8" path="res://components/DebugHUD.tscn" id="2_1"]
-[ext_resource type="Texture2D" uid="uid://b2bfx33q040to" path="res://assets/art/environment/backgrounds/sky_background.png" id="3_sky"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
-size = Vector2(2000, 100)
+size = Vector2(4000, 100)
 
 [node name="TestPlayerMovement" type="Node2D"]
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="FarBackground" type="ParallaxLayer" parent="ParallaxBackground"]
-z_index = -50
-motion_scale = Vector2(0, 0)
-motion_mirroring = Vector2(3840, 0)
-
-[node name="SkySprite" type="Sprite2D" parent="ParallaxBackground/FarBackground"]
-position = Vector2(960, 540)
-scale = Vector2(3.75, 3.75)
-texture = ExtResource("3_sky")
-
-[node name="MidGround" type="ParallaxLayer" parent="ParallaxBackground"]
-z_index = -10
-motion_scale = Vector2(0.8, 0.8)
-
-[node name="Foreground" type="ParallaxLayer" parent="ParallaxBackground"]
-z_index = 5
-motion_scale = Vector2(1.1, 1.1)
-
 [node name="Player" parent="." instance=ExtResource("1_1")]
-position = Vector2(960, 300)
+position = Vector2(960, 563)
 
 [node name="Floor" type="StaticBody2D" parent="."]
-position = Vector2(960, 943)
+position = Vector2(960, 890)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-position = Vector2(0, -33)
 shape = SubResource("RectangleShape2D_floor")
 
 [node name="VisibleFloor" type="ColorRect" parent="Floor"]
-offset_left = -1891.0
+offset_left = -2000.0
 offset_top = -50.0
-offset_right = 5690.0
+offset_right = 2000.0
 offset_bottom = 50.0
-color = Color(0.57149756, 0.07716941, 0.10840266, 1)
+color = Color(0.2, 0.2, 0.25, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 540)
