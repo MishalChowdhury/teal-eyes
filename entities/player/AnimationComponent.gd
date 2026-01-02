@@ -54,9 +54,12 @@ func _on_state_changed(old_state: String, new_state: String) -> void:
 		push_warning("AnimationComponent: No animation '%s' for state '%s'" % [anim_name, new_state])
 		return
 	
-	# Play the animation
-	print("[AnimationComponent] Playing animation: %s" % anim_name)
-	animation_player.play(anim_name)
+	# Only play if it's a different animation (prevent restart on re-entering same state)
+	if animation_player.current_animation != anim_name:
+		print("[AnimationComponent] Playing animation: %s" % anim_name)
+		animation_player.play(anim_name)
+	else:
+		print("[AnimationComponent] Already playing '%s', continuing..." % anim_name)
 
 func _on_animation_finished(anim_name: String) -> void:
 	# Emit signal for any systems that need to know

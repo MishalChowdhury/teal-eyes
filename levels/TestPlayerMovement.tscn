@@ -9,10 +9,10 @@ size = Vector2(4000, 100)
 [node name="TestPlayerMovement" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_1")]
-position = Vector2(960, 563)
+position = Vector2(-808, -111)
 
 [node name="Floor" type="StaticBody2D" parent="."]
-position = Vector2(960, 890)
+position = Vector2(953, 890)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
@@ -26,8 +26,8 @@ offset_bottom = 50.0
 color = Color(0.2, 0.2, 0.25, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(960, 540)
-zoom = Vector2(1.5, 1.5)
+position = Vector2(953, 540)
+zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
 
 [node name="DebugHUD" parent="." instance=ExtResource("2_1")]

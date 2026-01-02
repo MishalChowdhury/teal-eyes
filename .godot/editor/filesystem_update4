@@ -1,8 +1,5 @@
-res://entities/player/PlayerRig.tscn
-res://addons/phantom_camera/themes/theme.tres
-res://entities/saree/SareeController.gd
-res://entities/player/Player.tscn
-res://_context/08_physics_sprite_manifest.md
-res://entities/player/AnimationGenerator.gd
 res://levels/TestPlayerMovement.tscn
-res://entities/player/AnimationComponent.gd
+res://addons/phantom_camera/themes/theme.tres
+res://entities/player/PlayerRigv2-m.tscn
+res://levels/Room1.tscn
+res://levels/MainLevel.tscn
