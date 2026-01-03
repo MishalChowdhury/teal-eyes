@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://test_level01_combined"]
+
+[ext_resource type="PackedScene" uid="uid://dx5sw2qpxb837" path="res://levels/TestTemplateFar.tscn" id="1_far"]
+[ext_resource type="PackedScene" uid="uid://bg0c7fnmmhund" path="res://levels/TestTemplateMid.tscn" id="2_mid"]
+[ext_resource type="PackedScene" uid="uid://bgvufvvhgslod" path="res://levels/TestTemplateClose.tscn" id="3_close"]
+[ext_resource type="PackedScene" uid="uid://degbfq41plitm" path="res://levels/TestTemplateIntimate.tscn" id="4_intimate"]
+[ext_resource type="PackedScene" uid="uid://bkr1f8qxvn2ej" path="res://entities/player/Player.tscn" id="5_player"]
+
+[node name="TestLevel01Combined" type="Node2D"]
+
+[node name="Rooms" type="Node2D" parent="."]
+
+[node name="Room01_Far" parent="Rooms" instance=ExtResource("1_far")]
+
+[node name="Room02_Mid" parent="Rooms" instance=ExtResource("2_mid")]
+position = Vector2(7680, 0)
+
+[node name="Room03_Close" parent="Rooms" instance=ExtResource("3_close")]
+position = Vector2(11520, 0)
+
+[node name="Room04_Intimate" parent="Rooms" instance=ExtResource("4_intimate")]
+position = Vector2(14080, 0)
+
+[node name="Player" parent="." instance=ExtResource("5_player")]
+position = Vector2(3840, -100)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+offset = Vector2(0, -900)
+zoom = Vector2(0.3, 0.3)

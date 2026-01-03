@@ -1,0 +1,126 @@
+[gd_scene load_steps=9 format=3 uid="uid://cqh76beviw8qu"]
+
+[ext_resource type="PackedScene" uid="uid://bkr1f8qxvn2ej" path="res://entities/player/Player.tscn" id="1_player"]
+[ext_resource type="Texture2D" uid="uid://cxeybpt1vveo0" path="res://assets/art/environment/parallax/background.png" id="2_bg"]
+[ext_resource type="Texture2D" uid="uid://b5txjs33omnc3" path="res://assets/art/environment/parallax/floor.png" id="3_floor"]
+[ext_resource type="Texture2D" uid="uid://dkhqd8mynt4m2" path="res://assets/art/environment/backgrounds/bg_mid_platform.png" id="4_bg_mid"]
+
+[sub_resource type="RectangleShape2D" id="floor_far"]
+size = Vector2(7680, 100)
+
+[sub_resource type="RectangleShape2D" id="floor_mid"]
+size = Vector2(3840, 100)
+
+[sub_resource type="RectangleShape2D" id="floor_close"]
+size = Vector2(2560, 100)
+
+[sub_resource type="RectangleShape2D" id="floor_intimate"]
+size = Vector2(1920, 100)
+
+[node name="TestLevel01V2" type="Node2D"]
+
+[node name="Rooms" type="Node2D" parent="."]
+
+[node name="Room01_Far" type="Node2D" parent="Rooms"]
+
+[node name="Background" type="Sprite2D" parent="Rooms/Room01_Far"]
+position = Vector2(-19.000015, -4494)
+scale = Vector2(1.2275655, 1.8375002)
+texture = ExtResource("2_bg")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 7680, 4320)
+
+[node name="Floor" type="StaticBody2D" parent="Rooms/Room01_Far"]
+position = Vector2(3796, -2707)
+collision_mask = 0
+
+[node name="FloorSprite" type="Sprite2D" parent="Rooms/Room01_Far/Floor"]
+position = Vector2(1627, -2143.0002)
+scale = Vector2(1.5982423, 2.2939816)
+texture = ExtResource("3_floor")
+centered = false
+offset = Vector2(-3840, 0)
+region_enabled = true
+region_rect = Rect2(0, 0, 7680, 2160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Room01_Far/Floor"]
+position = Vector2(21, 1705)
+shape = SubResource("floor_far")
+
+[node name="Room02_Mid" type="Node2D" parent="Rooms"]
+position = Vector2(7636, -2707)
+
+[node name="Background" type="Sprite2D" parent="Rooms/Room02_Mid"]
+texture = ExtResource("4_bg_mid")
+centered = false
+
+[node name="Floor" type="StaticBody2D" parent="Rooms/Room02_Mid"]
+position = Vector2(1920, 0)
+collision_mask = 0
+
+[node name="FloorSprite" type="Sprite2D" parent="Rooms/Room02_Mid/Floor"]
+texture = ExtResource("3_floor")
+centered = false
+offset = Vector2(-1920, 0)
+region_enabled = true
+region_rect = Rect2(0, 0, 3840, 2160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Room02_Mid/Floor"]
+position = Vector2(21, 1705)
+shape = SubResource("floor_mid")
+
+[node name="Room03_Close" type="Node2D" parent="Rooms"]
+position = Vector2(11476, -2707)
+
+[node name="Background" type="Sprite2D" parent="Rooms/Room03_Close"]
+texture = ExtResource("2_bg")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 2560, 2160)
+
+[node name="Floor" type="StaticBody2D" parent="Rooms/Room03_Close"]
+position = Vector2(1280, 0)
+collision_mask = 0
+
+[node name="FloorSprite" type="Sprite2D" parent="Rooms/Room03_Close/Floor"]
+texture = ExtResource("3_floor")
+centered = false
+offset = Vector2(-1280, 0)
+region_enabled = true
+region_rect = Rect2(0, 0, 2560, 2160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Room03_Close/Floor"]
+position = Vector2(21, 1705)
+shape = SubResource("floor_close")
+
+[node name="Room04_Intimate" type="Node2D" parent="Rooms"]
+position = Vector2(14036, -2707)
+
+[node name="Background" type="Sprite2D" parent="Rooms/Room04_Intimate"]
+texture = ExtResource("2_bg")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1920, 2160)
+
+[node name="Floor" type="StaticBody2D" parent="Rooms/Room04_Intimate"]
+position = Vector2(960, 0)
+collision_mask = 0
+
+[node name="FloorSprite" type="Sprite2D" parent="Rooms/Room04_Intimate/Floor"]
+texture = ExtResource("3_floor")
+centered = false
+offset = Vector2(-960, 0)
+region_enabled = true
+region_rect = Rect2(0, 0, 1920, 2160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Room04_Intimate/Floor"]
+position = Vector2(21, 1705)
+shape = SubResource("floor_intimate")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(3348, -1714)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+offset = Vector2(0, -900)
+zoom = Vector2(0.3, 0.3)

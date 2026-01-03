@@ -284,3 +284,67 @@ When `AnimationComponent._ready()` tried to connect to the signal that `Player._
 5. **Use event-driven input handling** (`_unhandled_input()`) instead of polling in `_process()`
 6. **Avoid heavy parallax backgrounds in test scenes** - use simple ColorRect for better performance
 
+
+
+---
+
+## FIX-007: Camera Framing System Implementation
+**Date**: 2026-01-03  
+**Category**: Feature - Camera System  
+**Reporter**: User requested GRIS-style camera framing with floor in lower third
+
+### Problem
+Original camera system had multiple issues:
+1. Hardcoded `Camera2D` zoom (1.5×) in Level01.tscn overrode PhantomCamera settings
+2. Floor appearing in middle of screen instead of lower third
+3. PhantomCamera `follow_offset` not calculated correctly for different zoom levels
+4. Background sprites too small to cover viewport at lower zoom levels (0.3×)
+5. PhantomCamera tween causing unwanted startup animation
+
+### Solution
+**Created Test Template System:**
+- `TestTemplateFar.tscn`: 0.3× zoom, 7680px wide, camera offset (0, -900)
+- `TestTemplateMid.tscn`: 0.8× zoom, 3840px wide, camera offset (0, -450)
+- `TestTemplateClose.tscn`: 1.2× zoom 2560px wide, camera offset (0, -300)
+- `TestTemplateIntimate.tscn`: 1.5× zoom, 1920px wide, camera offset (0, -240)
+
+**PhantomCamera Integration:**
+- Created `TestLevel01Phantom.tscn` combining all 4 test templates
+- Added Area2D triggers (visible in editor) at correct heights to detect room entry
+- Updated `Room.gd` to connect to pre-existing triggers instead of creating dynamically
+- Set Camera2D to neutral state (zoom 1×, no manual offset) to let PhantomCamera control
+- Removed tween from first room camera to prevent startup animation
+- Other rooms use 1.5s tween for smooth zoom transitions
+
+**Camera Math:**
+- Floor at y=0 (Ground-Level Origin System)
+- Camera offset calculated as: `-(viewport_height_at_zoom / 3)` for lower-third framing
+- Trigger areas positioned at y=-1080 to cover player movement area
+- PhantomCamera initial position matches player spawn to prevent camera "fly-in"
+
+### Files Created
+- `levels/TestTemplateMid.tscn`
+- `levels/TestTemplateClose.tscn`
+- `levels/TestTemplateIntimate.tscn`
+- `levels/TestTemplateFar.tscn`
+- `levels/TestLevel01Phantom.tscn`
+- `levels/TestLevel01V2.tscn` (intermediate Camera2D-only version)
+- `scripts/debug/FPSCounter.gd`
+- `scripts/debug/CameraDebug.gd`
+
+### Files Modified
+- `levels/Room.gd`: Simplified trigger creation, connects to existing Area2D nodes
+- `levels/acts/act_01/level_01/Level01.tscn`: Reset Camera2D offset and zoom
+
+### Status
+✅ **Complete** - Smooth zoom transitions working, floor framing correct, player visible at startup
+
+---
+
+## Statistics
+- **Total Fixes**: 7
+- **Critical Bugs**: 3 (FIX-001, FIX-002, FIX-006)
+- **Performance Issues**: 3 (FIX-003, FIX-004, FIX-005)
+- **Features**: 1 (FIX-007)
+- **Architecture Violations**: 0 (caught and prevented)
+

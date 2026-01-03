@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://b8c5pcejxyouw"]
+
+[ext_resource type="Script" uid="uid://cd0sa4d78dgxm" path="res://levels/Room.gd" id="1_roomscript"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_phantom"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_tween"]
+[ext_resource type="Texture2D" uid="uid://dkhqd8mynt4m2" path="res://assets/art/environment/backgrounds/bg_mid_platform.png" id="4_1ebwy"]
+[ext_resource type="Texture2D" uid="uid://b5txjs33omnc3" path="res://assets/art/environment/parallax/floor.png" id="5_floor"]
+
+[sub_resource type="Resource" id="Resource_tween_mid"]
+script = ExtResource("3_tween")
+duration = 1.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rvm46"]
+size = Vector2(426.77777, 15.333336)
+
+[node name="RoomTemplate_Mid" type="Node2D"]
+script = ExtResource("1_roomscript")
+room_id = "template_mid"
+default_camera_zoom = 0.8
+room_bounds = Vector2(3840, 2160)
+
+[node name="PhantomCamera2D" type="Node2D" parent="."]
+top_level = true
+position = Vector2(1920, -540)
+script = ExtResource("2_phantom")
+follow_mode = 2
+zoom = Vector2(0.8, 0.8)
+tween_resource = SubResource("Resource_tween_mid")
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="BackgroundPlaceholder" type="ColorRect" parent="Environment"]
+visible = false
+offset_left = 25.0
+offset_top = -2026.0
+offset_right = 3865.0
+offset_bottom = 134.0
+color = Color(0.2, 0.25, 0.3, 1)
+
+[node name="Background" type="Sprite2D" parent="Environment"]
+position = Vector2(0, -1215)
+texture = ExtResource("4_1ebwy")
+centered = false
+
+[node name="Floor" type="StaticBody2D" parent="Environment"]
+position = Vector2(1920, 0)
+collision_mask = 0
+
+[node name="FloorSprite" type="Sprite2D" parent="Environment/Floor"]
+position = Vector2(-8, -637)
+texture = ExtResource("5_floor")
+region_enabled = true
+region_rect = Rect2(0, 0, 3840, 2160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Floor"]
+scale = Vector2(9, 9)
+shape = SubResource("RectangleShape2D_rvm46")
