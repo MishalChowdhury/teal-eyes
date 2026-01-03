@@ -1,5 +1,2 @@
-res://levels/TestPlayerMovement.tscn
+res://levels/TestLevel01Phantom.tscn
 res://addons/phantom_camera/themes/theme.tres
-res://entities/player/PlayerRigv2-m.tscn
-res://levels/Room1.tscn
-res://levels/MainLevel.tscn

@@ -25,10 +25,6 @@ func _find_animation_player() -> AnimationPlayer:
 	return anim_player
 
 func _ready() -> void:
-	print("[AnimationComponent] _ready() called")
-	print("[AnimationComponent] animation_player: ", animation_player)
-	print("[AnimationComponent] state_machine: ", state_machine)
-	
 	if not animation_player:
 		push_error("AnimationComponent: AnimationPlayer not found. Disabling.")
 		set_process(false)
@@ -37,7 +33,6 @@ func _ready() -> void:
 	# NOTE: Signal connection is done in Player.gd line 27
 	# Do NOT connect here to avoid "already connected" error
 	# state_machine.state_changed.connect(_on_state_changed)
-	print("[AnimationComponent] Signal connection handled by Player.gd")
 	
 	# Connect to AnimationPlayer for finish signals
 	animation_player.animation_finished.connect(_on_animation_finished)
@@ -47,8 +42,6 @@ func _on_state_changed(old_state: String, new_state: String) -> void:
 	# State names are capitalized (e.g., "Run"), animation names are lowercase (e.g., "run")
 	var anim_name = new_state.to_lower()
 	
-	print("[AnimationComponent] State changed: %s → %s (anim: %s)" % [old_state, new_state, anim_name])
-	
 	# Verify animation exists
 	if not animation_player.has_animation(anim_name):
 		push_warning("AnimationComponent: No animation '%s' for state '%s'" % [anim_name, new_state])
@@ -56,10 +49,7 @@ func _on_state_changed(old_state: String, new_state: String) -> void:
 	
 	# Only play if it's a different animation (prevent restart on re-entering same state)
 	if animation_player.current_animation != anim_name:
-		print("[AnimationComponent] Playing animation: %s" % anim_name)
 		animation_player.play(anim_name)
-	else:
-		print("[AnimationComponent] Already playing '%s', continuing..." % anim_name)
 
 func _on_animation_finished(anim_name: String) -> void:
 	# Emit signal for any systems that need to know

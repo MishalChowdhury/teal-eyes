@@ -37,8 +37,7 @@ func _ready() -> void:
 		if room2:
 			room2_camera = room2.get_node_or_null("PhantomCamera2D")
 	
-	print("[RoomTransitionManager] Initialized - Player: %s, Room1 cam: %s, Room2 cam: %s" % 
-		[player != null, room1_camera != null, room2_camera != null])
+
 
 func _process(_delta: float) -> void:
 	if not player:
@@ -56,7 +55,6 @@ func _process(_delta: float) -> void:
 
 
 func _transition_to_room2() -> void:
-	print("[RoomTransitionManager] >>> TRANSITIONING TO ROOM 2 <<<")
 	current_room = 2
 	
 	if room2_camera and room2_camera.has_method("set_priority"):
@@ -67,7 +65,6 @@ func _transition_to_room2() -> void:
 	Events.room_transition_triggered.emit("room_01", "room_02")
 
 func _transition_to_room1() -> void:
-	print("[RoomTransitionManager] >>> TRANSITIONING TO ROOM 1 <<<")
 	current_room = 1
 	
 	if room1_camera and room1_camera.has_method("set_priority"):
