@@ -1,0 +1,362 @@
+[gd_scene load_steps=14 format=3 uid="uid://cq6nnqs3kk1l8"]
+
+[ext_resource type="PackedScene" uid="uid://bkr1f8qxvn2ej" path="res://entities/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://cd0sa4d78dgxm" path="res://levels/Room.gd" id="2_room"]
+[ext_resource type="Texture2D" uid="uid://n631t4dsqg5s" path="res://levels/level.png" id="2_y0set"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_phantom"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_tween"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_host"]
+[ext_resource type="Script" uid="uid://owlgo56l6vuj" path="res://scripts/platforms/MovingPlatform.gd" id="6_moving"]
+[ext_resource type="Script" uid="uid://uwnob4dqtv2x" path="res://scripts/platforms/DisappearingPlatform.gd" id="7_disappearing"]
+
+[sub_resource type="Resource" id="tween_mid"]
+script = ExtResource("4_tween")
+duration = 1.5
+
+[sub_resource type="RectangleShape2D" id="ground_shape"]
+size = Vector2(4016, 100)
+
+[sub_resource type="RectangleShape2D" id="platform_shape"]
+size = Vector2(236, 27.505074)
+
+[sub_resource type="RectangleShape2D" id="moving_shape"]
+size = Vector2(300, 40)
+
+[sub_resource type="RectangleShape2D" id="disappearing_shape"]
+size = Vector2(287, 58)
+
+[node name="TestMidRoomPrototype" type="Node2D"]
+script = ExtResource("2_room")
+room_id = "mid_prototype"
+default_camera_zoom = 0.8
+room_bounds = Vector2(3840, 2160)
+
+[node name="Level" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.39215687)
+z_as_relative = false
+position = Vector2(1864.0001, -568)
+scale = Vector2(3.2363582, 3.4887218)
+texture = ExtResource("2_y0set")
+
+[node name="PhantomCamera2D" type="Node2D" parent="."]
+top_level = true
+position = Vector2(1920, 0)
+script = ExtResource("3_phantom")
+follow_mode = 2
+zoom = Vector2(0.8, 0.8)
+tween_resource = SubResource("tween_mid")
+follow_offset = Vector2(0, -450)
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(80, 0)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(1840, 0)
+zoom = Vector2(0.8, 0.8)
+
+[node name="PhantomCameraHost" type="Node" parent="Player/Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("5_host")
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="GroundPlatform" type="StaticBody2D" parent="Platforms"]
+position = Vector2(0, 1700)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/GroundPlatform"]
+position = Vector2(1776, -1652)
+shape = SubResource("ground_shape")
+
+[node name="Visual" type="ColorRect" parent="Platforms/GroundPlatform"]
+offset_left = -216.0
+offset_top = -1692.0
+offset_right = 3813.0
+offset_bottom = -1592.0
+color = Color(0.2, 0.8, 0.7, 1)
+
+[node name="Platform01" type="StaticBody2D" parent="Platforms"]
+position = Vector2(-581, 960)
+scale = Vector2(1.9600003, 1)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform01"]
+position = Vector2(2359.6936, -1628)
+shape = SubResource("platform_shape")
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform01"]
+offset_left = 2259.6936
+offset_top = -1648.0
+offset_right = 2459.6936
+offset_bottom = -1608.0
+color = Color(0.2, 0.8, 0.7, 1)
+
+[node name="Platform01-vertical" type="StaticBody2D" parent="Platforms/Platform01"]
+position = Vector2(214.7959, -15.999999)
+rotation = 1.5707964
+scale = Vector2(1.9600003, 1)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform01/Platform01-vertical"]
+position = Vector2(-627.3751, -2042.2191)
+scale = Vector2(0.99999964, 0.99999964)
+shape = SubResource("platform_shape")
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform01/Platform01-vertical"]
+offset_left = -835.71423
+offset_top = -2051.224
+offset_right = -449.31442
+offset_bottom = -2011.2241
+color = Color(0.2, 0.8, 0.7, 1)
+
+[node name="Platform02" type="StaticBody2D" parent="Platforms"]
+position = Vector2(3256, -800)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform02"]
+position = Vector2(100, 0)
+shape = SubResource("platform_shape")
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform02"]
+offset_left = -53.0
+offset_top = -20.0
+offset_right = 240.0
+offset_bottom = 49.0
+color = Color(0.2, 0.8, 0.7, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Platform03" type="StaticBody2D" parent="Platforms"]
+position = Vector2(512, -392)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform03"]
+position = Vector2(100, 0)
+shape = SubResource("platform_shape")
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform03"]
+offset_top = -20.0
+offset_right = 200.0
+offset_bottom = 20.0
+color = Color(0.2, 0.8, 0.7, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Platform04" type="StaticBody2D" parent="Platforms"]
+position = Vector2(2016, -776)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform04"]
+position = Vector2(100, 0)
+shape = SubResource("platform_shape")
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform04"]
+offset_top = -20.0
+offset_right = 280.0
+offset_bottom = 16.0
+color = Color(0.2, 0.8, 0.7, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Platform08" type="StaticBody2D" parent="Platforms"]
+position = Vector2(512, -808)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform08"]
+position = Vector2(100, 0)
+shape = SubResource("platform_shape")
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform08"]
+offset_top = -20.0
+offset_right = 200.0
+offset_bottom = 20.0
+color = Color(0.2, 0.8, 0.7, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Platform08-vertical2" type="StaticBody2D" parent="Platforms/Platform08"]
+position = Vector2(1232, -24.000029)
+rotation = 1.5707964
+scale = Vector2(1.9600003, 1.9600003)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform08/Platform08-vertical2"]
+position = Vector2(128.70398, 0)
+scale = Vector2(0.99999976, 0.99999976)
+shape = SubResource("platform_shape")
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform08/Platform08-vertical2"]
+offset_top = -20.0
+offset_right = 206.38995
+offset_bottom = 20.601501
+color = Color(0.2, 0.8, 0.7, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Platform11" type="StaticBody2D" parent="Platforms"]
+position = Vector2(120, -1080)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform11"]
+position = Vector2(1368, -8)
+shape = SubResource("platform_shape")
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform11"]
+offset_left = 1264.0
+offset_top = -32.0
+offset_right = 1464.0
+offset_bottom = 8.0
+color = Color(0.2, 0.8, 0.7, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Platform08-vertical2" type="StaticBody2D" parent="Platforms/Platform11"]
+position = Vector2(1232, -24.000029)
+rotation = 1.5707964
+scale = Vector2(1.9600003, 1.9600003)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform11/Platform08-vertical2"]
+position = Vector2(128.70398, 0)
+scale = Vector2(0.99999976, 0.99999976)
+shape = SubResource("platform_shape")
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform11/Platform08-vertical2"]
+offset_top = -20.0
+offset_right = 206.38995
+offset_bottom = 20.601501
+color = Color(0.2, 0.8, 0.7, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Platform09" type="StaticBody2D" parent="Platforms"]
+position = Vector2(592, -1168)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform09"]
+position = Vector2(50, -10.247437)
+shape = SubResource("platform_shape")
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform09"]
+offset_left = -32.0
+offset_top = -24.0
+offset_right = 168.0
+offset_bottom = 16.0
+color = Color(0.2, 0.8, 0.7, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Platform10" type="StaticBody2D" parent="Platforms"]
+position = Vector2(2218, 1019)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform10"]
+position = Vector2(114.32153, -2.5)
+shape = SubResource("platform_shape")
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform10"]
+offset_top = -20.0
+offset_right = 200.0
+offset_bottom = 20.0
+color = Color(0.2, 0.8, 0.7, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Platform05" type="StaticBody2D" parent="Platforms"]
+position = Vector2(1604, 1109)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform05"]
+position = Vector2(100, 0)
+shape = SubResource("platform_shape")
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform05"]
+offset_top = -20.0
+offset_right = 200.0
+offset_bottom = 20.0
+color = Color(0.2, 0.8, 0.7, 1)
+
+[node name="Platform06" type="StaticBody2D" parent="Platforms"]
+position = Vector2(200, -192)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform06"]
+position = Vector2(101.5, 0)
+shape = SubResource("platform_shape")
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform06"]
+offset_top = -20.0
+offset_right = 200.0
+offset_bottom = 20.0
+color = Color(0.2, 0.8, 0.7, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Platform07" type="StaticBody2D" parent="Platforms"]
+position = Vector2(208, -600)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform07"]
+position = Vector2(100, 0)
+shape = SubResource("platform_shape")
+
+[node name="Visual" type="ColorRect" parent="Platforms/Platform07"]
+offset_top = -20.0
+offset_right = 200.0
+offset_bottom = 20.0
+color = Color(0.2, 0.8, 0.7, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="SlopedPlatform01" type="StaticBody2D" parent="Platforms"]
+position = Vector2(1360, 1643)
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/SlopedPlatform01"]
+polygon = PackedVector2Array(3, 13, 504, -692, 516, -601, 75, 14)
+
+[node name="Visual" type="Polygon2D" parent="Platforms/SlopedPlatform01"]
+color = Color(0.2, 0.8, 0.7, 1)
+polygon = PackedVector2Array(-3, 17, 503, -715, 512, -598, 74, 12)
+
+[node name="SlopedPlatform02" type="StaticBody2D" parent="Platforms"]
+position = Vector2(2365, 1042)
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platforms/SlopedPlatform02"]
+position = Vector2(-1076.9999, -1658)
+rotation = -1.5713559
+polygon = PackedVector2Array(-23.955078, -80.01367, 503, -575, 560.30005, -535.6868, 48.031494, -55.97339)
+
+[node name="Visual" type="Polygon2D" parent="Platforms/SlopedPlatform02"]
+position = Vector2(-1140.9999, -1641.9999)
+rotation = -1.4908671
+color = Color(0.2, 0.8, 0.7, 1)
+polygon = PackedVector2Array(0, 0, 342.94666, -375.44348, 496, -543, 545.0879, -509.14783, 71, 16)
+
+[node name="MovingPlatform" type="AnimatableBody2D" parent="Platforms"]
+position = Vector2(-192, -1008)
+collision_mask = 0
+script = ExtResource("6_moving")
+move_direction = Vector2(200, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/MovingPlatform"]
+position = Vector2(150, 0)
+shape = SubResource("moving_shape")
+
+[node name="Visual" type="ColorRect" parent="Platforms/MovingPlatform"]
+offset_top = -20.0
+offset_right = 300.0
+offset_bottom = 20.0
+color = Color(0.3, 0.9, 0.8, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="DisappearingPlatform" type="StaticBody2D" parent="Platforms"]
+position = Vector2(4280, -848)
+collision_mask = 0
+script = ExtResource("7_disappearing")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/DisappearingPlatform"]
+position = Vector2(143.5, 9)
+shape = SubResource("disappearing_shape")
+
+[node name="Visual" type="ColorRect" parent="Platforms/DisappearingPlatform"]
+offset_top = -20.0
+offset_right = 250.0
+offset_bottom = 20.0
+color = Color(0.4, 0.9, 0.9, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="DebugGrid" type="Node2D" parent="."]
+
+[node name="GridLines" type="Node2D" parent="DebugGrid"]

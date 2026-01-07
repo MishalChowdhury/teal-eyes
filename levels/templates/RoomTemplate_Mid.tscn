@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cd0sa4d78dgxm" path="res://levels/Room.gd" id="1_roomscript"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_phantom"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_tween"]
-[ext_resource type="Texture2D" uid="uid://dkhqd8mynt4m2" path="res://assets/art/environment/backgrounds/bg_mid_platform.png" id="4_1ebwy"]
+[ext_resource type="Texture2D" uid="uid://c5w2bsgpaw536" path="res://assets/art/environment/backgrounds/bg_mid_platform.png" id="4_1ebwy"]
 [ext_resource type="Texture2D" uid="uid://b5txjs33omnc3" path="res://assets/art/environment/parallax/floor.png" id="5_floor"]
 
 [sub_resource type="Resource" id="Resource_tween_mid"]

@@ -50,4 +50,3 @@ func update(delta: float) -> String:
 
 func _on_sprint_stopped() -> void:
 	_is_sprinting = false
-

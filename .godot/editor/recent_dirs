@@ -1,2 +1,5 @@
-res://entities/player
 res://levels
+res://addons/phantom_camera/scripts/resources
+res://addons/phantom_camera/scripts/phantom_camera
+res://assets/art/environment/backgrounds
+res://entities/player

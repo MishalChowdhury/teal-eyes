@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7djif28hx7gq"]
+
+[ext_resource type="Script" uid="uid://dxx34w00uinul" path="res://entities/saree/PalluPhysics.gd" id="1_1ms3u"]
+[ext_resource type="Texture2D" uid="uid://bqmbkwchw2r2a" path="res://assets/art/characters/pallu_transparent.png" id="1_ie8pw"]
+
+[node name="PalluSystem" type="Node2D"]
+
+[node name="PalluSkeleton" type="Skeleton2D" parent="."]
+script = ExtResource("1_1ms3u")
+
+[node name="PalluMesh" type="Polygon2D" parent="PalluSkeleton"]
+texture = ExtResource("1_ie8pw")
+polygon = PackedVector2Array(1.850235, 4.1707077, 0.82743835, 145.31961, 587.92505, 148.89948, 591.50494, -0.43198395)
+uv = PackedVector2Array(177.26357, 79.12392, 176.24077, 220.27281, 763.3384, 223.85268, 766.9183, 74.521225)
+polygons = [PackedInt32Array(3, 0, 1, 2)]
+
+[node name="ShoulderBone" type="Bone2D" parent="PalluSkeleton"]
+rest = Transform2D(100, 0, 0, 1, 0, 0)
+
+[node name="PalluBone1" type="Bone2D" parent="PalluSkeleton/ShoulderBone"]
+position = Vector2(100, 0)
+rest = Transform2D(100, 0, 0, 1, 0, 0)
+
+[node name="PalluBone2" type="Bone2D" parent="PalluSkeleton/ShoulderBone/PalluBone1"]
+position = Vector2(100, 0)
+rest = Transform2D(100, 0, 0, 1, 0, 0)
+
+[node name="PalluBone3" type="Bone2D" parent="PalluSkeleton/ShoulderBone/PalluBone1/PalluBone2"]
+position = Vector2(100, 0)
+rest = Transform2D(100, 0, 0, 1, 0, 0)
+
+[node name="PalluBone4" type="Bone2D" parent="PalluSkeleton/ShoulderBone/PalluBone1/PalluBone2/PalluBone3"]
+position = Vector2(100, 0)
+rest = Transform2D(100, 0, 0, 1, 0, 0)
+
+[node name="PalluBone5" type="Bone2D" parent="PalluSkeleton/ShoulderBone/PalluBone1/PalluBone2/PalluBone3/PalluBone4"]
+position = Vector2(100, 0)
+rest = Transform2D(100, 0, 0, 1, 0, 0)
+
+[node name="Tip" type="Bone2D" parent="PalluSkeleton/ShoulderBone/PalluBone1/PalluBone2/PalluBone3/PalluBone4/PalluBone5"]
+position = Vector2(100, 0)
+rest = Transform2D(100, 0, 0, 0, 0, 0)

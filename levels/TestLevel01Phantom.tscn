@@ -1,259 +1,27 @@
-[gd_scene load_steps=19 format=3 uid="uid://1ri5cgv7e06r"]
+[gd_scene load_steps=7 format=3 uid="uid://1ri5cgv7e06r"]
 
 [ext_resource type="PackedScene" uid="uid://bkr1f8qxvn2ej" path="res://entities/player/Player.tscn" id="1_player"]
-[ext_resource type="Texture2D" uid="uid://cxeybpt1vveo0" path="res://assets/art/environment/parallax/background.png" id="2_bg"]
-[ext_resource type="Texture2D" uid="uid://b5txjs33omnc3" path="res://assets/art/environment/parallax/floor.png" id="3_floor"]
-[ext_resource type="Texture2D" uid="uid://dkhqd8mynt4m2" path="res://assets/art/environment/backgrounds/bg_mid_platform.png" id="4_bg_mid"]
-[ext_resource type="Script" uid="uid://cd0sa4d78dgxm" path="res://levels/Room.gd" id="5_room_script"]
-[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="6_phantom"]
-[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_tween"]
-[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="8_host"]
-
-[sub_resource type="Resource" id="Resource_7r2vf"]
-script = ExtResource("7_tween")
-
-[sub_resource type="RectangleShape2D" id="floor_far"]
-size = Vector2(7680, 100)
-
-[sub_resource type="RectangleShape2D" id="trigger_far"]
-size = Vector2(7482, 1402)
-
-[sub_resource type="Resource" id="tween_1_5s"]
-script = ExtResource("7_tween")
-duration = 1.5
-
-[sub_resource type="RectangleShape2D" id="floor_mid"]
-size = Vector2(3840, 100)
-
-[sub_resource type="RectangleShape2D" id="trigger_mid"]
-size = Vector2(3140, 1402)
-
-[sub_resource type="RectangleShape2D" id="floor_close"]
-size = Vector2(2560, 100)
-
-[sub_resource type="RectangleShape2D" id="trigger_close"]
-size = Vector2(2064, 1471)
-
-[sub_resource type="RectangleShape2D" id="floor_intimate"]
-size = Vector2(1920, 100)
-
-[sub_resource type="RectangleShape2D" id="trigger_intimate"]
-size = Vector2(1647, 1570)
+[ext_resource type="Script" uid="uid://cd0sa4d78dgxm" path="res://levels/Room.gd" id="1_ujevt"]
+[ext_resource type="PackedScene" uid="uid://t3b3kdwll0qy" path="res://levels/RoomFar_Optimized.tscn" id="6_0bkmq"]
+[ext_resource type="Script" uid="uid://dr1gitycu5dl7" path="res://scripts/debug/FPSCounter.gd" id="9_fps"]
+[ext_resource type="Script" uid="uid://dpqv3wxk8jsgl" path="res://scripts/debug/CameraDebugUI.gd" id="10_camera_debug"]
+[ext_resource type="Script" uid="uid://div81nuruo0rf" path="res://scripts/SimpleFollowCamera.gd" id="11_simple_camera"]
 
 [node name="TestLevel01Phantom" type="Node2D"]
+script = ExtResource("1_ujevt")
 
 [node name="Rooms" type="Node2D" parent="."]
 
-[node name="Room01_Far" type="Node2D" parent="Rooms"]
-script = ExtResource("5_room_script")
-room_id = "far"
-camera_priority = 10
-room_bounds = Vector2(7680, 2160)
-
-[node name="PhantomCamera2D" type="Node2D" parent="Rooms/Room01_Far"]
-top_level = true
-position = Vector2(3840, -100)
-script = ExtResource("6_phantom")
-follow_mode = 2
-zoom = Vector2(0.3, 0.3)
-tween_resource = SubResource("Resource_7r2vf")
-follow_offset = Vector2(0, -900)
-
-[node name="Background" type="Sprite2D" parent="Rooms/Room01_Far"]
-position = Vector2(-49, -1913.0001)
-scale = Vector2(1.0123698, 2.728565)
-texture = ExtResource("2_bg")
-centered = false
-region_enabled = true
-region_rect = Rect2(0, 0, 7680, 4320)
-
-[node name="Floor" type="StaticBody2D" parent="Rooms/Room01_Far"]
-position = Vector2(3840, 0)
-collision_mask = 0
-
-[node name="FloorSprite" type="Sprite2D" parent="Rooms/Room01_Far/Floor"]
-position = Vector2(1332.9998, -1640)
-scale = Vector2(1.4680338, 1.996759)
-texture = ExtResource("3_floor")
-centered = false
-offset = Vector2(-3840, 0)
-region_enabled = true
-region_rect = Rect2(0, 0, 7680, 2160)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Room01_Far/Floor"]
-position = Vector2(12, 1695)
-shape = SubResource("floor_far")
-
-[node name="CameraTrigger" type="Area2D" parent="Rooms/Room01_Far"]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Room01_Far/CameraTrigger"]
-position = Vector2(3771, 1020)
-shape = SubResource("trigger_far")
-
-[node name="Room02_Mid" type="Node2D" parent="Rooms"]
-position = Vector2(7680, 0)
-script = ExtResource("5_room_script")
-room_id = "mid"
-room_bounds = Vector2(3840, 2160)
-
-[node name="PhantomCamera2D" type="Node2D" parent="Rooms/Room02_Mid"]
-top_level = true
-position = Vector2(1920, 0)
-script = ExtResource("6_phantom")
-follow_mode = 2
-zoom = Vector2(0.8, 0.8)
-tween_resource = SubResource("tween_1_5s")
-follow_offset = Vector2(0, -450)
-
-[node name="Background" type="Sprite2D" parent="Rooms/Room02_Mid"]
-position = Vector2(46.000122, -179.00002)
-scale = Vector2(1.033073, 1.0078704)
-texture = ExtResource("4_bg_mid")
-centered = false
-
-[node name="Background" type="Sprite2D" parent="Rooms/Room02_Mid/Background"]
-position = Vector2(-0.9672699, 1.9844055)
-scale = Vector2(1.0016268, -0.83559275)
-texture = ExtResource("4_bg_mid")
-centered = false
-
-[node name="Floor" type="StaticBody2D" parent="Rooms/Room02_Mid"]
-position = Vector2(1920, 0)
-collision_mask = 0
-
-[node name="FloorSprite" type="Sprite2D" parent="Rooms/Room02_Mid/Floor"]
-texture = ExtResource("3_floor")
-centered = false
-offset = Vector2(-1920, 0)
-region_enabled = true
-region_rect = Rect2(0, 0, 3840, 2160)
-
-[node name="FloorSprite" type="Sprite2D" parent="Rooms/Room02_Mid/Floor/FloorSprite"]
-position = Vector2(25581, 4983)
-scale = Vector2(-12.724011, -1.3957618)
-texture = ExtResource("3_floor")
-centered = false
-offset = Vector2(-1920, 0)
-region_enabled = true
-region_rect = Rect2(0, 0, 3840, 2160)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Room02_Mid/Floor"]
-position = Vector2(12, 1695)
-shape = SubResource("floor_mid")
-
-[node name="CameraTrigger" type="Area2D" parent="Rooms/Room02_Mid"]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Room02_Mid/CameraTrigger"]
-position = Vector2(1936, 1000)
-shape = SubResource("trigger_mid")
-
-[node name="Room03_Close" type="Node2D" parent="Rooms"]
-position = Vector2(11520, 0)
-script = ExtResource("5_room_script")
-room_id = "close"
-room_bounds = Vector2(2560, 2160)
-
-[node name="PhantomCamera2D" type="Node2D" parent="Rooms/Room03_Close"]
-top_level = true
-position = Vector2(1280, 0)
-script = ExtResource("6_phantom")
-follow_mode = 2
-zoom = Vector2(1.2, 1.2)
-tween_resource = SubResource("tween_1_5s")
-follow_offset = Vector2(0, -300)
-
-[node name="Background" type="Sprite2D" parent="Rooms/Room03_Close"]
-position = Vector2(0, -41)
-scale = Vector2(1.0359375, 1.0189815)
-texture = ExtResource("2_bg")
-centered = false
-region_enabled = true
-region_rect = Rect2(0, 0, 2560, 2160)
-
-[node name="Floor" type="StaticBody2D" parent="Rooms/Room03_Close"]
-position = Vector2(1280, 0)
-collision_mask = 0
-
-[node name="FloorSprite" type="Sprite2D" parent="Rooms/Room03_Close/Floor"]
-texture = ExtResource("3_floor")
-centered = false
-offset = Vector2(-1280, 0)
-region_enabled = true
-region_rect = Rect2(0, 0, 2560, 2160)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Room03_Close/Floor"]
-position = Vector2(12, 1695)
-shape = SubResource("floor_close")
-
-[node name="CameraTrigger" type="Area2D" parent="Rooms/Room03_Close"]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Room03_Close/CameraTrigger"]
-position = Vector2(1229, 1060.5)
-shape = SubResource("trigger_close")
-
-[node name="Room04_Intimate" type="Node2D" parent="Rooms"]
-position = Vector2(14080, 0)
-script = ExtResource("5_room_script")
-room_id = "intimate"
-room_bounds = Vector2(1920, 2160)
-
-[node name="PhantomCamera2D" type="Node2D" parent="Rooms/Room04_Intimate"]
-top_level = true
-position = Vector2(960, 0)
-script = ExtResource("6_phantom")
-follow_mode = 2
-zoom = Vector2(1.5, 1.5)
-tween_resource = SubResource("tween_1_5s")
-follow_offset = Vector2(0, -240)
-
-[node name="Background" type="Sprite2D" parent="Rooms/Room04_Intimate"]
-position = Vector2(0, -48)
-scale = Vector2(1.0317708, 1.0222223)
-texture = ExtResource("2_bg")
-centered = false
-region_enabled = true
-region_rect = Rect2(0, 0, 1920, 2160)
-
-[node name="Floor" type="StaticBody2D" parent="Rooms/Room04_Intimate"]
-position = Vector2(960, 0)
-collision_mask = 0
-
-[node name="FloorSprite" type="Sprite2D" parent="Rooms/Room04_Intimate/Floor"]
-texture = ExtResource("3_floor")
-centered = false
-offset = Vector2(-960, 0)
-region_enabled = true
-region_rect = Rect2(0, 0, 1920, 2160)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Room04_Intimate/Floor"]
-position = Vector2(12, 1695)
-shape = SubResource("floor_intimate")
-
-[node name="CameraTrigger" type="Area2D" parent="Rooms/Room04_Intimate"]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Room04_Intimate/CameraTrigger"]
-position = Vector2(813.5, 1060)
-shape = SubResource("trigger_intimate")
+[node name="RoomFar_Optimized" parent="Rooms" instance=ExtResource("6_0bkmq")]
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
-position = Vector2(3125, 56)
+position = Vector2(1920, 1372)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(-2165, -56)
-zoom = Vector2(1.5, 1.5)
-
-[node name="PhantomCameraHost" type="Node" parent="Player/Camera2D"]
-process_priority = 300
-process_physics_priority = 300
-script = ExtResource("8_host")
+position = Vector2(3020, 24)
+offset = Vector2(0, -287.5)
+script = ExtResource("11_simple_camera")
+camera_offset = Vector2(0, 0)
 
 [node name="DebugUI" type="CanvasLayer" parent="."]
 layer = 100
@@ -265,4 +33,11 @@ offset_right = 150.0
 offset_bottom = 50.0
 theme_override_font_sizes/font_size = 24
 text = "FPS: 0"
-script = preload("res://scripts/debug/FPSCounter.gd")
+script = ExtResource("9_fps")
+
+[node name="CameraDebugUI" type="Label" parent="DebugUI"]
+offset_left = 10.0
+offset_top = 40.0
+offset_right = 300.0
+offset_bottom = 140.0
+script = ExtResource("10_camera_debug")

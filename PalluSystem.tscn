@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbgt6x2rpagdb"]
+
+[ext_resource type="Script" uid="uid://dxx34w00uinul" path="res://entities/saree/PalluPhysics.gd" id="1_1ms3u"]
+[ext_resource type="Texture2D" uid="uid://bqmbkwchw2r2a" path="res://assets/art/characters/pallu_transparent.png" id="1_ie8pw"]
+
+[node name="PalluSystem" type="Node2D"]
+
+[node name="PalluSkeleton" type="Skeleton2D" parent="."]
+script = ExtResource("1_1ms3u")
+
+[node name="ShoulderBone" type="Bone2D" parent="PalluSkeleton"]
+rest = Transform2D(100, 0, 0, 1, 0, 0)
+
+[node name="PalluBone1" type="Bone2D" parent="PalluSkeleton/ShoulderBone"]
+position = Vector2(100, 0)
+rest = Transform2D(100, 0, 0, 1, 0, 0)
+
+[node name="PalluBone2" type="Bone2D" parent="PalluSkeleton/ShoulderBone/PalluBone1"]
+position = Vector2(100, 0)
+rest = Transform2D(100, 0, 0, 1, 0, 0)
+
+[node name="PalluBone3" type="Bone2D" parent="PalluSkeleton/ShoulderBone/PalluBone1/PalluBone2"]
+position = Vector2(100, 0)
+rest = Transform2D(100, 0, 0, 1, 0, 0)
+
+[node name="PalluBone4" type="Bone2D" parent="PalluSkeleton/ShoulderBone/PalluBone1/PalluBone2/PalluBone3"]
+position = Vector2(100, 0)
+rest = Transform2D(100, 0, 0, 1, 0, 0)
+
+[node name="PalluBone5" type="Bone2D" parent="PalluSkeleton/ShoulderBone/PalluBone1/PalluBone2/PalluBone3/PalluBone4"]
+position = Vector2(100, 0)
+rest = Transform2D(100, 0, 0, 1, 0, 0)
+
+[node name="Tip" type="Bone2D" parent="PalluSkeleton/ShoulderBone/PalluBone1/PalluBone2/PalluBone3/PalluBone4/PalluBone5"]
+position = Vector2(100, 0)
+rest = Transform2D(100, 0, 0, 0, 0, 0)
+
+[node name="PalluMesh" type="Polygon2D" parent="PalluSkeleton"]
+position = Vector2(0, 34)
+texture = ExtResource("1_ie8pw")
+skeleton = NodePath("..")
+polygon = PackedVector2Array(0.28937435, -34.183144, 585.78656, -39.93943, 583.3195, 103.96788, -1.355279, 103.96788)
+uv = PackedVector2Array(173.80046, 84.23201, 759.29767, 78.47572, 756.8306, 222.38303, 172.1558, 222.38303)
+bones = ["ShoulderBone", PackedFloat32Array(0, 0, 0, 0), "ShoulderBone/PalluBone1", PackedFloat32Array(0, 0, 0, 0), "ShoulderBone/PalluBone1/PalluBone2", PackedFloat32Array(0, 0, 0, 0), "ShoulderBone/PalluBone1/PalluBone2/PalluBone3", PackedFloat32Array(0, 0, 0, 0), "ShoulderBone/PalluBone1/PalluBone2/PalluBone3/PalluBone4", PackedFloat32Array(0, 0, 0, 0), "ShoulderBone/PalluBone1/PalluBone2/PalluBone3/PalluBone4/PalluBone5", PackedFloat32Array(0, 0, 0, 0), "ShoulderBone/PalluBone1/PalluBone2/PalluBone3/PalluBone4/PalluBone5/Tip", PackedFloat32Array(0, 0, 0, 0)]

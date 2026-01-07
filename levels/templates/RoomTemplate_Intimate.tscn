@@ -22,7 +22,7 @@ top_level = true
 position = Vector2(960, -360)
 script = ExtResource("2_phantom")
 follow_mode = 2
-zoom = Vector2(0.3, 0.3)
+zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_tween_intimate")
 
 [node name="Environment" type="Node2D" parent="."]

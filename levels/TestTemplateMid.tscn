@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bg0c7fnmmhund"]
 
 [ext_resource type="PackedScene" uid="uid://bkr1f8qxvn2ej" path="res://entities/player/Player.tscn" id="1_player"]
-[ext_resource type="Texture2D" uid="uid://dkhqd8mynt4m2" path="res://assets/art/environment/backgrounds/bg_mid_platform.png" id="2_bg"]
+[ext_resource type="Texture2D" uid="uid://b2bfx33q040to" path="res://assets/art/environment/backgrounds/sky_background.png" id="2_bg"]
 [ext_resource type="Texture2D" uid="uid://b5txjs33omnc3" path="res://assets/art/environment/parallax/floor.png" id="3_floor"]
 
 [sub_resource type="RectangleShape2D" id="floor_collision"]
@@ -12,6 +12,8 @@ size = Vector2(3840, 100)
 [node name="Environment" type="Node2D" parent="."]
 
 [node name="Background" type="Sprite2D" parent="Environment"]
+position = Vector2(0, -8)
+scale = Vector2(3.7519531, 3.206655)
 texture = ExtResource("2_bg")
 centered = false
 
