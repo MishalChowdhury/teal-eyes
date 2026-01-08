@@ -1,8 +1,5 @@
-res://levels/TestLevel01Phantom.tscn
+res://entities/player/PlayerRigv2-m.tscn
 res://addons/phantom_camera/themes/theme.tres
-res://levels/RoomFar_Optimized.tscn
-res://scripts/SimpleFollowCamera.gd
 res://entities/player/Player.tscn
 res://levels/TestLevel02Phantom.tscn
-res://resources/gameplay/DefaultMovementData.tres
-res://levels/TestMidRoomPrototype.tscn
+res://scripts/SimpleFollowCamera.gd

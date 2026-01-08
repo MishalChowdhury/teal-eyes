@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dyck440sl1f1b"]
+[gd_scene load_steps=17 format=3 uid="uid://dyck440sl1f1b"]
 
 [ext_resource type="PackedScene" uid="uid://bkr1f8qxvn2ej" path="res://entities/player/Player.tscn" id="1_player"]
 [ext_resource type="Texture2D" uid="uid://duhtoqxlot8yv" path="res://assets/art/environment/backgrounds/far_background_4k.png" id="2_bg"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://b5txjs33omnc3" path="res://assets/art/environment/parallax/floor.png" id="4_kr36f"]
 [ext_resource type="Script" uid="uid://owlgo56l6vuj" path="res://scripts/platforms/MovingPlatform.gd" id="5_kr36f"]
 [ext_resource type="Script" uid="uid://uwnob4dqtv2x" path="res://scripts/platforms/DisappearingPlatform.gd" id="6_xafjf"]
+[ext_resource type="PackedScene" uid="uid://cwhp2kdt5q7m8" path="res://components/DebugHUD.tscn" id="7_debug"]
+[ext_resource type="Script" uid="uid://db7fqo5xv4563" path="res://components/CameraZoomTrigger.gd" id="8_zoom"]
 
 [sub_resource type="RectangleShape2D" id="floor_shape"]
 size = Vector2(7601.75, 98)
@@ -23,6 +25,9 @@ size = Vector2(236, 27.505074)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i4ncp"]
 size = Vector2(287, 58)
+
+[sub_resource type="RectangleShape2D" id="ZoomTriggerShape"]
+size = Vector2(400, 600)
 
 [node name="TestLevel02Phantom" type="Node2D"]
 
@@ -116,7 +121,7 @@ position = Vector2(15910, 369)
 texture = ExtResource("4_kr36f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/Floor"]
-position = Vector2(15824.999, 1079.9999)
+position = Vector2(15825, 1097)
 scale = Vector2(1.2800097, 2.72)
 shape = SubResource("floor_shape")
 
@@ -410,8 +415,19 @@ position = Vector2(155, -62)
 scale = Vector2(0.083101854, 0.083101854)
 texture = ExtResource("3_floor")
 
+[node name="CameraZoomTrigger" type="Area2D" parent="."]
+position = Vector2(18349, 329)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("8_zoom")
+target_zoom = 0.4
+zoom_duration = 8.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraZoomTrigger"]
+shape = SubResource("ZoomTriggerShape")
+
 [node name="Player" parent="." instance=ExtResource("1_player")]
-position = Vector2(11437, 894)
+position = Vector2(11104, 640)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 scale = Vector2(4.2399993, 1)
@@ -421,4 +437,6 @@ limit_right = 20909
 limit_bottom = 2151
 position_smoothing_enabled = true
 script = ExtResource("4_camera")
-camera_offset = Vector2(0, -300)
+camera_offset = Vector2(0, 0)
+
+[node name="DebugHUD" parent="." instance=ExtResource("7_debug")]

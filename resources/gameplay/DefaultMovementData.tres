@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource("1_1")
-speed = 800.0
 acceleration = 7500.0
 friction = 7500.0
 jump_velocity = -700.0

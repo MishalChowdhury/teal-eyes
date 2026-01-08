@@ -15,8 +15,8 @@
 [ext_resource type="Script" uid="uid://bjooim503vaxm" path="res://entities/player/states/Walk.gd" id="13_mq27t"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1"]
-radius = 30.0
-height = 60.0
+radius = 15.0
+height = 222.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
@@ -24,14 +24,12 @@ collision_mask = 5
 script = ExtResource("1_1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-196, -34)
-scale = Vector2(-1.0359966, -0.199832)
+position = Vector2(0, -114)
 shape = SubResource("CapsuleShape2D_1")
 
 [node name="Visuals" type="Node2D" parent="."]
 
 [node name="PlayerRigv2-m" parent="Visuals" instance=ExtResource("2_2rv2u")]
-position = Vector2(-395, -289)
 scale = Vector2(0.5, 0.5)
 
 [node name="Components" type="Node" parent="."]

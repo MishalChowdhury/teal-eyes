@@ -7,7 +7,7 @@ extends CanvasLayer
 @onready var debug_label: Label = $DebugLabel
 
 var player: CharacterBody2D = null
-var visible_state: bool = true
+var visible_state: bool = true # Changed to true - visible by default
 
 # Cached references (avoids repeated get_node calls)
 var movement_comp: Node = null
@@ -15,7 +15,7 @@ var state_machine: Node = null
 
 # Update throttling
 var update_timer: Timer = null
-const UPDATE_RATE: float = 0.1  # Update every 100ms (10 times per second)
+const UPDATE_RATE: float = 0.1 # Update every 100ms (10 times per second)
 
 
 func _ready() -> void:
@@ -85,4 +85,3 @@ func _update_debug_display() -> void:
 	
 	# Single string assignment is faster than multiple concatenations
 	debug_label.text = "\n".join(lines)
-
