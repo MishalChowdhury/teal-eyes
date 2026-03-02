@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var input_component: InputComponent = $Components/InputComponent
 @onready var movement_component: MovementComponent = $Components/MovementComponent
 @onready var animation_component: AnimationComponent = $Components/AnimationComponent
+@onready var audio_component: AudioComponent = $Components/AudioComponent
 @onready var state_machine: StateMachine = $Components/StateMachine
 @onready var visuals: Node2D = $Visuals
 
@@ -26,6 +27,9 @@ func _ready() -> void:
 	
 	# Wire up state machine to animation component
 	state_machine.state_changed.connect(animation_component._on_state_changed)
+
+	# Wire up state machine to audio component
+	state_machine.state_changed.connect(audio_component._on_state_changed)
 	
 	# Also listen to jump released for variable jump height
 	input_component.jump_released.connect(_on_jump_released)
