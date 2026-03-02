@@ -1,5 +1,3 @@
-res://entities/player/PlayerRigv2-m.tscn
+res://entities/player/Player.gd
+res://levels/TestLevel02Phantom_Experimental.tscn
 res://addons/phantom_camera/themes/theme.tres
-res://entities/player/Player.tscn
-res://levels/TestLevel02Phantom.tscn
-res://scripts/SimpleFollowCamera.gd

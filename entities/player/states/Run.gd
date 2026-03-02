@@ -26,7 +26,7 @@ func update(delta: float) -> String:
 		return ""
 	
 	# Apply ground acceleration (run speed - faster than walk)
-	movement.apply_movement(delta, false)
+	movement.apply_movement(delta, false, movement.movement_data.run_speed)
 	
 	# Check transitions
 	if not movement.is_grounded():

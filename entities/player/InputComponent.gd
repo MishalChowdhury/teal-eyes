@@ -48,9 +48,7 @@ func _handle_sprint_input() -> void:
 	
 	if is_sprint_held and not _is_sprinting:
 		_is_sprinting = true
-		print("[InputComponent] Sprint STARTED")
 		sprint_started.emit()
 	elif not is_sprint_held and _is_sprinting:
 		_is_sprinting = false
-		print("[InputComponent] Sprint STOPPED")
 		sprint_stopped.emit()

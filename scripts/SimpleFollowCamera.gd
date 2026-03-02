@@ -19,7 +19,6 @@ func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
 	
 	if player:
-		print("✅ SimpleFollowCamera: Found player, camera will follow")
 		# Position camera at player immediately
 		global_position = player.global_position + camera_offset
 	else:

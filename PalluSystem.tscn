@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bbgt6x2rpagdb"]
+[gd_scene load_steps=3 format=3 uid="uid://c836026rcyknq"]
 
 [ext_resource type="Script" uid="uid://dxx34w00uinul" path="res://entities/saree/PalluPhysics.gd" id="1_1ms3u"]
 [ext_resource type="Texture2D" uid="uid://bqmbkwchw2r2a" path="res://assets/art/characters/pallu_transparent.png" id="1_ie8pw"]
