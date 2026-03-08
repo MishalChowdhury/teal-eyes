@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://frozen_garden_v1"]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://levels/frozen_garden/FrozenGardenLevel.gd" id="1_lvlscript"]
 [ext_resource type="PackedScene" uid="uid://bkr1f8qxvn2ej" path="res://entities/player/Player.tscn" id="2_player"]
@@ -23,14 +23,10 @@ size = Vector2(200, 30)
 [sub_resource type="RectangleShape2D" id="Shape_zoom_trigger"]
 size = Vector2(1600, 900)
 
-;; ─────────────────────────────────────────────────────────────────────────────
-;; ROOT
-;; ─────────────────────────────────────────────────────────────────────────────
 
 [node name="FrozenGardenLevel" type="Node2D"]
 script = ExtResource("1_lvlscript")
 
-;; ─── Audio ────────────────────────────────────────────────────────────────────
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_bgm")
@@ -42,7 +38,6 @@ stream = ExtResource("8_wind")
 volume_db = -14.0
 autoplay = true
 
-;; ─── Transformation field (finds player by group) ────────────────────────────
 
 [node name="TransformationField" type="Node" parent="."]
 script = ExtResource("9_tfield")
@@ -52,8 +47,6 @@ speed_for_max = 420.0
 grow_speed = 4.0
 shrink_speed = 2.5
 
-;; ─── Player + camera ─────────────────────────────────────────────────────────
-;; Camera2D is a child of Player — same pattern as TestLevel02Phantom_Experimental.
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
 position = Vector2(200, 780)
@@ -68,7 +61,6 @@ zoom = Vector2(0.5, 0.5)
 script = ExtResource("4_camera")
 camera_offset = Vector2(0, -280)
 
-;; ─── Wonder moment: camera zooms out when player enters section 3 ─────────────
 
 [node name="WonderCameraZoom" type="Area2D" parent="."]
 position = Vector2(3200, 700)
@@ -83,25 +75,18 @@ reset_on_exit = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WonderCameraZoom"]
 shape = SubResource("Shape_zoom_trigger")
 
-;; ─── Debug HUD ───────────────────────────────────────────────────────────────
 
 [node name="DebugHUD" parent="." instance=ExtResource("3_debug")]
 
-;; ─────────────────────────────────────────────────────────────────────────────
-;; ENVIRONMENT
-;; ─────────────────────────────────────────────────────────────────────────────
 
 [node name="Environment" type="Node2D" parent="."]
 
-;; ── Background ───────────────────────────────────────────────────────────────
 
 [node name="BackgroundSprite" type="Sprite2D" parent="Environment"]
 z_index = -100
 position = Vector2(4500, -100)
 texture = ExtResource("6_bg")
 
-;; ── Floor (greybox ColorRect — swap for tileset/texture when art is ready) ────
-;; Surface at y=900. StaticBody2D centered at (4500, 940).
 
 [node name="Floor" type="StaticBody2D" parent="Environment"]
 position = Vector2(4500, 940)
@@ -115,11 +100,6 @@ color = Color(0.22, 0.24, 0.32)
 position = Vector2(-4500, -40)
 size = Vector2(9000, 80)
 
-;; ─────────────────────────────────────────────────────────────────────────────
-;; SECTION 1 — ARRIVAL  (x 300–1300)
-;; Platforms transform permanently on contact (holds_transform = true).
-;; Teaches: "my presence changes the world."
-;; ─────────────────────────────────────────────────────────────────────────────
 
 [node name="PlatformA" type="StaticBody2D" parent="Environment"]
 position = Vector2(500, 755)
@@ -181,12 +161,6 @@ base_reach = 130.0
 max_reach_multiplier = 2.8
 holds_transform = true
 
-;; ─────────────────────────────────────────────────────────────────────────────
-;; SECTION 2 — LEARNING  (x 1450–2700)
-;; Ghost platforms: only solid when alive.
-;; Player must keep moving — stop and they fall through.
-;; decay_rate escalates across the three platforms.
-;; ─────────────────────────────────────────────────────────────────────────────
 
 [node name="GhostD" type="StaticBody2D" parent="Environment"]
 position = Vector2(1650, 755)
@@ -254,12 +228,6 @@ holds_transform = false
 disable_collision_when_frozen = true
 decay_rate = 2.8
 
-;; ─────────────────────────────────────────────────────────────────────────────
-;; SECTION 3 — WONDER MOMENT  (x 2800–4500)
-;; Large colorful objects with huge reach.
-;; When player runs in with a full field all transform simultaneously.
-;; WonderCameraZoom trigger above pulls camera back for the wide-shot reveal.
-;; ─────────────────────────────────────────────────────────────────────────────
 
 [node name="WonderObj1" type="Node2D" parent="Environment"]
 position = Vector2(2950, 800)
