@@ -45,7 +45,10 @@ func _on_state_changed(old_state: String, new_state: String) -> void:
 	if not animation_player.has_animation(anim_name):
 		push_warning("AnimationComponent: No animation '%s' for state '%s'" % [anim_name, new_state])
 		return
-	
+
+	# Always reset speed on state change (Jump state may have modified it)
+	animation_player.speed_scale = 1.0
+
 	# Only play if it's a different animation (prevent restart on re-entering same state)
 	if animation_player.current_animation != anim_name:
 		animation_player.play(anim_name)
@@ -62,3 +65,8 @@ func play_animation(anim_name: String, custom_speed: float = 1.0) -> void:
 func stop_animation() -> void:
 	if animation_player:
 		animation_player.stop()
+
+## Scale animation playback speed (1.0 = normal, 0.2 = slow-mo apex hang)
+func set_speed_scale(scale: float) -> void:
+	if animation_player:
+		animation_player.speed_scale = scale
