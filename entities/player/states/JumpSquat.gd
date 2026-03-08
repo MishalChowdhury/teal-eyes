@@ -4,7 +4,7 @@ extends BaseState
 ## Brief anticipation crouch before jumping — GRIS-style wind-up
 ## Body compresses into a C-curve, then explodes upward into Jump
 
-const SQUAT_DURATION := 0.2  # seconds of anticipation
+const SQUAT_DURATION := 0.25  # seconds of anticipation
 
 var _timer := 0.0
 
