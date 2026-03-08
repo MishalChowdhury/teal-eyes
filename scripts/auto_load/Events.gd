@@ -17,6 +17,9 @@ signal saree_latch_broken()
 signal game_paused(is_paused: bool)
 signal screen_shake_requested(intensity: float, duration: float)
 
+## Transformation / Frozen Garden
+signal transformation_wonder_triggered()  ## fired when player enters the wonder zone
+
 ## Optional Helper Emitters (for logging/debugging)
 func emit_camera_snap(rect: Rect2, zoom: float = 1.0, dur: float = 1.0) -> void:
 	request_camera_snap.emit(rect, zoom, dur)
