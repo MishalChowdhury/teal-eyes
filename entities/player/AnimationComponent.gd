@@ -37,6 +37,9 @@ func _ready() -> void:
 	animation_player.animation_finished.connect(_on_animation_finished)
 
 func _on_state_changed(old_state: String, new_state: String) -> void:
+	if not animation_player:
+		return
+
 	# Map state names to animation names
 	# State names are capitalized (e.g., "Run"), animation names are lowercase (e.g., "run")
 	var anim_name = new_state.to_lower()

@@ -1,3 +1,6 @@
-res://entities/player/Player.gd
+res://entities/player/PlayerRigv2-m.tscn
 res://levels/TestLevel02Phantom_Experimental.tscn
 res://addons/phantom_camera/themes/theme.tres
+res://levels/frozen_garden/FrozenGardenLevel.tscn
+res://entities/player/AudioComponent.gd
+res://entities/player/AnimationComponent.gd

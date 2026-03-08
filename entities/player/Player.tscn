@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bkr1f8qxvn2ej"]
+[gd_scene load_steps=17 format=3 uid="uid://bkr1f8qxvn2ej"]
 
 [ext_resource type="Script" uid="uid://b1hns1kcm8igy" path="res://entities/player/Player.gd" id="1_1"]
 [ext_resource type="Script" uid="uid://15fpysi53wp8" path="res://entities/player/InputComponent.gd" id="2_1"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://cj3u3xxi4iepn" path="res://entities/player/states/Fall.gd" id="10_1"]
 [ext_resource type="Script" uid="uid://d3l6slaecgt7o" path="res://entities/player/states/WallSlide.gd" id="11_1"]
 [ext_resource type="Script" uid="uid://bjooim503vaxm" path="res://entities/player/states/Walk.gd" id="13_mq27t"]
+[ext_resource type="Script" path="res://entities/player/states/JumpSquat.gd" id="14_jumpsquat"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1"]
 radius = 15.0
@@ -56,6 +57,9 @@ script = ExtResource("7_1")
 
 [node name="Run" type="Node" parent="Components/StateMachine"]
 script = ExtResource("8_1")
+
+[node name="JumpSquat" type="Node" parent="Components/StateMachine"]
+script = ExtResource("14_jumpsquat")
 
 [node name="Jump" type="Node" parent="Components/StateMachine"]
 script = ExtResource("9_1")
