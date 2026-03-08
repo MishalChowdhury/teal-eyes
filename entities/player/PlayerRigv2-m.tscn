@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://kcwy4wicyv80"]
+[gd_scene load_steps=24 format=3 uid="uid://kcwy4wicyv80"]
 
 [ext_resource type="Texture2D" uid="uid://c3lirrv6x3lch" path="res://assets/art/characters/player/parts/right_foot.png" id="1_33p8b"]
 [ext_resource type="Texture2D" uid="uid://trvwg4f8k85j" path="res://assets/art/characters/player/left_lower_leg_saree.png" id="2_t2jdr"]
@@ -1207,6 +1207,142 @@ tracks/15/keys = {
 "values": [0.08, 0.077, 0.069, 0.057, 0.04, 0.021, 0.0, -0.021, -0.04, -0.057, -0.069, -0.077, -0.08, -0.077, -0.069, -0.057, -0.04, -0.021, 0.0, 0.021, 0.04, 0.057, 0.069, 0.077]
 }
 
+[sub_resource type="Animation" id="Animation_jumpsquat"]
+resource_name = "jumpsquat"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Hip/Left_Upper_Leg:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.05, 0.38, 0.30]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton2D/Hip/Left_Upper_Leg/Left_Lower_Leg:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.25, 0.58, 0.50]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton2D/Hip/Right_Upper_Leg:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.05, 0.32, 0.25]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skeleton2D/Hip/Right_Upper_Leg/Right_Lower_Leg:rotation")
+tracks/3/interp = 2
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.20, 0.52, 0.45]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Skeleton2D/Hip/Spine:rotation")
+tracks/4/interp = 2
+tracks/4/loop_wrap = false
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.15, 0.10]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skeleton2D/Hip/Spine/Right_Shoulder/Right_Upper Arm:rotation")
+tracks/5/interp = 2
+tracks/5/loop_wrap = false
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.32, -0.25]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Skeleton2D/Hip/Left_Shoulder/Left_Upper Arm:rotation")
+tracks/6/interp = 2
+tracks/6/loop_wrap = false
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.28, -0.20]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Skeleton2D/Hip/Spine/Head:rotation")
+tracks/7/interp = 2
+tracks/7/loop_wrap = false
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.10, 0.06]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Skeleton2D/Hip:position")
+tracks/8/interp = 2
+tracks/8/loop_wrap = false
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 14), Vector2(0, 10)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Skeleton2D/Hip/Spine/Right_Shoulder/Right_Upper Arm/Right_Lower_Arm:rotation")
+tracks/9/interp = 2
+tracks/9/loop_wrap = false
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.12, 0.08]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Skeleton2D/Hip/Left_Shoulder/Left_Upper Arm/Left_Lower_Arm:rotation")
+tracks/10/interp = 2
+tracks/10/loop_wrap = false
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.10, 0.06]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_drwke"]
 _data = {
 &"RESET": SubResource("Animation_drwke"),
@@ -1214,6 +1350,7 @@ _data = {
 &"fall": SubResource("Animation_fall"),
 &"idle": SubResource("Animation_h0roy"),
 &"jump": SubResource("Animation_jump"),
+&"jumpsquat": SubResource("Animation_jumpsquat"),
 &"land": SubResource("Animation_land"),
 &"oldwalk": SubResource("Animation_rdmh2"),
 &"run": SubResource("Animation_run"),

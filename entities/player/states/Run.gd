@@ -35,8 +35,7 @@ func update(delta: float) -> String:
 	if movement.can_jump():
 		# Check if jump is buffered
 		if movement._jump_buffered:
-			movement.apply_jump()
-			return "Jump"
+			return "JumpSquat"
 	
 	# Transition back to Walk if sprint released
 	if not _is_sprinting:
