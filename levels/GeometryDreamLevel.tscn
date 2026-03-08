@@ -499,6 +499,197 @@ offset_right = 240.0
 offset_bottom = 240.0
 color = Color(0.88, 0.68, 0.15, 0.1)
 
+[node name="TowerPillar_01" type="Node2D" parent="BgGeometry"]
+z_index = -45
+position = Vector2(24200, -2000)
+rotation = 0.1
+
+[node name="Visual" type="ColorRect" parent="BgGeometry/TowerPillar_01"]
+offset_left = -200.0
+offset_top = -1800.0
+offset_right = 200.0
+offset_bottom = 1800.0
+color = Color(0.22, 0.62, 0.42, 0.18)
+
+[node name="TowerPillar_02" type="Node2D" parent="BgGeometry"]
+z_index = -45
+position = Vector2(25400, -3200)
+rotation = -0.08
+
+[node name="Visual" type="ColorRect" parent="BgGeometry/TowerPillar_02"]
+offset_left = -180.0
+offset_top = -2000.0
+offset_right = 180.0
+offset_bottom = 2000.0
+color = Color(0.15, 0.2, 0.55, 0.18)
+
+[node name="TowerMid_01" type="Node2D" parent="BgGeometry"]
+z_index = -22
+position = Vector2(24000, -1500)
+rotation = 0.4
+
+[node name="Visual" type="ColorRect" parent="BgGeometry/TowerMid_01"]
+offset_left = -100.0
+offset_top = -250.0
+offset_right = 100.0
+offset_bottom = 250.0
+color = Color(0.88, 0.45, 0.78, 0.42)
+
+[node name="TowerMid_02" type="Node2D" parent="BgGeometry"]
+z_index = -20
+position = Vector2(25600, -2200)
+rotation = -0.3
+
+[node name="Visual" type="ColorRect" parent="BgGeometry/TowerMid_02"]
+offset_left = -120.0
+offset_top = -200.0
+offset_right = 120.0
+offset_bottom = 200.0
+color = Color(0.52, 0.4, 0.84, 0.42)
+
+[node name="TowerMid_03" type="Node2D" parent="BgGeometry"]
+z_index = -22
+position = Vector2(24200, -3000)
+rotation = 0.5
+
+[node name="Visual" type="ColorRect" parent="BgGeometry/TowerMid_03"]
+offset_left = -90.0
+offset_top = -280.0
+offset_right = 90.0
+offset_bottom = 280.0
+color = Color(0.18, 0.78, 0.68, 0.42)
+
+[node name="TowerMid_04" type="Node2D" parent="BgGeometry"]
+z_index = -20
+position = Vector2(25500, -3800)
+rotation = -0.4
+
+[node name="Visual" type="ColorRect" parent="BgGeometry/TowerMid_04"]
+offset_left = -110.0
+offset_top = -220.0
+offset_right = 110.0
+offset_bottom = 220.0
+color = Color(0.88, 0.68, 0.18, 0.42)
+
+[node name="TowerMid_05" type="Node2D" parent="BgGeometry"]
+z_index = -22
+position = Vector2(24600, -4500)
+rotation = 0.3
+
+[node name="Visual" type="ColorRect" parent="BgGeometry/TowerMid_05"]
+offset_left = -100.0
+offset_top = -180.0
+offset_right = 100.0
+offset_bottom = 180.0
+color = Color(0.9, 0.4, 0.46, 0.42)
+
+[node name="TowerNear_01" type="Node2D" parent="BgGeometry"]
+z_index = -6
+position = Vector2(25000, -1800)
+rotation = 0.6
+
+[node name="Visual" type="ColorRect" parent="BgGeometry/TowerNear_01"]
+offset_left = -40.0
+offset_top = -50.0
+offset_right = 40.0
+offset_bottom = 50.0
+color = Color(0.95, 0.55, 0.85, 0.65)
+
+[node name="TowerNear_02" type="Node2D" parent="BgGeometry"]
+z_index = -6
+position = Vector2(24500, -3400)
+rotation = -0.4
+
+[node name="Visual" type="ColorRect" parent="BgGeometry/TowerNear_02"]
+offset_left = -45.0
+offset_top = -35.0
+offset_right = 45.0
+offset_bottom = 35.0
+color = Color(0.52, 0.42, 0.88, 0.65)
+
+[node name="TowerNear_03" type="Node2D" parent="BgGeometry"]
+z_index = -6
+position = Vector2(25200, -4600)
+rotation = 0.5
+
+[node name="Visual" type="ColorRect" parent="BgGeometry/TowerNear_03"]
+offset_left = -35.0
+offset_top = -55.0
+offset_right = 35.0
+offset_bottom = 55.0
+color = Color(0.38, 0.9, 0.65, 0.65)
+
+[node name="TowerCircle_1" type="Node2D" parent="BgGeometry"]
+z_index = -30
+position = Vector2(24800, -2400)
+
+[node name="Ring_A" type="Node2D" parent="BgGeometry/TowerCircle_1"]
+
+[node name="Visual" type="ColorRect" parent="BgGeometry/TowerCircle_1/Ring_A"]
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+color = Color(0.82, 0.32, 0.42, 0.18)
+
+[node name="Ring_B" type="Node2D" parent="BgGeometry/TowerCircle_1"]
+rotation = 0.393
+
+[node name="Visual" type="ColorRect" parent="BgGeometry/TowerCircle_1/Ring_B"]
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+color = Color(0.82, 0.32, 0.42, 0.14)
+
+[node name="Ring_C" type="Node2D" parent="BgGeometry/TowerCircle_1"]
+rotation = 0.785
+
+[node name="Visual" type="ColorRect" parent="BgGeometry/TowerCircle_1/Ring_C"]
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+color = Color(0.82, 0.32, 0.42, 0.1)
+
+[node name="TowerCircle_2" type="Node2D" parent="BgGeometry"]
+z_index = -32
+position = Vector2(24800, -4200)
+
+[node name="Ring_A" type="Node2D" parent="BgGeometry/TowerCircle_2"]
+
+[node name="Visual" type="ColorRect" parent="BgGeometry/TowerCircle_2/Ring_A"]
+offset_left = -240.0
+offset_top = -240.0
+offset_right = 240.0
+offset_bottom = 240.0
+color = Color(0.88, 0.68, 0.15, 0.18)
+
+[node name="Ring_B" type="Node2D" parent="BgGeometry/TowerCircle_2"]
+rotation = 0.393
+
+[node name="Visual" type="ColorRect" parent="BgGeometry/TowerCircle_2/Ring_B"]
+offset_left = -240.0
+offset_top = -240.0
+offset_right = 240.0
+offset_bottom = 240.0
+color = Color(0.88, 0.68, 0.15, 0.14)
+
+[node name="Ring_C" type="Node2D" parent="BgGeometry/TowerCircle_2"]
+rotation = 0.785
+
+[node name="Visual" type="ColorRect" parent="BgGeometry/TowerCircle_2/Ring_C"]
+offset_left = -240.0
+offset_top = -240.0
+offset_right = 240.0
+offset_bottom = 240.0
+color = Color(0.88, 0.68, 0.15, 0.1)
+
+[node name="BgSprite_Tower" type="Sprite2D" parent="."]
+z_index = -100
+position = Vector2(24800, -3000)
+texture = ExtResource("2_bg")
+
 [node name="CameraZoom_Entry" type="Area2D" parent="."]
 position = Vector2(2200, 400)
 collision_layer = 0
@@ -550,18 +741,57 @@ reset_on_exit = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraZoom_Mixed"]
 shape = SubResource("shape_zoom_wide")
 
-[node name="CameraZoom_Finale" type="Area2D" parent="."]
-position = Vector2(26500, -700)
+[node name="CameraZoom_Tower_P1" type="Area2D" parent="."]
+position = Vector2(24800, -430)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("8_zoom")
+target_zoom = 0.38
+zoom_duration = 4.0
+reset_on_exit = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraZoom_Tower_P1"]
+shape = SubResource("shape_zoom")
+
+[node name="CameraZoom_Tower_P2" type="Area2D" parent="."]
+position = Vector2(24800, -1400)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("8_zoom")
+target_zoom = 0.34
+zoom_duration = 5.0
+reset_on_exit = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraZoom_Tower_P2"]
+shape = SubResource("shape_zoom")
+
+[node name="CameraZoom_Tower_P3" type="Area2D" parent="."]
+position = Vector2(24800, -2800)
 collision_layer = 0
 collision_mask = 2
 monitorable = false
 script = ExtResource("8_zoom")
 target_zoom = 0.3
-zoom_duration = 8.0
+zoom_duration = 6.0
 reset_on_exit = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraZoom_Finale"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraZoom_Tower_P3"]
 shape = SubResource("shape_zoom_wide")
+
+[node name="CameraZoom_Tower_Summit" type="Area2D" parent="."]
+position = Vector2(24800, -4700)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("8_zoom")
+target_zoom = 0.45
+zoom_duration = 4.0
+reset_on_exit = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraZoom_Tower_Summit"]
+shape = SubResource("shape_zoom")
 
 [node name="Platforms" type="Node2D" parent="."]
 
@@ -1117,126 +1347,389 @@ shape = SubResource("shape_floor_medium")
 scale = Vector2(0.23, 0.1)
 texture = ExtResource("4_floor_tex")
 
-[node name="Step_D1" type="StaticBody2D" parent="Platforms"]
-position = Vector2(25300, -430)
+[node name="Step_T01" type="StaticBody2D" parent="Platforms"]
+position = Vector2(25700, -430)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Step_D1"]
-position = Vector2(0, 71)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Step_T01"]
+position = Vector2(0, 72)
 shape = SubResource("shape_std")
 
-[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Step_D1"]
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Step_T01"]
 scale = Vector2(0.091, 0.0831)
 texture = ExtResource("4_floor_tex")
 
-[node name="Dis_12" type="StaticBody2D" parent="Platforms"]
-position = Vector2(25800, -630)
+[node name="Step_T02" type="StaticBody2D" parent="Platforms"]
+position = Vector2(23900, -630)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Step_T02"]
+position = Vector2(0, 72)
+shape = SubResource("shape_std")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Step_T02"]
+scale = Vector2(0.091, 0.0831)
+texture = ExtResource("4_floor_tex")
+
+[node name="Step_T03" type="StaticBody2D" parent="Platforms"]
+position = Vector2(25700, -830)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Step_T03"]
+position = Vector2(0, 72)
+shape = SubResource("shape_narrow")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Step_T03"]
+scale = Vector2(0.0831, 0.0831)
+texture = ExtResource("4_floor_tex")
+
+[node name="Step_T04" type="StaticBody2D" parent="Platforms"]
+position = Vector2(23900, -1030)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Step_T04"]
+position = Vector2(0, 72)
+shape = SubResource("shape_std")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Step_T04"]
+scale = Vector2(0.091, 0.0831)
+texture = ExtResource("4_floor_tex")
+
+[node name="RestLedge_T1" type="StaticBody2D" parent="Platforms"]
+position = Vector2(24800, -1230)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/RestLedge_T1"]
+position = Vector2(0, 83)
+shape = SubResource("shape_floor_medium")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/RestLedge_T1"]
+scale = Vector2(0.23, 0.1)
+texture = ExtResource("4_floor_tex")
+
+[node name="MoveH_T1" type="AnimatableBody2D" parent="Platforms"]
+position = Vector2(25700, -1430)
+collision_mask = 0
+script = ExtResource("5_moving")
+move_distance = 400.0
+move_speed = 120.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/MoveH_T1"]
+position = Vector2(0, 64)
+shape = SubResource("shape_move")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/MoveH_T1"]
+scale = Vector2(0.0831, 0.0831)
+texture = ExtResource("4_floor_tex")
+
+[node name="Step_T05" type="StaticBody2D" parent="Platforms"]
+position = Vector2(23900, -1630)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Step_T05"]
+position = Vector2(0, 72)
+shape = SubResource("shape_narrow")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Step_T05"]
+scale = Vector2(0.0831, 0.0831)
+texture = ExtResource("4_floor_tex")
+
+[node name="MoveH_T2" type="AnimatableBody2D" parent="Platforms"]
+position = Vector2(25700, -1830)
+collision_mask = 0
+script = ExtResource("5_moving")
+move_direction = Vector2(-1, 0)
+move_distance = 350.0
+move_speed = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/MoveH_T2"]
+position = Vector2(0, 64)
+shape = SubResource("shape_move")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/MoveH_T2"]
+modulate = Color(0.8, 0.9, 1, 1)
+scale = Vector2(0.0831, 0.0831)
+texture = ExtResource("4_floor_tex")
+
+[node name="Step_T06" type="StaticBody2D" parent="Platforms"]
+position = Vector2(23900, -2030)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Step_T06"]
+position = Vector2(0, 72)
+shape = SubResource("shape_std")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Step_T06"]
+scale = Vector2(0.091, 0.0831)
+texture = ExtResource("4_floor_tex")
+
+[node name="MoveH_T3" type="AnimatableBody2D" parent="Platforms"]
+position = Vector2(25400, -2230)
+collision_mask = 0
+script = ExtResource("5_moving")
+move_distance = 500.0
+move_speed = 140.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/MoveH_T3"]
+position = Vector2(0, 64)
+shape = SubResource("shape_move")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/MoveH_T3"]
+modulate = Color(1, 0.85, 0.8, 1)
+scale = Vector2(0.0831, 0.0831)
+texture = ExtResource("4_floor_tex")
+
+[node name="Step_T07" type="StaticBody2D" parent="Platforms"]
+position = Vector2(23900, -2430)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Step_T07"]
+position = Vector2(0, 72)
+shape = SubResource("shape_narrow")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Step_T07"]
+scale = Vector2(0.0831, 0.0831)
+texture = ExtResource("4_floor_tex")
+
+[node name="RestLedge_T2" type="StaticBody2D" parent="Platforms"]
+position = Vector2(24800, -2630)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/RestLedge_T2"]
+position = Vector2(0, 83)
+shape = SubResource("shape_floor_medium")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/RestLedge_T2"]
+scale = Vector2(0.23, 0.1)
+texture = ExtResource("4_floor_tex")
+
+[node name="Dis_T1" type="StaticBody2D" parent="Platforms"]
+position = Vector2(25700, -2850)
+collision_mask = 0
+script = ExtResource("6_disap")
+visible_duration = 2.5
+invisible_duration = 1.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Dis_T1"]
+shape = SubResource("shape_disap")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Dis_T1"]
+modulate = Color(0.4, 0.85, 1, 1)
+position = Vector2(0, -64)
+scale = Vector2(0.0831, 0.0831)
+texture = ExtResource("4_floor_tex")
+
+[node name="Dis_T2" type="StaticBody2D" parent="Platforms"]
+position = Vector2(23900, -3050)
 collision_mask = 0
 script = ExtResource("6_disap")
 visible_duration = 2.0
 invisible_duration = 1.5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Dis_12"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Dis_T2"]
 shape = SubResource("shape_disap")
 
-[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Dis_12"]
-modulate = Color(0.88, 0.45, 0.78, 1)
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Dis_T2"]
+modulate = Color(0.5, 0.7, 1, 1)
 position = Vector2(0, -64)
 scale = Vector2(0.0831, 0.0831)
 texture = ExtResource("4_floor_tex")
 
-[node name="MoveV_5" type="AnimatableBody2D" parent="Platforms"]
-position = Vector2(26300, -730)
+[node name="Step_T08" type="StaticBody2D" parent="Platforms"]
+position = Vector2(25700, -3250)
 collision_mask = 0
-script = ExtResource("5_moving")
-move_direction = Vector2(0, -1)
-move_distance = 420.0
-move_speed = 70.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/MoveV_5"]
-position = Vector2(0, 63)
-shape = SubResource("shape_move")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Step_T08"]
+position = Vector2(0, 72)
+shape = SubResource("shape_narrow")
 
-[node name="PlatformSprite" type="Sprite2D" parent="Platforms/MoveV_5"]
-modulate = Color(0.95, 0.55, 0.85, 1)
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Step_T08"]
 scale = Vector2(0.0831, 0.0831)
 texture = ExtResource("4_floor_tex")
 
-[node name="Dis_13" type="StaticBody2D" parent="Platforms"]
-position = Vector2(26900, -930)
+[node name="Step_T09_loop" type="StaticBody2D" parent="Platforms"]
+position = Vector2(26200, -3050)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Step_T09_loop"]
+position = Vector2(0, 72)
+shape = SubResource("shape_narrow")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Step_T09_loop"]
+scale = Vector2(0.0831, 0.0831)
+texture = ExtResource("4_floor_tex")
+
+[node name="MoveV_T1" type="AnimatableBody2D" parent="Platforms"]
+position = Vector2(26200, -2900)
+collision_mask = 0
+script = ExtResource("5_moving")
+move_direction = Vector2(0, -1)
+move_distance = 300.0
+move_speed = 70.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/MoveV_T1"]
+position = Vector2(0, 64)
+shape = SubResource("shape_move")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/MoveV_T1"]
+modulate = Color(0.85, 0.65, 1, 1)
+scale = Vector2(0.0831, 0.0831)
+texture = ExtResource("4_floor_tex")
+
+[node name="Step_T10_loop" type="StaticBody2D" parent="Platforms"]
+position = Vector2(25200, -3100)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Step_T10_loop"]
+position = Vector2(0, 72)
+shape = SubResource("shape_narrow")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Step_T10_loop"]
+scale = Vector2(0.0831, 0.0831)
+texture = ExtResource("4_floor_tex")
+
+[node name="Step_T11_loop" type="StaticBody2D" parent="Platforms"]
+position = Vector2(24000, -3300)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Step_T11_loop"]
+position = Vector2(0, 72)
+shape = SubResource("shape_std")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Step_T11_loop"]
+scale = Vector2(0.091, 0.0831)
+texture = ExtResource("4_floor_tex")
+
+[node name="Dis_T3" type="StaticBody2D" parent="Platforms"]
+position = Vector2(25700, -3500)
+collision_mask = 0
+script = ExtResource("6_disap")
+visible_duration = 2.0
+invisible_duration = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Dis_T3"]
+shape = SubResource("shape_disap")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Dis_T3"]
+modulate = Color(0.6, 0.8, 1, 1)
+position = Vector2(0, -64)
+scale = Vector2(0.0831, 0.0831)
+texture = ExtResource("4_floor_tex")
+
+[node name="MoveH_T4" type="AnimatableBody2D" parent="Platforms"]
+position = Vector2(23900, -3650)
+collision_mask = 0
+script = ExtResource("5_moving")
+move_distance = 400.0
+move_speed = 130.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/MoveH_T4"]
+position = Vector2(0, 64)
+shape = SubResource("shape_move")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/MoveH_T4"]
+scale = Vector2(0.0831, 0.0831)
+texture = ExtResource("4_floor_tex")
+
+[node name="RestLedge_T3" type="StaticBody2D" parent="Platforms"]
+position = Vector2(24800, -3850)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/RestLedge_T3"]
+position = Vector2(0, 83)
+shape = SubResource("shape_floor_medium")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/RestLedge_T3"]
+scale = Vector2(0.23, 0.1)
+texture = ExtResource("4_floor_tex")
+
+[node name="MoveV_T2" type="AnimatableBody2D" parent="Platforms"]
+position = Vector2(25700, -4050)
+collision_mask = 0
+script = ExtResource("5_moving")
+move_direction = Vector2(0, -1)
+move_distance = 250.0
+move_speed = 65.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/MoveV_T2"]
+position = Vector2(0, 64)
+shape = SubResource("shape_move")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/MoveV_T2"]
+modulate = Color(0.75, 0.55, 1, 1)
+scale = Vector2(0.0831, 0.0831)
+texture = ExtResource("4_floor_tex")
+
+[node name="Dis_T4" type="StaticBody2D" parent="Platforms"]
+position = Vector2(23900, -4200)
 collision_mask = 0
 script = ExtResource("6_disap")
 visible_duration = 1.5
 invisible_duration = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Dis_13"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Dis_T4"]
 shape = SubResource("shape_disap")
 
-[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Dis_13"]
-modulate = Color(0.82, 0.38, 0.72, 1)
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Dis_T4"]
+modulate = Color(0.3, 0.75, 1, 1)
 position = Vector2(0, -64)
 scale = Vector2(0.0831, 0.0831)
 texture = ExtResource("4_floor_tex")
 
-[node name="MoveH_8" type="AnimatableBody2D" parent="Platforms"]
-position = Vector2(27500, -730)
+[node name="MoveH_T5" type="AnimatableBody2D" parent="Platforms"]
+position = Vector2(25500, -4400)
 collision_mask = 0
 script = ExtResource("5_moving")
-move_distance = 620.0
-move_speed = 165.0
+move_direction = Vector2(-1, 0)
+move_distance = 500.0
+move_speed = 155.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/MoveH_8"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/MoveH_T5"]
 position = Vector2(0, 64)
 shape = SubResource("shape_move")
 
-[node name="PlatformSprite" type="Sprite2D" parent="Platforms/MoveH_8"]
-modulate = Color(1, 0.6, 0.9, 1)
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/MoveH_T5"]
+modulate = Color(1, 0.88, 0.65, 1)
 scale = Vector2(0.0831, 0.0831)
 texture = ExtResource("4_floor_tex")
 
-[node name="Dis_14" type="StaticBody2D" parent="Platforms"]
-position = Vector2(28200, -530)
+[node name="Dis_T5" type="StaticBody2D" parent="Platforms"]
+position = Vector2(23900, -4550)
 collision_mask = 0
 script = ExtResource("6_disap")
 visible_duration = 2.0
 invisible_duration = 1.5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Dis_14"]
-position = Vector2(0, 8)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Dis_T5"]
 shape = SubResource("shape_disap")
 
-[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Dis_14"]
-modulate = Color(0.92, 0.5, 0.82, 1)
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Dis_T5"]
+modulate = Color(0.55, 0.78, 1, 1)
 position = Vector2(0, -64)
 scale = Vector2(0.0831, 0.0831)
 texture = ExtResource("4_floor_tex")
 
-[node name="MoveV_6" type="AnimatableBody2D" parent="Platforms"]
-position = Vector2(28800, -630)
+[node name="Step_T12" type="StaticBody2D" parent="Platforms"]
+position = Vector2(25200, -4700)
 collision_mask = 0
-script = ExtResource("5_moving")
-move_direction = Vector2(0, 1)
-move_distance = 350.0
-move_speed = 90.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/MoveV_6"]
-position = Vector2(0, 67)
-shape = SubResource("shape_move")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Step_T12"]
+position = Vector2(0, 72)
+shape = SubResource("shape_narrow")
 
-[node name="PlatformSprite" type="Sprite2D" parent="Platforms/MoveV_6"]
-modulate = Color(1, 0.65, 0.92, 1)
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/Step_T12"]
 scale = Vector2(0.0831, 0.0831)
 texture = ExtResource("4_floor_tex")
 
-[node name="FinaleFloor" type="StaticBody2D" parent="Platforms"]
-position = Vector2(29500, 200)
+[node name="FinaleFloor_Tower" type="StaticBody2D" parent="Platforms"]
+position = Vector2(24800, -4900)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/FinaleFloor"]
-position = Vector2(-32, 97)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/FinaleFloor_Tower"]
+position = Vector2(0, 98)
 shape = SubResource("shape_floor_wide")
 
-[node name="PlatformSprite" type="Sprite2D" parent="Platforms/FinaleFloor"]
+[node name="PlatformSprite" type="Sprite2D" parent="Platforms/FinaleFloor_Tower"]
 scale = Vector2(0.42, 0.1)
 texture = ExtResource("4_floor_tex")
 
@@ -1246,8 +1739,8 @@ position = Vector2(1800, 530)
 [node name="Camera2D" type="Camera2D" parent="Player"]
 scale = Vector2(4.2399993, 1)
 limit_left = 0
-limit_top = -1600
-limit_right = 30500
+limit_top = -5200
+limit_right = 27000
 limit_bottom = 1200
 position_smoothing_enabled = true
 script = ExtResource("3_camera")
