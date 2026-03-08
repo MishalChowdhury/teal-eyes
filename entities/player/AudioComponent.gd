@@ -73,9 +73,9 @@ func _load_sound_pools() -> void:
 		if stream:
 			_footstep_sounds.append(stream)
 
-	# Jump — air whoosh (3 variants)
-	for i in range(1, 4):
-		var path := "res://assets/audio/sfx_100_v2/sfx100v2_air_%02d.ogg" % i
+	# Jump — soft organic push-off (5 variants)
+	for i in range(5):
+		var path := "res://assets/audio/kenney_impact-sounds/Audio/impactSoft_medium_%03d.ogg" % i
 		var stream := load(path) as AudioStream
 		if stream:
 			_jump_sounds.append(stream)

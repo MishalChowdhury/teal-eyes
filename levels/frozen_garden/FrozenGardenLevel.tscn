@@ -1,6 +1,6 @@
-[gd_scene load_steps=21 format=3]
+[gd_scene load_steps=17 format=3 uid="uid://brfkc6x7k31t7"]
 
-[ext_resource type="Script" path="res://levels/frozen_garden/FrozenGardenLevel.gd" id="1_lvlscript"]
+[ext_resource type="Script" uid="uid://ba0nn4fhxggtj" path="res://levels/frozen_garden/FrozenGardenLevel.gd" id="1_lvlscript"]
 [ext_resource type="PackedScene" uid="uid://bkr1f8qxvn2ej" path="res://entities/player/Player.tscn" id="2_player"]
 [ext_resource type="PackedScene" uid="uid://cwhp2kdt5q7m8" path="res://components/DebugHUD.tscn" id="3_debug"]
 [ext_resource type="Script" uid="uid://div81nuruo0rf" path="res://scripts/SimpleFollowCamera.gd" id="4_camera"]
@@ -8,10 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://cxeybpt1vveo0" path="res://assets/art/environment/parallax/background.png" id="6_bg"]
 [ext_resource type="AudioStream" uid="uid://dl7o41bk7x3lc" path="res://assets/audio/first_light_particles.ogg" id="7_bgm"]
 [ext_resource type="AudioStream" uid="uid://bvxlmjo05u1i3" path="res://assets/audio/soft_wind_loop.ogg" id="8_wind"]
-[ext_resource type="Script" path="res://components/TransformationField.gd" id="9_tfield"]
-[ext_resource type="Script" path="res://components/TransformableObject.gd" id="10_tobj"]
-[ext_resource type="Script" path="res://components/FloatingPlatform.gd" id="11_float"]
-[ext_resource type="Script" path="res://components/CrumblingPlatform.gd" id="12_crumble"]
+[ext_resource type="Script" uid="uid://bss1je5or4jmb" path="res://components/TransformationField.gd" id="9_tfield"]
+[ext_resource type="Script" uid="uid://bgxc52q2chh4i" path="res://components/TransformableObject.gd" id="10_tobj"]
+
+[sub_resource type="RectangleShape2D" id="Shape_zoom_trigger"]
+size = Vector2(2000, 1200)
 
 [sub_resource type="RectangleShape2D" id="Shape_floor_wide"]
 size = Vector2(2000, 80)
@@ -19,23 +20,14 @@ size = Vector2(2000, 80)
 [sub_resource type="RectangleShape2D" id="Shape_floor_med"]
 size = Vector2(1200, 80)
 
-[sub_resource type="RectangleShape2D" id="Shape_floor_sm"]
-size = Vector2(600, 80)
-
 [sub_resource type="RectangleShape2D" id="Shape_plat_wide"]
 size = Vector2(300, 30)
 
 [sub_resource type="RectangleShape2D" id="Shape_plat_med"]
 size = Vector2(200, 30)
 
-[sub_resource type="RectangleShape2D" id="Shape_plat_sm"]
-size = Vector2(140, 30)
-
 [sub_resource type="RectangleShape2D" id="Shape_ghost"]
 size = Vector2(180, 26)
-
-[sub_resource type="RectangleShape2D" id="Shape_zoom_trigger"]
-size = Vector2(2000, 1200)
 
 [node name="FrozenGardenLevel" type="Node2D"]
 script = ExtResource("1_lvlscript")
@@ -52,22 +44,17 @@ autoplay = true
 
 [node name="TransformationField" type="Node" parent="."]
 script = ExtResource("9_tfield")
-max_radius = 320.0
-base_radius = 60.0
-speed_for_max = 420.0
-grow_speed = 4.0
-shrink_speed = 2.5
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
 position = Vector2(200, 880)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(0.7, 0.7)
 limit_left = -200
 limit_top = -2000
 limit_right = 15000
 limit_bottom = 1500
 position_smoothing_enabled = true
-zoom = Vector2(0.7, 0.7)
 script = ExtResource("4_camera")
 camera_offset = Vector2(0, -280)
 
@@ -76,6 +63,11 @@ camera_offset = Vector2(0, -280)
 [node name="BackgroundSprite" type="Sprite2D" parent="."]
 z_index = -100
 position = Vector2(7000, -200)
+texture = ExtResource("6_bg")
+
+[node name="BackgroundSprite" type="Sprite2D" parent="BackgroundSprite"]
+z_index = -100
+position = Vector2(-9899, 5)
 texture = ExtResource("6_bg")
 
 [node name="CameraZoom_Arrival" type="Area2D" parent="."]
@@ -176,7 +168,6 @@ color = Color(0.38, 0.6, 0.78, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/StairA"]
 script = ExtResource("10_tobj")
-frozen_color = Color(0.35, 0.35, 0.45, 1)
 alive_color = Color(0.45, 0.75, 0.95, 1)
 base_reach = 130.0
 max_reach_multiplier = 2.8
@@ -198,7 +189,6 @@ color = Color(0.38, 0.6, 0.78, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/StairB"]
 script = ExtResource("10_tobj")
-frozen_color = Color(0.35, 0.35, 0.45, 1)
 alive_color = Color(0.45, 0.75, 0.95, 1)
 base_reach = 130.0
 max_reach_multiplier = 2.8
@@ -220,7 +210,6 @@ color = Color(0.38, 0.6, 0.78, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/StairC"]
 script = ExtResource("10_tobj")
-frozen_color = Color(0.35, 0.35, 0.45, 1)
 alive_color = Color(0.45, 0.75, 0.95, 1)
 base_reach = 130.0
 max_reach_multiplier = 2.8
@@ -242,7 +231,6 @@ color = Color(0.38, 0.6, 0.78, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/StairD"]
 script = ExtResource("10_tobj")
-frozen_color = Color(0.35, 0.35, 0.45, 1)
 alive_color = Color(0.45, 0.75, 0.95, 1)
 base_reach = 130.0
 max_reach_multiplier = 2.8
@@ -265,7 +253,7 @@ color = Color(0.42, 0.68, 0.88, 1)
 [node name="TransformableObject" type="Node" parent="Environment/StairPeak"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.3, 0.3, 0.42, 1)
-alive_color = Color(0.55, 0.85, 1.0, 1)
+alive_color = Color(0.55, 0.85, 1, 1)
 base_reach = 150.0
 max_reach_multiplier = 2.8
 holds_transform = true
@@ -286,7 +274,6 @@ color = Color(0.38, 0.6, 0.78, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/DescentA"]
 script = ExtResource("10_tobj")
-frozen_color = Color(0.35, 0.35, 0.45, 1)
 alive_color = Color(0.45, 0.75, 0.95, 1)
 base_reach = 130.0
 max_reach_multiplier = 2.8
@@ -308,7 +295,6 @@ color = Color(0.38, 0.6, 0.78, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/DescentB"]
 script = ExtResource("10_tobj")
-frozen_color = Color(0.35, 0.35, 0.45, 1)
 alive_color = Color(0.45, 0.75, 0.95, 1)
 base_reach = 130.0
 max_reach_multiplier = 2.8
@@ -321,7 +307,6 @@ position = Vector2(350, 820)
 offset_left = -15.0
 offset_top = -180.0
 offset_right = 15.0
-offset_bottom = 0.0
 color = Color(0.3, 0.5, 0.7, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/PillarL1"]
@@ -339,7 +324,6 @@ position = Vector2(650, 730)
 offset_left = -15.0
 offset_top = -220.0
 offset_right = 15.0
-offset_bottom = 0.0
 color = Color(0.3, 0.5, 0.7, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/PillarR1"]
@@ -357,7 +341,6 @@ position = Vector2(950, 640)
 offset_left = -18.0
 offset_top = -260.0
 offset_right = 18.0
-offset_bottom = 0.0
 color = Color(0.32, 0.52, 0.72, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/PillarL2"]
@@ -375,7 +358,6 @@ position = Vector2(1250, 540)
 offset_left = -18.0
 offset_top = -300.0
 offset_right = 18.0
-offset_bottom = 0.0
 color = Color(0.32, 0.52, 0.72, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/PillarR2"]
@@ -393,13 +375,12 @@ position = Vector2(1700, 440)
 offset_left = -20.0
 offset_top = -350.0
 offset_right = 20.0
-offset_bottom = 0.0
 color = Color(0.35, 0.55, 0.75, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/PillarPeak"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.25, 0.25, 0.35, 1)
-alive_color = Color(0.5, 0.8, 1.0, 1)
+alive_color = Color(0.5, 0.8, 1, 1)
 base_reach = 180.0
 max_reach_multiplier = 2.5
 holds_transform = true
@@ -411,7 +392,6 @@ position = Vector2(2850, 900)
 offset_left = -25.0
 offset_top = -500.0
 offset_right = 25.0
-offset_bottom = 0.0
 color = Color(0.4, 0.42, 0.55, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/Landmark1_Left"]
@@ -429,7 +409,6 @@ position = Vector2(3100, 900)
 offset_left = -25.0
 offset_top = -500.0
 offset_right = 25.0
-offset_bottom = 0.0
 color = Color(0.4, 0.42, 0.55, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/Landmark1_Right"]
@@ -474,13 +453,9 @@ color = Color(0.6, 0.45, 0.82, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/IntroGhost"]
 script = ExtResource("10_tobj")
-frozen_color = Color(0.35, 0.35, 0.45, 1)
 alive_color = Color(0.7, 0.55, 0.95, 1)
 base_reach = 150.0
-max_reach_multiplier = 3.0
-holds_transform = false
 disable_collision_when_frozen = true
-decay_rate = 1.5
 
 [node name="Ghost01" type="StaticBody2D" parent="Environment"]
 position = Vector2(3500, 650)
@@ -498,13 +473,10 @@ color = Color(0.68, 0.5, 0.88, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/Ghost01"]
 script = ExtResource("10_tobj")
-frozen_color = Color(0.35, 0.35, 0.45, 1)
 alive_color = Color(0.75, 0.58, 0.95, 1)
 base_reach = 150.0
-max_reach_multiplier = 3.0
-holds_transform = false
-disable_collision_when_frozen = true
 decay_rate = 1.8
+disable_collision_when_frozen = true
 
 [node name="Ghost02" type="StaticBody2D" parent="Environment"]
 position = Vector2(3750, 570)
@@ -522,13 +494,10 @@ color = Color(0.68, 0.5, 0.88, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/Ghost02"]
 script = ExtResource("10_tobj")
-frozen_color = Color(0.35, 0.35, 0.45, 1)
 alive_color = Color(0.75, 0.58, 0.95, 1)
 base_reach = 150.0
-max_reach_multiplier = 3.0
-holds_transform = false
-disable_collision_when_frozen = true
 decay_rate = 1.8
+disable_collision_when_frozen = true
 
 [node name="Ghost03" type="StaticBody2D" parent="Environment"]
 position = Vector2(4000, 650)
@@ -546,13 +515,10 @@ color = Color(0.68, 0.5, 0.88, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/Ghost03"]
 script = ExtResource("10_tobj")
-frozen_color = Color(0.35, 0.35, 0.45, 1)
 alive_color = Color(0.75, 0.58, 0.95, 1)
 base_reach = 150.0
-max_reach_multiplier = 3.0
-holds_transform = false
-disable_collision_when_frozen = true
 decay_rate = 1.8
+disable_collision_when_frozen = true
 
 [node name="Ghost04" type="StaticBody2D" parent="Environment"]
 position = Vector2(4250, 560)
@@ -573,10 +539,8 @@ script = ExtResource("10_tobj")
 frozen_color = Color(0.32, 0.32, 0.42, 1)
 alive_color = Color(0.72, 0.55, 0.92, 1)
 base_reach = 145.0
-max_reach_multiplier = 3.0
-holds_transform = false
-disable_collision_when_frozen = true
 decay_rate = 2.0
+disable_collision_when_frozen = true
 
 [node name="Ghost05" type="StaticBody2D" parent="Environment"]
 position = Vector2(4500, 640)
@@ -597,10 +561,8 @@ script = ExtResource("10_tobj")
 frozen_color = Color(0.32, 0.32, 0.42, 1)
 alive_color = Color(0.72, 0.55, 0.92, 1)
 base_reach = 145.0
-max_reach_multiplier = 3.0
-holds_transform = false
-disable_collision_when_frozen = true
 decay_rate = 2.2
+disable_collision_when_frozen = true
 
 [node name="Ghost06" type="StaticBody2D" parent="Environment"]
 position = Vector2(4750, 540)
@@ -621,10 +583,8 @@ script = ExtResource("10_tobj")
 frozen_color = Color(0.32, 0.32, 0.42, 1)
 alive_color = Color(0.72, 0.55, 0.92, 1)
 base_reach = 145.0
-max_reach_multiplier = 3.0
-holds_transform = false
-disable_collision_when_frozen = true
 decay_rate = 2.2
+disable_collision_when_frozen = true
 
 [node name="Ghost07" type="StaticBody2D" parent="Environment"]
 position = Vector2(5000, 620)
@@ -645,10 +605,8 @@ script = ExtResource("10_tobj")
 frozen_color = Color(0.3, 0.3, 0.4, 1)
 alive_color = Color(0.7, 0.52, 0.9, 1)
 base_reach = 140.0
-max_reach_multiplier = 3.0
-holds_transform = false
-disable_collision_when_frozen = true
 decay_rate = 2.4
+disable_collision_when_frozen = true
 
 [node name="Ghost08" type="StaticBody2D" parent="Environment"]
 position = Vector2(5250, 520)
@@ -669,10 +627,8 @@ script = ExtResource("10_tobj")
 frozen_color = Color(0.3, 0.3, 0.4, 1)
 alive_color = Color(0.7, 0.52, 0.9, 1)
 base_reach = 140.0
-max_reach_multiplier = 3.0
-holds_transform = false
-disable_collision_when_frozen = true
 decay_rate = 2.5
+disable_collision_when_frozen = true
 
 [node name="Ghost09" type="StaticBody2D" parent="Environment"]
 position = Vector2(5500, 600)
@@ -693,10 +649,8 @@ script = ExtResource("10_tobj")
 frozen_color = Color(0.28, 0.28, 0.38, 1)
 alive_color = Color(0.68, 0.5, 0.88, 1)
 base_reach = 135.0
-max_reach_multiplier = 3.0
-holds_transform = false
-disable_collision_when_frozen = true
 decay_rate = 2.6
+disable_collision_when_frozen = true
 
 [node name="Ghost10" type="StaticBody2D" parent="Environment"]
 position = Vector2(5750, 500)
@@ -717,10 +671,8 @@ script = ExtResource("10_tobj")
 frozen_color = Color(0.28, 0.28, 0.38, 1)
 alive_color = Color(0.68, 0.5, 0.88, 1)
 base_reach = 135.0
-max_reach_multiplier = 3.0
-holds_transform = false
-disable_collision_when_frozen = true
 decay_rate = 2.8
+disable_collision_when_frozen = true
 
 [node name="Ghost11" type="StaticBody2D" parent="Environment"]
 position = Vector2(6000, 580)
@@ -741,10 +693,8 @@ script = ExtResource("10_tobj")
 frozen_color = Color(0.26, 0.26, 0.36, 1)
 alive_color = Color(0.65, 0.48, 0.85, 1)
 base_reach = 130.0
-max_reach_multiplier = 3.0
-holds_transform = false
-disable_collision_when_frozen = true
 decay_rate = 3.0
+disable_collision_when_frozen = true
 
 [node name="Ghost12" type="StaticBody2D" parent="Environment"]
 position = Vector2(6200, 500)
@@ -765,10 +715,8 @@ script = ExtResource("10_tobj")
 frozen_color = Color(0.26, 0.26, 0.36, 1)
 alive_color = Color(0.65, 0.48, 0.85, 1)
 base_reach = 130.0
-max_reach_multiplier = 3.0
-holds_transform = false
-disable_collision_when_frozen = true
 decay_rate = 3.0
+disable_collision_when_frozen = true
 
 [node name="Landmark2_Landing" type="StaticBody2D" parent="Environment"]
 position = Vector2(6500, 550)
@@ -799,7 +747,6 @@ position = Vector2(6500, 550)
 offset_left = -22.0
 offset_top = -450.0
 offset_right = 22.0
-offset_bottom = 0.0
 color = Color(0.4, 0.42, 0.55, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/Landmark2_Pillar"]
@@ -859,13 +806,12 @@ position = Vector2(6800, 850)
 offset_left = -40.0
 offset_top = -80.0
 offset_right = 40.0
-offset_bottom = 0.0
-color = Color(1.0, 0.85, 0.3, 1)
+color = Color(1, 0.85, 0.3, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/WObj01"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.18, 0.18, 0.26, 1)
-alive_color = Color(1.0, 0.92, 0.5, 1)
+alive_color = Color(1, 0.92, 0.5, 1)
 base_reach = 500.0
 max_reach_multiplier = 2.0
 holds_transform = true
@@ -877,7 +823,6 @@ position = Vector2(7100, 700)
 offset_left = -50.0
 offset_top = -160.0
 offset_right = 50.0
-offset_bottom = 0.0
 color = Color(0.35, 0.88, 0.62, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/WObj02"]
@@ -895,13 +840,12 @@ position = Vector2(7350, 880)
 offset_left = -35.0
 offset_top = -100.0
 offset_right = 35.0
-offset_bottom = 0.0
 color = Color(0.9, 0.4, 0.48, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/WObj03"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.18, 0.18, 0.26, 1)
-alive_color = Color(1.0, 0.55, 0.6, 1)
+alive_color = Color(1, 0.55, 0.6, 1)
 base_reach = 500.0
 max_reach_multiplier = 2.0
 holds_transform = true
@@ -913,13 +857,12 @@ position = Vector2(7600, 600)
 offset_left = -60.0
 offset_top = -220.0
 offset_right = 60.0
-offset_bottom = 0.0
-color = Color(0.45, 0.58, 1.0, 1)
+color = Color(0.45, 0.58, 1, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/WObj04"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.18, 0.18, 0.26, 1)
-alive_color = Color(0.6, 0.72, 1.0, 1)
+alive_color = Color(0.6, 0.72, 1, 1)
 base_reach = 500.0
 max_reach_multiplier = 2.0
 holds_transform = true
@@ -931,13 +874,12 @@ position = Vector2(7850, 820)
 offset_left = -45.0
 offset_top = -130.0
 offset_right = 45.0
-offset_bottom = 0.0
-color = Color(1.0, 0.68, 0.28, 1)
+color = Color(1, 0.68, 0.28, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/WObj05"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.18, 0.18, 0.26, 1)
-alive_color = Color(1.0, 0.78, 0.4, 1)
+alive_color = Color(1, 0.78, 0.4, 1)
 base_reach = 500.0
 max_reach_multiplier = 2.0
 holds_transform = true
@@ -949,7 +891,6 @@ position = Vector2(8100, 500)
 offset_left = -55.0
 offset_top = -280.0
 offset_right = 55.0
-offset_bottom = 0.0
 color = Color(0.65, 0.92, 0.36, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/WObj06"]
@@ -967,13 +908,12 @@ position = Vector2(8350, 860)
 offset_left = -38.0
 offset_top = -90.0
 offset_right = 38.0
-offset_bottom = 0.0
 color = Color(0.92, 0.55, 0.85, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/WObj07"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.18, 0.18, 0.26, 1)
-alive_color = Color(1.0, 0.68, 0.92, 1)
+alive_color = Color(1, 0.68, 0.92, 1)
 base_reach = 500.0
 max_reach_multiplier = 2.0
 holds_transform = true
@@ -985,7 +925,6 @@ position = Vector2(8550, 650)
 offset_left = -48.0
 offset_top = -200.0
 offset_right = 48.0
-offset_bottom = 0.0
 color = Color(0.4, 0.85, 0.9, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/WObj08"]
@@ -1003,13 +942,12 @@ position = Vector2(8800, 780)
 offset_left = -42.0
 offset_top = -120.0
 offset_right = 42.0
-offset_bottom = 0.0
-color = Color(1.0, 0.45, 0.35, 1)
+color = Color(1, 0.45, 0.35, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/WObj09"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.18, 0.18, 0.26, 1)
-alive_color = Color(1.0, 0.6, 0.5, 1)
+alive_color = Color(1, 0.6, 0.5, 1)
 base_reach = 500.0
 max_reach_multiplier = 2.0
 holds_transform = true
@@ -1021,7 +959,6 @@ position = Vector2(9050, 550)
 offset_left = -65.0
 offset_top = -300.0
 offset_right = 65.0
-offset_bottom = 0.0
 color = Color(0.3, 0.7, 0.45, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/WObj10"]
@@ -1039,7 +976,6 @@ position = Vector2(9300, 870)
 offset_left = -35.0
 offset_top = -70.0
 offset_right = 35.0
-offset_bottom = 0.0
 color = Color(0.85, 0.75, 0.3, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/WObj11"]
@@ -1057,7 +993,6 @@ position = Vector2(9500, 680)
 offset_left = -52.0
 offset_top = -180.0
 offset_right = 52.0
-offset_bottom = 0.0
 color = Color(0.7, 0.4, 0.9, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/WObj12"]
@@ -1075,13 +1010,12 @@ position = Vector2(9750, 840)
 offset_left = -40.0
 offset_top = -100.0
 offset_right = 40.0
-offset_bottom = 0.0
 color = Color(0.95, 0.6, 0.3, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/WObj13"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.18, 0.18, 0.26, 1)
-alive_color = Color(1.0, 0.72, 0.42, 1)
+alive_color = Color(1, 0.72, 0.42, 1)
 base_reach = 500.0
 max_reach_multiplier = 2.0
 holds_transform = true
@@ -1093,13 +1027,12 @@ position = Vector2(9950, 450)
 offset_left = -70.0
 offset_top = -350.0
 offset_right = 70.0
-offset_bottom = 0.0
 color = Color(0.3, 0.6, 0.95, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/WObj14"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.18, 0.18, 0.26, 1)
-alive_color = Color(0.45, 0.72, 1.0, 1)
+alive_color = Color(0.45, 0.72, 1, 1)
 base_reach = 500.0
 max_reach_multiplier = 2.0
 holds_transform = true
@@ -1111,7 +1044,6 @@ position = Vector2(10200, 750)
 offset_left = -58.0
 offset_top = -150.0
 offset_right = 58.0
-offset_bottom = 0.0
 color = Color(0.48, 0.88, 0.48, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/WObj15"]
@@ -1129,7 +1061,6 @@ position = Vector2(10450, 600)
 offset_left = -45.0
 offset_top = -240.0
 offset_right = 45.0
-offset_bottom = 0.0
 color = Color(0.88, 0.35, 0.55, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/WObj16"]
@@ -1147,7 +1078,6 @@ position = Vector2(10700, 870)
 offset_left = -32.0
 offset_top = -60.0
 offset_right = 32.0
-offset_bottom = 0.0
 color = Color(0.6, 0.82, 0.35, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/WObj17"]
@@ -1179,7 +1109,6 @@ position = Vector2(11200, 800)
 offset_left = -30.0
 offset_top = -120.0
 offset_right = 30.0
-offset_bottom = 0.0
 color = Color(0.45, 0.82, 0.65, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/EpilogueObj1"]
@@ -1197,7 +1126,6 @@ position = Vector2(11600, 700)
 offset_left = -40.0
 offset_top = -200.0
 offset_right = 40.0
-offset_bottom = 0.0
 color = Color(0.82, 0.65, 0.3, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/EpilogueObj2"]
@@ -1215,7 +1143,6 @@ position = Vector2(12000, 850)
 offset_left = -35.0
 offset_top = -100.0
 offset_right = 35.0
-offset_bottom = 0.0
 color = Color(0.55, 0.4, 0.85, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/EpilogueObj3"]
@@ -1243,7 +1170,7 @@ color = Color(0.42, 0.68, 0.88, 1)
 [node name="TransformableObject" type="Node" parent="Environment/VistaStairA"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.25, 0.25, 0.35, 1)
-alive_color = Color(0.55, 0.82, 1.0, 1)
+alive_color = Color(0.55, 0.82, 1, 1)
 base_reach = 300.0
 max_reach_multiplier = 2.0
 holds_transform = true
@@ -1265,7 +1192,7 @@ color = Color(0.42, 0.68, 0.88, 1)
 [node name="TransformableObject" type="Node" parent="Environment/VistaStairB"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.25, 0.25, 0.35, 1)
-alive_color = Color(0.55, 0.82, 1.0, 1)
+alive_color = Color(0.55, 0.82, 1, 1)
 base_reach = 300.0
 max_reach_multiplier = 2.0
 holds_transform = true
@@ -1287,7 +1214,7 @@ color = Color(0.48, 0.72, 0.92, 1)
 [node name="TransformableObject" type="Node" parent="Environment/VistaStairC"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.25, 0.25, 0.35, 1)
-alive_color = Color(0.6, 0.85, 1.0, 1)
+alive_color = Color(0.6, 0.85, 1, 1)
 base_reach = 300.0
 max_reach_multiplier = 2.0
 holds_transform = true
@@ -1309,7 +1236,7 @@ color = Color(0.48, 0.72, 0.92, 1)
 [node name="TransformableObject" type="Node" parent="Environment/VistaStairD"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.25, 0.25, 0.35, 1)
-alive_color = Color(0.6, 0.85, 1.0, 1)
+alive_color = Color(0.6, 0.85, 1, 1)
 base_reach = 300.0
 max_reach_multiplier = 2.0
 holds_transform = true
@@ -1326,12 +1253,12 @@ offset_left = -150.0
 offset_top = -15.0
 offset_right = 150.0
 offset_bottom = 15.0
-color = Color(0.55, 0.82, 1.0, 1)
+color = Color(0.55, 0.82, 1, 1)
 
 [node name="TransformableObject" type="Node" parent="Environment/VistaPeak"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.2, 0.2, 0.3, 1)
-alive_color = Color(0.7, 0.92, 1.0, 1)
+alive_color = Color(0.7, 0.92, 1, 1)
 base_reach = 400.0
 max_reach_multiplier = 2.0
 holds_transform = true
