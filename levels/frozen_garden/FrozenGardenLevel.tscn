@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3]
+[gd_scene load_steps=21 format=3]
 
 [ext_resource type="Script" path="res://levels/frozen_garden/FrozenGardenLevel.gd" id="1_lvlscript"]
 [ext_resource type="PackedScene" uid="uid://bkr1f8qxvn2ej" path="res://entities/player/Player.tscn" id="2_player"]
@@ -10,18 +10,32 @@
 [ext_resource type="AudioStream" uid="uid://bvxlmjo05u1i3" path="res://assets/audio/soft_wind_loop.ogg" id="8_wind"]
 [ext_resource type="Script" path="res://components/TransformationField.gd" id="9_tfield"]
 [ext_resource type="Script" path="res://components/TransformableObject.gd" id="10_tobj"]
+[ext_resource type="Script" path="res://components/FloatingPlatform.gd" id="11_float"]
+[ext_resource type="Script" path="res://components/CrumblingPlatform.gd" id="12_crumble"]
 
-[sub_resource type="RectangleShape2D" id="Shape_floor"]
-size = Vector2(9000, 80)
+[sub_resource type="RectangleShape2D" id="Shape_floor_wide"]
+size = Vector2(2000, 80)
 
-[sub_resource type="RectangleShape2D" id="Shape_wide"]
-size = Vector2(250, 30)
+[sub_resource type="RectangleShape2D" id="Shape_floor_med"]
+size = Vector2(1200, 80)
 
-[sub_resource type="RectangleShape2D" id="Shape_sm"]
+[sub_resource type="RectangleShape2D" id="Shape_floor_sm"]
+size = Vector2(600, 80)
+
+[sub_resource type="RectangleShape2D" id="Shape_plat_wide"]
+size = Vector2(300, 30)
+
+[sub_resource type="RectangleShape2D" id="Shape_plat_med"]
 size = Vector2(200, 30)
 
+[sub_resource type="RectangleShape2D" id="Shape_plat_sm"]
+size = Vector2(140, 30)
+
+[sub_resource type="RectangleShape2D" id="Shape_ghost"]
+size = Vector2(180, 26)
+
 [sub_resource type="RectangleShape2D" id="Shape_zoom_trigger"]
-size = Vector2(1600, 900)
+size = Vector2(2000, 1200)
 
 [node name="FrozenGardenLevel" type="Node2D"]
 script = ExtResource("1_lvlscript")
@@ -45,296 +59,1279 @@ grow_speed = 4.0
 shrink_speed = 2.5
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
-position = Vector2(200, 780)
+position = Vector2(200, 880)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-limit_left = 0
+limit_left = -200
 limit_top = -2000
-limit_right = 5000
+limit_right = 15000
 limit_bottom = 1500
 position_smoothing_enabled = true
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(0.7, 0.7)
 script = ExtResource("4_camera")
 camera_offset = Vector2(0, -280)
 
-[node name="WonderCameraZoom" type="Area2D" parent="."]
-position = Vector2(3200, 700)
+[node name="DebugHUD" parent="." instance=ExtResource("3_debug")]
+
+[node name="BackgroundSprite" type="Sprite2D" parent="."]
+z_index = -100
+position = Vector2(7000, -200)
+texture = ExtResource("6_bg")
+
+[node name="CameraZoom_Arrival" type="Area2D" parent="."]
+position = Vector2(1500, 600)
 collision_layer = 0
 collision_mask = 2
 monitorable = false
 script = ExtResource("5_zoom")
-target_zoom = 0.32
-zoom_duration = 3.5
+target_zoom = 0.6
+zoom_duration = 4.0
 reset_on_exit = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WonderCameraZoom"]
+[node name="Shape" type="CollisionShape2D" parent="CameraZoom_Arrival"]
 shape = SubResource("Shape_zoom_trigger")
 
-[node name="DebugHUD" parent="." instance=ExtResource("3_debug")]
+[node name="CameraZoom_GhostIn" type="Area2D" parent="."]
+position = Vector2(3400, 500)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("5_zoom")
+target_zoom = 0.8
+zoom_duration = 2.0
+reset_on_exit = false
+
+[node name="Shape" type="CollisionShape2D" parent="CameraZoom_GhostIn"]
+shape = SubResource("Shape_zoom_trigger")
+
+[node name="CameraZoom_GhostOut" type="Area2D" parent="."]
+position = Vector2(6400, 500)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("5_zoom")
+target_zoom = 0.5
+zoom_duration = 2.5
+reset_on_exit = false
+
+[node name="Shape" type="CollisionShape2D" parent="CameraZoom_GhostOut"]
+shape = SubResource("Shape_zoom_trigger")
+
+[node name="CameraZoom_Wonder" type="Area2D" parent="."]
+position = Vector2(7500, 500)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("5_zoom")
+target_zoom = 0.3
+zoom_duration = 4.0
+reset_on_exit = false
+
+[node name="Shape" type="CollisionShape2D" parent="CameraZoom_Wonder"]
+shape = SubResource("Shape_zoom_trigger")
 
 [node name="Environment" type="Node2D" parent="."]
 
-[node name="BackgroundSprite" type="Sprite2D" parent="Environment"]
-z_index = -100
-position = Vector2(4500, -100)
-texture = ExtResource("6_bg")
-
-[node name="Floor" type="StaticBody2D" parent="Environment"]
-position = Vector2(4500, 940)
+[node name="Floor1" type="StaticBody2D" parent="Environment"]
+position = Vector2(1000, 940)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Floor"]
-shape = SubResource("Shape_floor")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Floor1"]
+shape = SubResource("Shape_floor_wide")
 
-[node name="Visual" type="ColorRect" parent="Environment/Floor"]
-offset_left = -4500.0
+[node name="Visual" type="ColorRect" parent="Environment/Floor1"]
+offset_left = -1000.0
 offset_top = -40.0
-offset_right = 4500.0
+offset_right = 1000.0
 offset_bottom = 40.0
 color = Color(0.22, 0.24, 0.32, 1)
 
-[node name="PlatformA" type="StaticBody2D" parent="Environment"]
-position = Vector2(500, 755)
+[node name="Floor2" type="StaticBody2D" parent="Environment"]
+position = Vector2(2400, 940)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatformA"]
-shape = SubResource("Shape_wide")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Floor2"]
+shape = SubResource("Shape_floor_med")
 
-[node name="Visual" type="ColorRect" parent="Environment/PlatformA"]
-offset_left = -125.0
+[node name="Visual" type="ColorRect" parent="Environment/Floor2"]
+offset_left = -600.0
+offset_top = -40.0
+offset_right = 600.0
+offset_bottom = 40.0
+color = Color(0.22, 0.24, 0.32, 1)
+
+[node name="StairA" type="StaticBody2D" parent="Environment"]
+position = Vector2(500, 820)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/StairA"]
+shape = SubResource("Shape_plat_wide")
+
+[node name="Visual" type="ColorRect" parent="Environment/StairA"]
+offset_left = -150.0
 offset_top = -15.0
-offset_right = 125.0
+offset_right = 150.0
 offset_bottom = 15.0
 color = Color(0.38, 0.6, 0.78, 1)
 
-[node name="TransformableObject" type="Node" parent="Environment/PlatformA"]
+[node name="TransformableObject" type="Node" parent="Environment/StairA"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.35, 0.35, 0.45, 1)
-alive_color = Color(1.0, 1.0, 1.0, 1)
+alive_color = Color(0.45, 0.75, 0.95, 1)
 base_reach = 130.0
 max_reach_multiplier = 2.8
 holds_transform = true
 
-[node name="PlatformB" type="StaticBody2D" parent="Environment"]
-position = Vector2(850, 625)
+[node name="StairB" type="StaticBody2D" parent="Environment"]
+position = Vector2(800, 730)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatformB"]
-shape = SubResource("Shape_wide")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/StairB"]
+shape = SubResource("Shape_plat_wide")
 
-[node name="Visual" type="ColorRect" parent="Environment/PlatformB"]
-offset_left = -125.0
+[node name="Visual" type="ColorRect" parent="Environment/StairB"]
+offset_left = -150.0
 offset_top = -15.0
-offset_right = 125.0
+offset_right = 150.0
 offset_bottom = 15.0
 color = Color(0.38, 0.6, 0.78, 1)
 
-[node name="TransformableObject" type="Node" parent="Environment/PlatformB"]
+[node name="TransformableObject" type="Node" parent="Environment/StairB"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.35, 0.35, 0.45, 1)
-alive_color = Color(1.0, 1.0, 1.0, 1)
+alive_color = Color(0.45, 0.75, 0.95, 1)
 base_reach = 130.0
 max_reach_multiplier = 2.8
 holds_transform = true
 
-[node name="PlatformC" type="StaticBody2D" parent="Environment"]
-position = Vector2(1200, 670)
+[node name="StairC" type="StaticBody2D" parent="Environment"]
+position = Vector2(1100, 640)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PlatformC"]
-shape = SubResource("Shape_wide")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/StairC"]
+shape = SubResource("Shape_plat_wide")
 
-[node name="Visual" type="ColorRect" parent="Environment/PlatformC"]
-offset_left = -125.0
+[node name="Visual" type="ColorRect" parent="Environment/StairC"]
+offset_left = -150.0
 offset_top = -15.0
-offset_right = 125.0
+offset_right = 150.0
 offset_bottom = 15.0
 color = Color(0.38, 0.6, 0.78, 1)
 
-[node name="TransformableObject" type="Node" parent="Environment/PlatformC"]
+[node name="TransformableObject" type="Node" parent="Environment/StairC"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.35, 0.35, 0.45, 1)
-alive_color = Color(1.0, 1.0, 1.0, 1)
+alive_color = Color(0.45, 0.75, 0.95, 1)
 base_reach = 130.0
 max_reach_multiplier = 2.8
 holds_transform = true
 
-[node name="GhostD" type="StaticBody2D" parent="Environment"]
-position = Vector2(1650, 755)
+[node name="StairD" type="StaticBody2D" parent="Environment"]
+position = Vector2(1400, 540)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/GhostD"]
-shape = SubResource("Shape_sm")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/StairD"]
+shape = SubResource("Shape_plat_wide")
 
-[node name="Visual" type="ColorRect" parent="Environment/GhostD"]
+[node name="Visual" type="ColorRect" parent="Environment/StairD"]
+offset_left = -150.0
+offset_top = -15.0
+offset_right = 150.0
+offset_bottom = 15.0
+color = Color(0.38, 0.6, 0.78, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/StairD"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.35, 0.35, 0.45, 1)
+alive_color = Color(0.45, 0.75, 0.95, 1)
+base_reach = 130.0
+max_reach_multiplier = 2.8
+holds_transform = true
+
+[node name="StairPeak" type="StaticBody2D" parent="Environment"]
+position = Vector2(1700, 440)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/StairPeak"]
+shape = SubResource("Shape_plat_wide")
+
+[node name="Visual" type="ColorRect" parent="Environment/StairPeak"]
+offset_left = -150.0
+offset_top = -15.0
+offset_right = 150.0
+offset_bottom = 15.0
+color = Color(0.42, 0.68, 0.88, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/StairPeak"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.3, 0.3, 0.42, 1)
+alive_color = Color(0.55, 0.85, 1.0, 1)
+base_reach = 150.0
+max_reach_multiplier = 2.8
+holds_transform = true
+
+[node name="DescentA" type="StaticBody2D" parent="Environment"]
+position = Vector2(2000, 550)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/DescentA"]
+shape = SubResource("Shape_plat_med")
+
+[node name="Visual" type="ColorRect" parent="Environment/DescentA"]
 offset_left = -100.0
 offset_top = -15.0
 offset_right = 100.0
 offset_bottom = 15.0
-color = Color(0.68, 0.5, 0.88, 1)
+color = Color(0.38, 0.6, 0.78, 1)
 
-[node name="TransformableObject" type="Node" parent="Environment/GhostD"]
+[node name="TransformableObject" type="Node" parent="Environment/DescentA"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.35, 0.35, 0.45, 1)
-alive_color = Color(1.0, 1.0, 1.0, 1)
+alive_color = Color(0.45, 0.75, 0.95, 1)
+base_reach = 130.0
+max_reach_multiplier = 2.8
+holds_transform = true
+
+[node name="DescentB" type="StaticBody2D" parent="Environment"]
+position = Vector2(2300, 680)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/DescentB"]
+shape = SubResource("Shape_plat_med")
+
+[node name="Visual" type="ColorRect" parent="Environment/DescentB"]
+offset_left = -100.0
+offset_top = -15.0
+offset_right = 100.0
+offset_bottom = 15.0
+color = Color(0.38, 0.6, 0.78, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/DescentB"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.35, 0.35, 0.45, 1)
+alive_color = Color(0.45, 0.75, 0.95, 1)
+base_reach = 130.0
+max_reach_multiplier = 2.8
+holds_transform = true
+
+[node name="PillarL1" type="Node2D" parent="Environment"]
+position = Vector2(350, 820)
+
+[node name="Visual" type="ColorRect" parent="Environment/PillarL1"]
+offset_left = -15.0
+offset_top = -180.0
+offset_right = 15.0
+offset_bottom = 0.0
+color = Color(0.3, 0.5, 0.7, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/PillarL1"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.28, 0.28, 0.38, 1)
+alive_color = Color(0.4, 0.7, 0.9, 1)
 base_reach = 140.0
+max_reach_multiplier = 2.5
+holds_transform = true
+
+[node name="PillarR1" type="Node2D" parent="Environment"]
+position = Vector2(650, 730)
+
+[node name="Visual" type="ColorRect" parent="Environment/PillarR1"]
+offset_left = -15.0
+offset_top = -220.0
+offset_right = 15.0
+offset_bottom = 0.0
+color = Color(0.3, 0.5, 0.7, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/PillarR1"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.28, 0.28, 0.38, 1)
+alive_color = Color(0.4, 0.7, 0.9, 1)
+base_reach = 140.0
+max_reach_multiplier = 2.5
+holds_transform = true
+
+[node name="PillarL2" type="Node2D" parent="Environment"]
+position = Vector2(950, 640)
+
+[node name="Visual" type="ColorRect" parent="Environment/PillarL2"]
+offset_left = -18.0
+offset_top = -260.0
+offset_right = 18.0
+offset_bottom = 0.0
+color = Color(0.32, 0.52, 0.72, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/PillarL2"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.28, 0.28, 0.38, 1)
+alive_color = Color(0.45, 0.72, 0.92, 1)
+base_reach = 160.0
+max_reach_multiplier = 2.5
+holds_transform = true
+
+[node name="PillarR2" type="Node2D" parent="Environment"]
+position = Vector2(1250, 540)
+
+[node name="Visual" type="ColorRect" parent="Environment/PillarR2"]
+offset_left = -18.0
+offset_top = -300.0
+offset_right = 18.0
+offset_bottom = 0.0
+color = Color(0.32, 0.52, 0.72, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/PillarR2"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.28, 0.28, 0.38, 1)
+alive_color = Color(0.45, 0.72, 0.92, 1)
+base_reach = 160.0
+max_reach_multiplier = 2.5
+holds_transform = true
+
+[node name="PillarPeak" type="Node2D" parent="Environment"]
+position = Vector2(1700, 440)
+
+[node name="Visual" type="ColorRect" parent="Environment/PillarPeak"]
+offset_left = -20.0
+offset_top = -350.0
+offset_right = 20.0
+offset_bottom = 0.0
+color = Color(0.35, 0.55, 0.75, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/PillarPeak"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.25, 0.25, 0.35, 1)
+alive_color = Color(0.5, 0.8, 1.0, 1)
+base_reach = 180.0
+max_reach_multiplier = 2.5
+holds_transform = true
+
+[node name="Landmark1_Left" type="Node2D" parent="Environment"]
+position = Vector2(2850, 900)
+
+[node name="Visual" type="ColorRect" parent="Environment/Landmark1_Left"]
+offset_left = -25.0
+offset_top = -500.0
+offset_right = 25.0
+offset_bottom = 0.0
+color = Color(0.4, 0.42, 0.55, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/Landmark1_Left"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.22, 0.22, 0.32, 1)
+alive_color = Color(0.5, 0.65, 0.85, 1)
+base_reach = 200.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="Landmark1_Right" type="Node2D" parent="Environment"]
+position = Vector2(3100, 900)
+
+[node name="Visual" type="ColorRect" parent="Environment/Landmark1_Right"]
+offset_left = -25.0
+offset_top = -500.0
+offset_right = 25.0
+offset_bottom = 0.0
+color = Color(0.4, 0.42, 0.55, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/Landmark1_Right"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.22, 0.22, 0.32, 1)
+alive_color = Color(0.5, 0.65, 0.85, 1)
+base_reach = 200.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="Landmark1_Top" type="Node2D" parent="Environment"]
+position = Vector2(2975, 400)
+
+[node name="Visual" type="ColorRect" parent="Environment/Landmark1_Top"]
+offset_left = -150.0
+offset_top = -20.0
+offset_right = 150.0
+offset_bottom = 20.0
+color = Color(0.4, 0.42, 0.55, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/Landmark1_Top"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.22, 0.22, 0.32, 1)
+alive_color = Color(0.5, 0.65, 0.85, 1)
+base_reach = 200.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="IntroGhost" type="StaticBody2D" parent="Environment"]
+position = Vector2(2975, 800)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/IntroGhost"]
+shape = SubResource("Shape_plat_med")
+
+[node name="Visual" type="ColorRect" parent="Environment/IntroGhost"]
+offset_left = -100.0
+offset_top = -15.0
+offset_right = 100.0
+offset_bottom = 15.0
+color = Color(0.6, 0.45, 0.82, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/IntroGhost"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.35, 0.35, 0.45, 1)
+alive_color = Color(0.7, 0.55, 0.95, 1)
+base_reach = 150.0
+max_reach_multiplier = 3.0
+holds_transform = false
+disable_collision_when_frozen = true
+decay_rate = 1.5
+
+[node name="Ghost01" type="StaticBody2D" parent="Environment"]
+position = Vector2(3500, 650)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ghost01"]
+shape = SubResource("Shape_ghost")
+
+[node name="Visual" type="ColorRect" parent="Environment/Ghost01"]
+offset_left = -90.0
+offset_top = -13.0
+offset_right = 90.0
+offset_bottom = 13.0
+color = Color(0.68, 0.5, 0.88, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/Ghost01"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.35, 0.35, 0.45, 1)
+alive_color = Color(0.75, 0.58, 0.95, 1)
+base_reach = 150.0
 max_reach_multiplier = 3.0
 holds_transform = false
 disable_collision_when_frozen = true
 decay_rate = 1.8
 
-[node name="GhostE" type="StaticBody2D" parent="Environment"]
-position = Vector2(2050, 675)
+[node name="Ghost02" type="StaticBody2D" parent="Environment"]
+position = Vector2(3750, 570)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/GhostE"]
-shape = SubResource("Shape_sm")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ghost02"]
+shape = SubResource("Shape_ghost")
 
-[node name="Visual" type="ColorRect" parent="Environment/GhostE"]
-offset_left = -100.0
-offset_top = -15.0
-offset_right = 100.0
-offset_bottom = 15.0
+[node name="Visual" type="ColorRect" parent="Environment/Ghost02"]
+offset_left = -90.0
+offset_top = -13.0
+offset_right = 90.0
+offset_bottom = 13.0
 color = Color(0.68, 0.5, 0.88, 1)
 
-[node name="TransformableObject" type="Node" parent="Environment/GhostE"]
+[node name="TransformableObject" type="Node" parent="Environment/Ghost02"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.35, 0.35, 0.45, 1)
-alive_color = Color(1.0, 1.0, 1.0, 1)
-base_reach = 140.0
+alive_color = Color(0.75, 0.58, 0.95, 1)
+base_reach = 150.0
+max_reach_multiplier = 3.0
+holds_transform = false
+disable_collision_when_frozen = true
+decay_rate = 1.8
+
+[node name="Ghost03" type="StaticBody2D" parent="Environment"]
+position = Vector2(4000, 650)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ghost03"]
+shape = SubResource("Shape_ghost")
+
+[node name="Visual" type="ColorRect" parent="Environment/Ghost03"]
+offset_left = -90.0
+offset_top = -13.0
+offset_right = 90.0
+offset_bottom = 13.0
+color = Color(0.68, 0.5, 0.88, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/Ghost03"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.35, 0.35, 0.45, 1)
+alive_color = Color(0.75, 0.58, 0.95, 1)
+base_reach = 150.0
+max_reach_multiplier = 3.0
+holds_transform = false
+disable_collision_when_frozen = true
+decay_rate = 1.8
+
+[node name="Ghost04" type="StaticBody2D" parent="Environment"]
+position = Vector2(4250, 560)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ghost04"]
+shape = SubResource("Shape_ghost")
+
+[node name="Visual" type="ColorRect" parent="Environment/Ghost04"]
+offset_left = -90.0
+offset_top = -13.0
+offset_right = 90.0
+offset_bottom = 13.0
+color = Color(0.62, 0.46, 0.84, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/Ghost04"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.32, 0.32, 0.42, 1)
+alive_color = Color(0.72, 0.55, 0.92, 1)
+base_reach = 145.0
+max_reach_multiplier = 3.0
+holds_transform = false
+disable_collision_when_frozen = true
+decay_rate = 2.0
+
+[node name="Ghost05" type="StaticBody2D" parent="Environment"]
+position = Vector2(4500, 640)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ghost05"]
+shape = SubResource("Shape_ghost")
+
+[node name="Visual" type="ColorRect" parent="Environment/Ghost05"]
+offset_left = -90.0
+offset_top = -13.0
+offset_right = 90.0
+offset_bottom = 13.0
+color = Color(0.62, 0.46, 0.84, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/Ghost05"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.32, 0.32, 0.42, 1)
+alive_color = Color(0.72, 0.55, 0.92, 1)
+base_reach = 145.0
 max_reach_multiplier = 3.0
 holds_transform = false
 disable_collision_when_frozen = true
 decay_rate = 2.2
 
-[node name="GhostF" type="StaticBody2D" parent="Environment"]
-position = Vector2(2450, 715)
+[node name="Ghost06" type="StaticBody2D" parent="Environment"]
+position = Vector2(4750, 540)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/GhostF"]
-shape = SubResource("Shape_sm")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ghost06"]
+shape = SubResource("Shape_ghost")
 
-[node name="Visual" type="ColorRect" parent="Environment/GhostF"]
-offset_left = -100.0
-offset_top = -15.0
-offset_right = 100.0
-offset_bottom = 15.0
-color = Color(0.68, 0.5, 0.88, 1)
+[node name="Visual" type="ColorRect" parent="Environment/Ghost06"]
+offset_left = -90.0
+offset_top = -13.0
+offset_right = 90.0
+offset_bottom = 13.0
+color = Color(0.62, 0.46, 0.84, 1)
 
-[node name="TransformableObject" type="Node" parent="Environment/GhostF"]
+[node name="TransformableObject" type="Node" parent="Environment/Ghost06"]
 script = ExtResource("10_tobj")
-frozen_color = Color(0.35, 0.35, 0.45, 1)
-alive_color = Color(1.0, 1.0, 1.0, 1)
+frozen_color = Color(0.32, 0.32, 0.42, 1)
+alive_color = Color(0.72, 0.55, 0.92, 1)
+base_reach = 145.0
+max_reach_multiplier = 3.0
+holds_transform = false
+disable_collision_when_frozen = true
+decay_rate = 2.2
+
+[node name="Ghost07" type="StaticBody2D" parent="Environment"]
+position = Vector2(5000, 620)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ghost07"]
+shape = SubResource("Shape_ghost")
+
+[node name="Visual" type="ColorRect" parent="Environment/Ghost07"]
+offset_left = -90.0
+offset_top = -13.0
+offset_right = 90.0
+offset_bottom = 13.0
+color = Color(0.58, 0.42, 0.82, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/Ghost07"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.3, 0.3, 0.4, 1)
+alive_color = Color(0.7, 0.52, 0.9, 1)
 base_reach = 140.0
+max_reach_multiplier = 3.0
+holds_transform = false
+disable_collision_when_frozen = true
+decay_rate = 2.4
+
+[node name="Ghost08" type="StaticBody2D" parent="Environment"]
+position = Vector2(5250, 520)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ghost08"]
+shape = SubResource("Shape_ghost")
+
+[node name="Visual" type="ColorRect" parent="Environment/Ghost08"]
+offset_left = -90.0
+offset_top = -13.0
+offset_right = 90.0
+offset_bottom = 13.0
+color = Color(0.58, 0.42, 0.82, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/Ghost08"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.3, 0.3, 0.4, 1)
+alive_color = Color(0.7, 0.52, 0.9, 1)
+base_reach = 140.0
+max_reach_multiplier = 3.0
+holds_transform = false
+disable_collision_when_frozen = true
+decay_rate = 2.5
+
+[node name="Ghost09" type="StaticBody2D" parent="Environment"]
+position = Vector2(5500, 600)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ghost09"]
+shape = SubResource("Shape_ghost")
+
+[node name="Visual" type="ColorRect" parent="Environment/Ghost09"]
+offset_left = -90.0
+offset_top = -13.0
+offset_right = 90.0
+offset_bottom = 13.0
+color = Color(0.55, 0.4, 0.8, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/Ghost09"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.28, 0.28, 0.38, 1)
+alive_color = Color(0.68, 0.5, 0.88, 1)
+base_reach = 135.0
+max_reach_multiplier = 3.0
+holds_transform = false
+disable_collision_when_frozen = true
+decay_rate = 2.6
+
+[node name="Ghost10" type="StaticBody2D" parent="Environment"]
+position = Vector2(5750, 500)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ghost10"]
+shape = SubResource("Shape_ghost")
+
+[node name="Visual" type="ColorRect" parent="Environment/Ghost10"]
+offset_left = -90.0
+offset_top = -13.0
+offset_right = 90.0
+offset_bottom = 13.0
+color = Color(0.55, 0.4, 0.8, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/Ghost10"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.28, 0.28, 0.38, 1)
+alive_color = Color(0.68, 0.5, 0.88, 1)
+base_reach = 135.0
 max_reach_multiplier = 3.0
 holds_transform = false
 disable_collision_when_frozen = true
 decay_rate = 2.8
 
-[node name="WonderObj1" type="Node2D" parent="Environment"]
-position = Vector2(2950, 800)
+[node name="Ghost11" type="StaticBody2D" parent="Environment"]
+position = Vector2(6000, 580)
+collision_mask = 0
 
-[node name="Visual" type="ColorRect" parent="Environment/WonderObj1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ghost11"]
+shape = SubResource("Shape_ghost")
+
+[node name="Visual" type="ColorRect" parent="Environment/Ghost11"]
+offset_left = -90.0
+offset_top = -13.0
+offset_right = 90.0
+offset_bottom = 13.0
+color = Color(0.52, 0.38, 0.78, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/Ghost11"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.26, 0.26, 0.36, 1)
+alive_color = Color(0.65, 0.48, 0.85, 1)
+base_reach = 130.0
+max_reach_multiplier = 3.0
+holds_transform = false
+disable_collision_when_frozen = true
+decay_rate = 3.0
+
+[node name="Ghost12" type="StaticBody2D" parent="Environment"]
+position = Vector2(6200, 500)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ghost12"]
+shape = SubResource("Shape_ghost")
+
+[node name="Visual" type="ColorRect" parent="Environment/Ghost12"]
+offset_left = -90.0
+offset_top = -13.0
+offset_right = 90.0
+offset_bottom = 13.0
+color = Color(0.52, 0.38, 0.78, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/Ghost12"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.26, 0.26, 0.36, 1)
+alive_color = Color(0.65, 0.48, 0.85, 1)
+base_reach = 130.0
+max_reach_multiplier = 3.0
+holds_transform = false
+disable_collision_when_frozen = true
+decay_rate = 3.0
+
+[node name="Landmark2_Landing" type="StaticBody2D" parent="Environment"]
+position = Vector2(6500, 550)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Landmark2_Landing"]
+shape = SubResource("Shape_plat_wide")
+
+[node name="Visual" type="ColorRect" parent="Environment/Landmark2_Landing"]
+offset_left = -150.0
+offset_top = -15.0
+offset_right = 150.0
+offset_bottom = 15.0
+color = Color(0.4, 0.42, 0.55, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/Landmark2_Landing"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.22, 0.22, 0.32, 1)
+alive_color = Color(0.55, 0.7, 0.9, 1)
+base_reach = 200.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="Landmark2_Pillar" type="Node2D" parent="Environment"]
+position = Vector2(6500, 550)
+
+[node name="Visual" type="ColorRect" parent="Environment/Landmark2_Pillar"]
+offset_left = -22.0
+offset_top = -450.0
+offset_right = 22.0
+offset_bottom = 0.0
+color = Color(0.4, 0.42, 0.55, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/Landmark2_Pillar"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.22, 0.22, 0.32, 1)
+alive_color = Color(0.55, 0.7, 0.9, 1)
+base_reach = 250.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="Floor3" type="StaticBody2D" parent="Environment"]
+position = Vector2(7000, 940)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Floor3"]
+shape = SubResource("Shape_floor_med")
+
+[node name="Visual" type="ColorRect" parent="Environment/Floor3"]
+offset_left = -600.0
+offset_top = -40.0
+offset_right = 600.0
+offset_bottom = 40.0
+color = Color(0.22, 0.24, 0.32, 1)
+
+[node name="Floor4" type="StaticBody2D" parent="Environment"]
+position = Vector2(8600, 940)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Floor4"]
+shape = SubResource("Shape_floor_med")
+
+[node name="Visual" type="ColorRect" parent="Environment/Floor4"]
+offset_left = -600.0
+offset_top = -40.0
+offset_right = 600.0
+offset_bottom = 40.0
+color = Color(0.22, 0.24, 0.32, 1)
+
+[node name="Floor5" type="StaticBody2D" parent="Environment"]
+position = Vector2(10200, 940)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Floor5"]
+shape = SubResource("Shape_floor_med")
+
+[node name="Visual" type="ColorRect" parent="Environment/Floor5"]
+offset_left = -600.0
+offset_top = -40.0
+offset_right = 600.0
+offset_bottom = 40.0
+color = Color(0.22, 0.24, 0.32, 1)
+
+[node name="WObj01" type="Node2D" parent="Environment"]
+position = Vector2(6800, 850)
+
+[node name="Visual" type="ColorRect" parent="Environment/WObj01"]
 offset_left = -40.0
 offset_top = -80.0
 offset_right = 40.0
 offset_bottom = 0.0
 color = Color(1.0, 0.85, 0.3, 1)
 
-[node name="TransformableObject" type="Node" parent="Environment/WonderObj1"]
+[node name="TransformableObject" type="Node" parent="Environment/WObj01"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.18, 0.18, 0.26, 1)
-alive_color = Color(1.0, 1.0, 1.0, 1)
+alive_color = Color(1.0, 0.92, 0.5, 1)
 base_reach = 500.0
 max_reach_multiplier = 2.0
 holds_transform = true
 
-[node name="WonderObj2" type="Node2D" parent="Environment"]
-position = Vector2(3200, 660)
+[node name="WObj02" type="Node2D" parent="Environment"]
+position = Vector2(7100, 700)
 
-[node name="Visual" type="ColorRect" parent="Environment/WonderObj2"]
+[node name="Visual" type="ColorRect" parent="Environment/WObj02"]
 offset_left = -50.0
-offset_top = -100.0
+offset_top = -160.0
 offset_right = 50.0
 offset_bottom = 0.0
 color = Color(0.35, 0.88, 0.62, 1)
 
-[node name="TransformableObject" type="Node" parent="Environment/WonderObj2"]
+[node name="TransformableObject" type="Node" parent="Environment/WObj02"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.18, 0.18, 0.26, 1)
-alive_color = Color(1.0, 1.0, 1.0, 1)
+alive_color = Color(0.5, 0.95, 0.72, 1)
 base_reach = 500.0
 max_reach_multiplier = 2.0
 holds_transform = true
 
-[node name="WonderObj3" type="Node2D" parent="Environment"]
-position = Vector2(3500, 750)
+[node name="WObj03" type="Node2D" parent="Environment"]
+position = Vector2(7350, 880)
 
-[node name="Visual" type="ColorRect" parent="Environment/WonderObj3"]
+[node name="Visual" type="ColorRect" parent="Environment/WObj03"]
 offset_left = -35.0
-offset_top = -140.0
+offset_top = -100.0
 offset_right = 35.0
 offset_bottom = 0.0
 color = Color(0.9, 0.4, 0.48, 1)
 
-[node name="TransformableObject" type="Node" parent="Environment/WonderObj3"]
+[node name="TransformableObject" type="Node" parent="Environment/WObj03"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.18, 0.18, 0.26, 1)
-alive_color = Color(1.0, 1.0, 1.0, 1)
+alive_color = Color(1.0, 0.55, 0.6, 1)
 base_reach = 500.0
 max_reach_multiplier = 2.0
 holds_transform = true
 
-[node name="WonderObj4" type="Node2D" parent="Environment"]
-position = Vector2(3800, 620)
+[node name="WObj04" type="Node2D" parent="Environment"]
+position = Vector2(7600, 600)
 
-[node name="Visual" type="ColorRect" parent="Environment/WonderObj4"]
+[node name="Visual" type="ColorRect" parent="Environment/WObj04"]
 offset_left = -60.0
-offset_top = -120.0
+offset_top = -220.0
 offset_right = 60.0
 offset_bottom = 0.0
 color = Color(0.45, 0.58, 1.0, 1)
 
-[node name="TransformableObject" type="Node" parent="Environment/WonderObj4"]
+[node name="TransformableObject" type="Node" parent="Environment/WObj04"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.18, 0.18, 0.26, 1)
-alive_color = Color(1.0, 1.0, 1.0, 1)
+alive_color = Color(0.6, 0.72, 1.0, 1)
 base_reach = 500.0
 max_reach_multiplier = 2.0
 holds_transform = true
 
-[node name="WonderObj5" type="Node2D" parent="Environment"]
-position = Vector2(4100, 700)
+[node name="WObj05" type="Node2D" parent="Environment"]
+position = Vector2(7850, 820)
 
-[node name="Visual" type="ColorRect" parent="Environment/WonderObj5"]
+[node name="Visual" type="ColorRect" parent="Environment/WObj05"]
 offset_left = -45.0
-offset_top = -90.0
+offset_top = -130.0
 offset_right = 45.0
 offset_bottom = 0.0
 color = Color(1.0, 0.68, 0.28, 1)
 
-[node name="TransformableObject" type="Node" parent="Environment/WonderObj5"]
+[node name="TransformableObject" type="Node" parent="Environment/WObj05"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.18, 0.18, 0.26, 1)
-alive_color = Color(1.0, 1.0, 1.0, 1)
+alive_color = Color(1.0, 0.78, 0.4, 1)
 base_reach = 500.0
 max_reach_multiplier = 2.0
 holds_transform = true
 
-[node name="WonderObj6" type="Node2D" parent="Environment"]
-position = Vector2(4400, 780)
+[node name="WObj06" type="Node2D" parent="Environment"]
+position = Vector2(8100, 500)
 
-[node name="Visual" type="ColorRect" parent="Environment/WonderObj6"]
+[node name="Visual" type="ColorRect" parent="Environment/WObj06"]
 offset_left = -55.0
-offset_top = -110.0
+offset_top = -280.0
 offset_right = 55.0
 offset_bottom = 0.0
 color = Color(0.65, 0.92, 0.36, 1)
 
-[node name="TransformableObject" type="Node" parent="Environment/WonderObj6"]
+[node name="TransformableObject" type="Node" parent="Environment/WObj06"]
 script = ExtResource("10_tobj")
 frozen_color = Color(0.18, 0.18, 0.26, 1)
-alive_color = Color(1.0, 1.0, 1.0, 1)
+alive_color = Color(0.75, 0.98, 0.5, 1)
 base_reach = 500.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="WObj07" type="Node2D" parent="Environment"]
+position = Vector2(8350, 860)
+
+[node name="Visual" type="ColorRect" parent="Environment/WObj07"]
+offset_left = -38.0
+offset_top = -90.0
+offset_right = 38.0
+offset_bottom = 0.0
+color = Color(0.92, 0.55, 0.85, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/WObj07"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.18, 0.18, 0.26, 1)
+alive_color = Color(1.0, 0.68, 0.92, 1)
+base_reach = 500.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="WObj08" type="Node2D" parent="Environment"]
+position = Vector2(8550, 650)
+
+[node name="Visual" type="ColorRect" parent="Environment/WObj08"]
+offset_left = -48.0
+offset_top = -200.0
+offset_right = 48.0
+offset_bottom = 0.0
+color = Color(0.4, 0.85, 0.9, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/WObj08"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.18, 0.18, 0.26, 1)
+alive_color = Color(0.55, 0.92, 0.95, 1)
+base_reach = 500.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="WObj09" type="Node2D" parent="Environment"]
+position = Vector2(8800, 780)
+
+[node name="Visual" type="ColorRect" parent="Environment/WObj09"]
+offset_left = -42.0
+offset_top = -120.0
+offset_right = 42.0
+offset_bottom = 0.0
+color = Color(1.0, 0.45, 0.35, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/WObj09"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.18, 0.18, 0.26, 1)
+alive_color = Color(1.0, 0.6, 0.5, 1)
+base_reach = 500.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="WObj10" type="Node2D" parent="Environment"]
+position = Vector2(9050, 550)
+
+[node name="Visual" type="ColorRect" parent="Environment/WObj10"]
+offset_left = -65.0
+offset_top = -300.0
+offset_right = 65.0
+offset_bottom = 0.0
+color = Color(0.3, 0.7, 0.45, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/WObj10"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.18, 0.18, 0.26, 1)
+alive_color = Color(0.45, 0.85, 0.6, 1)
+base_reach = 500.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="WObj11" type="Node2D" parent="Environment"]
+position = Vector2(9300, 870)
+
+[node name="Visual" type="ColorRect" parent="Environment/WObj11"]
+offset_left = -35.0
+offset_top = -70.0
+offset_right = 35.0
+offset_bottom = 0.0
+color = Color(0.85, 0.75, 0.3, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/WObj11"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.18, 0.18, 0.26, 1)
+alive_color = Color(0.95, 0.88, 0.45, 1)
+base_reach = 500.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="WObj12" type="Node2D" parent="Environment"]
+position = Vector2(9500, 680)
+
+[node name="Visual" type="ColorRect" parent="Environment/WObj12"]
+offset_left = -52.0
+offset_top = -180.0
+offset_right = 52.0
+offset_bottom = 0.0
+color = Color(0.7, 0.4, 0.9, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/WObj12"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.18, 0.18, 0.26, 1)
+alive_color = Color(0.8, 0.55, 0.98, 1)
+base_reach = 500.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="WObj13" type="Node2D" parent="Environment"]
+position = Vector2(9750, 840)
+
+[node name="Visual" type="ColorRect" parent="Environment/WObj13"]
+offset_left = -40.0
+offset_top = -100.0
+offset_right = 40.0
+offset_bottom = 0.0
+color = Color(0.95, 0.6, 0.3, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/WObj13"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.18, 0.18, 0.26, 1)
+alive_color = Color(1.0, 0.72, 0.42, 1)
+base_reach = 500.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="WObj14" type="Node2D" parent="Environment"]
+position = Vector2(9950, 450)
+
+[node name="Visual" type="ColorRect" parent="Environment/WObj14"]
+offset_left = -70.0
+offset_top = -350.0
+offset_right = 70.0
+offset_bottom = 0.0
+color = Color(0.3, 0.6, 0.95, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/WObj14"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.18, 0.18, 0.26, 1)
+alive_color = Color(0.45, 0.72, 1.0, 1)
+base_reach = 500.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="WObj15" type="Node2D" parent="Environment"]
+position = Vector2(10200, 750)
+
+[node name="Visual" type="ColorRect" parent="Environment/WObj15"]
+offset_left = -58.0
+offset_top = -150.0
+offset_right = 58.0
+offset_bottom = 0.0
+color = Color(0.48, 0.88, 0.48, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/WObj15"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.18, 0.18, 0.26, 1)
+alive_color = Color(0.6, 0.95, 0.6, 1)
+base_reach = 500.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="WObj16" type="Node2D" parent="Environment"]
+position = Vector2(10450, 600)
+
+[node name="Visual" type="ColorRect" parent="Environment/WObj16"]
+offset_left = -45.0
+offset_top = -240.0
+offset_right = 45.0
+offset_bottom = 0.0
+color = Color(0.88, 0.35, 0.55, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/WObj16"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.18, 0.18, 0.26, 1)
+alive_color = Color(0.95, 0.5, 0.68, 1)
+base_reach = 500.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="WObj17" type="Node2D" parent="Environment"]
+position = Vector2(10700, 870)
+
+[node name="Visual" type="ColorRect" parent="Environment/WObj17"]
+offset_left = -32.0
+offset_top = -60.0
+offset_right = 32.0
+offset_bottom = 0.0
+color = Color(0.6, 0.82, 0.35, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/WObj17"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.18, 0.18, 0.26, 1)
+alive_color = Color(0.72, 0.92, 0.48, 1)
+base_reach = 500.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="Floor_Epilogue" type="StaticBody2D" parent="Environment"]
+position = Vector2(11500, 940)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Floor_Epilogue"]
+shape = SubResource("Shape_floor_wide")
+
+[node name="Visual" type="ColorRect" parent="Environment/Floor_Epilogue"]
+offset_left = -1000.0
+offset_top = -40.0
+offset_right = 1000.0
+offset_bottom = 40.0
+color = Color(0.22, 0.24, 0.32, 1)
+
+[node name="EpilogueObj1" type="Node2D" parent="Environment"]
+position = Vector2(11200, 800)
+
+[node name="Visual" type="ColorRect" parent="Environment/EpilogueObj1"]
+offset_left = -30.0
+offset_top = -120.0
+offset_right = 30.0
+offset_bottom = 0.0
+color = Color(0.45, 0.82, 0.65, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/EpilogueObj1"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.18, 0.18, 0.26, 1)
+alive_color = Color(0.55, 0.92, 0.75, 1)
+base_reach = 600.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="EpilogueObj2" type="Node2D" parent="Environment"]
+position = Vector2(11600, 700)
+
+[node name="Visual" type="ColorRect" parent="Environment/EpilogueObj2"]
+offset_left = -40.0
+offset_top = -200.0
+offset_right = 40.0
+offset_bottom = 0.0
+color = Color(0.82, 0.65, 0.3, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/EpilogueObj2"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.18, 0.18, 0.26, 1)
+alive_color = Color(0.92, 0.78, 0.45, 1)
+base_reach = 600.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="EpilogueObj3" type="Node2D" parent="Environment"]
+position = Vector2(12000, 850)
+
+[node name="Visual" type="ColorRect" parent="Environment/EpilogueObj3"]
+offset_left = -35.0
+offset_top = -100.0
+offset_right = 35.0
+offset_bottom = 0.0
+color = Color(0.55, 0.4, 0.85, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/EpilogueObj3"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.18, 0.18, 0.26, 1)
+alive_color = Color(0.68, 0.55, 0.95, 1)
+base_reach = 600.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="VistaStairA" type="StaticBody2D" parent="Environment"]
+position = Vector2(12400, 800)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/VistaStairA"]
+shape = SubResource("Shape_plat_med")
+
+[node name="Visual" type="ColorRect" parent="Environment/VistaStairA"]
+offset_left = -100.0
+offset_top = -15.0
+offset_right = 100.0
+offset_bottom = 15.0
+color = Color(0.42, 0.68, 0.88, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/VistaStairA"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.25, 0.25, 0.35, 1)
+alive_color = Color(0.55, 0.82, 1.0, 1)
+base_reach = 300.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="VistaStairB" type="StaticBody2D" parent="Environment"]
+position = Vector2(12700, 680)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/VistaStairB"]
+shape = SubResource("Shape_plat_med")
+
+[node name="Visual" type="ColorRect" parent="Environment/VistaStairB"]
+offset_left = -100.0
+offset_top = -15.0
+offset_right = 100.0
+offset_bottom = 15.0
+color = Color(0.42, 0.68, 0.88, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/VistaStairB"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.25, 0.25, 0.35, 1)
+alive_color = Color(0.55, 0.82, 1.0, 1)
+base_reach = 300.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="VistaStairC" type="StaticBody2D" parent="Environment"]
+position = Vector2(13000, 560)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/VistaStairC"]
+shape = SubResource("Shape_plat_med")
+
+[node name="Visual" type="ColorRect" parent="Environment/VistaStairC"]
+offset_left = -100.0
+offset_top = -15.0
+offset_right = 100.0
+offset_bottom = 15.0
+color = Color(0.48, 0.72, 0.92, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/VistaStairC"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.25, 0.25, 0.35, 1)
+alive_color = Color(0.6, 0.85, 1.0, 1)
+base_reach = 300.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="VistaStairD" type="StaticBody2D" parent="Environment"]
+position = Vector2(13300, 440)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/VistaStairD"]
+shape = SubResource("Shape_plat_med")
+
+[node name="Visual" type="ColorRect" parent="Environment/VistaStairD"]
+offset_left = -100.0
+offset_top = -15.0
+offset_right = 100.0
+offset_bottom = 15.0
+color = Color(0.48, 0.72, 0.92, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/VistaStairD"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.25, 0.25, 0.35, 1)
+alive_color = Color(0.6, 0.85, 1.0, 1)
+base_reach = 300.0
+max_reach_multiplier = 2.0
+holds_transform = true
+
+[node name="VistaPeak" type="StaticBody2D" parent="Environment"]
+position = Vector2(13600, 300)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/VistaPeak"]
+shape = SubResource("Shape_plat_wide")
+
+[node name="Visual" type="ColorRect" parent="Environment/VistaPeak"]
+offset_left = -150.0
+offset_top = -15.0
+offset_right = 150.0
+offset_bottom = 15.0
+color = Color(0.55, 0.82, 1.0, 1)
+
+[node name="TransformableObject" type="Node" parent="Environment/VistaPeak"]
+script = ExtResource("10_tobj")
+frozen_color = Color(0.2, 0.2, 0.3, 1)
+alive_color = Color(0.7, 0.92, 1.0, 1)
+base_reach = 400.0
 max_reach_multiplier = 2.0
 holds_transform = true
