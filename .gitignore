@@ -1,0 +1,11 @@
+# Godot
+.godot/
+*.tmp
+*.log
+
+# Claude Code internals
+.claude/plugins/
+.claude/worktrees/
+.claude/projects/
+.claude/plans/
+.claude/memory/
