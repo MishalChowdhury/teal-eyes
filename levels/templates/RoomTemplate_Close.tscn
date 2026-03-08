@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://b12wn16esd0hs"]
+
+[ext_resource type="Script" uid="uid://cd0sa4d78dgxm" path="res://levels/Room.gd" id="1_roomscript"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_phantom"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_tween"]
+
+[sub_resource type="Resource" id="Resource_tween_close"]
+script = ExtResource("3_tween")
+duration = 1.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tteyw"]
+size = Vector2(12.79, 0.5050001)
+
+[node name="RoomTemplate_Close" type="Node2D"]
+script = ExtResource("1_roomscript")
+room_id = "template_close"
+default_camera_zoom = 1.2
+room_bounds = Vector2(2560, 2160)
+
+[node name="PhantomCamera2D" type="Node2D" parent="."]
+top_level = true
+position = Vector2(1280, -450)
+script = ExtResource("2_phantom")
+follow_mode = 2
+zoom = Vector2(1.2, 1.2)
+tween_resource = SubResource("Resource_tween_close")
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="BackgroundPlaceholder" type="ColorRect" parent="Environment"]
+offset_left = 6.0
+offset_top = -1739.0
+offset_right = 2566.0
+offset_bottom = 61.0
+color = Color(0.25, 0.3, 0.35, 1)
+
+[node name="Floor" type="StaticBody2D" parent="Environment"]
+position = Vector2(1280, 0)
+collision_mask = 0
+
+[node name="VisibleFloor" type="ColorRect" parent="Environment/Floor"]
+offset_left = -1280.0
+offset_top = -50.0
+offset_right = 1280.0
+offset_bottom = 50.0
+color = Color(0.2, 0.4, 0.8, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Floor"]
+position = Vector2(-3, 0)
+scale = Vector2(200, 200)
+shape = SubResource("RectangleShape2D_tteyw")

@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://rje3brtprgyg"]
+
+[ext_resource type="PackedScene" uid="uid://bkr1f8qxvn2ej" path="res://entities/player/Player.tscn" id="1_player"]
+[ext_resource type="Texture2D" uid="uid://cxeybpt1vveo0" path="res://assets/art/environment/parallax/background.png" id="2_bg"]
+[ext_resource type="Texture2D" uid="uid://b5txjs33omnc3" path="res://assets/art/environment/parallax/floor.png" id="3_floor"]
+
+[sub_resource type="RectangleShape2D" id="floor_collision"]
+size = Vector2(2560, 100)
+
+[node name="TestTemplateClose" type="Node2D"]
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="Background" type="Sprite2D" parent="Environment"]
+texture = ExtResource("2_bg")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 2560, 2160)
+
+[node name="Floor" type="StaticBody2D" parent="Environment"]
+position = Vector2(1280, 0)
+collision_mask = 0
+
+[node name="FloorSprite" type="Sprite2D" parent="Environment/Floor"]
+texture = ExtResource("3_floor")
+centered = false
+offset = Vector2(-1280, 0)
+region_enabled = true
+region_rect = Rect2(0, 0, 2560, 2160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Floor"]
+position = Vector2(8, 1698)
+shape = SubResource("floor_collision")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(1280, -100)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+offset = Vector2(0, -300)
+zoom = Vector2(1.2, 1.2)

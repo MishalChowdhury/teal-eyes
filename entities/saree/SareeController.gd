@@ -15,8 +15,8 @@ class_name SareeController
 @onready var solver: VerletSolver = $VerletSolver
 @onready var visual: Line2D = $SareeVisual
 
-# Reference to the player's anchor point
-var anchor: Marker2D = null
+# Reference to the player's anchor point (Marker2D in old Player.tscn, RemoteTransform2D in new PlayerRig)
+var anchor: Node2D = null
 
 func _ready() -> void:
 	# Configure Line2D for smooth, premium visual appearance (v2.0)
@@ -30,13 +30,20 @@ func _ready() -> void:
 	visual.top_level = true
 	
 	# Find the SareeAnchor on the player
-	anchor = owner.get_node_or_null("Visuals/SareeAnchor") if owner else null
-	if anchor == null:
-		push_error("SareeController: Could not find SareeAnchor in Player/Visuals")
-		if owner:
+	# Support both old Player.tscn (Visuals/SareeAnchor) and new PlayerRig.tscn (skeleton hierarchy)
+	if owner:
+		# Try new skeletal rig location first
+		anchor = owner.find_child("SareeAnchor", true, false)
+		
+		# Fallback to old location
+		if anchor == null:
+			anchor = owner.get_node_or_null("Visuals/SareeAnchor")
+		
+		if anchor == null:
+			push_warning("SareeController: Could not find SareeAnchor. Falling back to owner root.")
 			anchor = owner  # Fallback to player root
-		else:
-			return  # No owner in editor, skip initialization
+	else:
+		return  # No owner in editor, skip initialization
 	
 	# Initialize the saree simulation
 	_reinitialize_saree()

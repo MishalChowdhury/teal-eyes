@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://cpdug0jewsybf"]
+
+[ext_resource type="PackedScene" uid="uid://cu44mljsstmjm" path="res://levels/templates/RoomTemplate_Far.tscn" id="1_xmq0u"]
+[ext_resource type="PackedScene" uid="uid://b8c5pcejxyouw" path="res://levels/templates/RoomTemplate_Mid.tscn" id="2_afyck"]
+[ext_resource type="PackedScene" uid="uid://b12wn16esd0hs" path="res://levels/templates/RoomTemplate_Close.tscn" id="3_sfkli"]
+[ext_resource type="PackedScene" uid="uid://jjqy43gu2dwd" path="res://levels/templates/RoomTemplate_Intimate.tscn" id="4_sg4yv"]
+[ext_resource type="PackedScene" uid="uid://bkr1f8qxvn2ej" path="res://entities/player/Player.tscn" id="5_xducw"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_b0r1y"]
+[ext_resource type="Script" uid="uid://crm86e0shpb1a" path="res://levels/acts/act_01/level_01/Level01.gd" id="6_level_script"]
+[ext_resource type="Script" uid="uid://lfoorw5dyjua" path="res://scripts/debug/CameraDebug.gd" id="8_debug"]
+
+[node name="Level01" type="Node2D"]
+script = ExtResource("6_level_script")
+
+[node name="Rooms" type="Node2D" parent="."]
+
+[node name="Room01_Epic" parent="Rooms" instance=ExtResource("1_xmq0u")]
+
+[node name="Room02_Platform" parent="Rooms" instance=ExtResource("2_afyck")]
+position = Vector2(7680, 0)
+
+[node name="Room03_Puzzle" parent="Rooms" instance=ExtResource("3_sfkli")]
+position = Vector2(11520, 0)
+
+[node name="Room04_Emotional" parent="Rooms" instance=ExtResource("4_sg4yv")]
+position = Vector2(13440, 0)
+
+[node name="Player" parent="." instance=ExtResource("5_xducw")]
+position = Vector2(4335, -1392)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(-3375, 1032)
+zoom = Vector2(0.3, 0.3)
+
+[node name="PhantomCameraHost" type="Node" parent="Player/Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("6_b0r1y")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="DebugUI" type="CanvasLayer" parent="."]
+
+[node name="CameraDebug" type="Label" parent="DebugUI"]
+offset_right = 400.0
+offset_bottom = 400.0
+script = ExtResource("8_debug")

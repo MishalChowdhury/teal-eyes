@@ -1,4 +1,12 @@
 CollisionShape2D
-Area2D
-Camera2D
+Sprite2D
 StaticBody2D
+Node2D
+Polygon2D
+Area2D
+PhantomCamera2D
+Node
+AnimationPlayer
+Bone2D
+Skeleton2D
+Camera2D

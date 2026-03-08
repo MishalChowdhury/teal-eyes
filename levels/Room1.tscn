@@ -1,16 +1,21 @@
-[gd_scene load_steps=8 format=3 uid="uid://bdt4sgcfcbadq"]
+[gd_scene load_steps=13 format=3 uid="uid://bdt4sgcfcbadq"]
 
 [ext_resource type="Script" uid="uid://cd0sa4d78dgxm" path="res://levels/Room.gd" id="1_roomscript"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_phantom"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_l3vn3"]
 [ext_resource type="Script" uid="uid://crra7opej6q7t" path="res://components/RoomTransitionTrigger.gd" id="4_crhsf"]
+[ext_resource type="Texture2D" uid="uid://cxeybpt1vveo0" path="res://assets/art/environment/parallax/background.png" id="5_background"]
+[ext_resource type="Texture2D" uid="uid://b5txjs33omnc3" path="res://assets/art/environment/parallax/floor.png" id="6_floor"]
+[ext_resource type="Texture2D" uid="uid://haooa0rs01pa" path="res://assets/art/environment/parallax/middleground_detail.png" id="7_middleground_detail"]
+[ext_resource type="Texture2D" uid="uid://dniyhdamm1lff" path="res://assets/art/environment/parallax/middleground_pillars.png" id="8_middleground_pillars"]
+[ext_resource type="Texture2D" uid="uid://dvcn7fcisd2ve" path="res://assets/art/environment/parallax/foreground.png" id="9_foreground"]
 
 [sub_resource type="Resource" id="Resource_crhsf"]
 script = ExtResource("3_l3vn3")
 duration = 1.5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
-size = Vector2(2000, 100)
+size = Vector2(9886, 107)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y277q"]
 size = Vector2(200, 1080)
@@ -30,6 +35,54 @@ follow_mode = 5
 zoom = Vector2(0.45, 0.45)
 tween_resource = SubResource("Resource_crhsf")
 
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="BackgroundLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.1, 0.05)
+
+[node name="BackgroundSprite" type="Sprite2D" parent="ParallaxBackground/BackgroundLayer"]
+z_index = -100
+texture = ExtResource("5_background")
+centered = false
+offset = Vector2(-1920, -540)
+
+[node name="FloorLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.95, 1)
+
+[node name="FloorSprite" type="Sprite2D" parent="ParallaxBackground/FloorLayer"]
+z_index = -50
+position = Vector2(-5, -946)
+texture = ExtResource("6_floor")
+centered = false
+offset = Vector2(-1920, 400)
+
+[node name="MiddlegroundDetailLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.6, 0.4)
+
+[node name="MiddlegroundDetailSprite" type="Sprite2D" parent="ParallaxBackground/MiddlegroundDetailLayer"]
+z_index = -30
+texture = ExtResource("7_middleground_detail")
+centered = false
+offset = Vector2(-1920, -540)
+
+[node name="MiddlegroundRuinsLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.8, 0.6)
+
+[node name="MiddlegroundRuinsSprite" type="Sprite2D" parent="ParallaxBackground/MiddlegroundRuinsLayer"]
+z_index = -20
+texture = ExtResource("9_foreground")
+centered = false
+offset = Vector2(-1920, -540)
+
+[node name="ForegroundPillarsLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(1.3, 1)
+
+[node name="ForegroundPillarsSprite" type="Sprite2D" parent="ParallaxBackground/ForegroundPillarsLayer"]
+z_index = 50
+texture = ExtResource("8_middleground_pillars")
+centered = false
+offset = Vector2(-1920, -540)
+
 [node name="Environment" type="Node2D" parent="."]
 
 [node name="Floor" type="StaticBody2D" parent="Environment"]
@@ -37,23 +90,15 @@ position = Vector2(1000, 900)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Floor"]
+position = Vector2(2032, 296)
 shape = SubResource("RectangleShape2D_floor")
-
-[node name="VisibleFloor" type="ColorRect" parent="Environment/Floor"]
-offset_left = -1000.0
-offset_top = -50.0
-offset_right = 1000.0
-offset_bottom = 50.0
-color = Color(0.57149756, 0.07716941, 0.10840266, 1)
 
 [node name="RoomTransitionTrigger" type="Area2D" parent="."]
 position = Vector2(1900, 0)
-monitoring = true
-monitorable = false
 collision_layer = 0
 collision_mask = 2
+monitorable = false
 script = ExtResource("4_crhsf")
-transition_direction = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomTransitionTrigger"]
 shape = SubResource("RectangleShape2D_y277q")

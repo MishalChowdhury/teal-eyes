@@ -1,0 +1,290 @@
+[gd_scene load_steps=21 format=3 uid="uid://mtm4rn2yq7us"]
+
+[ext_resource type="PackedScene" uid="uid://bkr1f8qxvn2ej" path="res://entities/player/Player.tscn" id="1_player"]
+[ext_resource type="Texture2D" uid="uid://cxeybpt1vveo0" path="res://assets/art/environment/parallax/background.png" id="3_7ymbi"]
+[ext_resource type="Texture2D" uid="uid://bcotg4a7g7lt0" path="res://assets/art/environment/backgrounds/far_floor_4k.png" id="3_floor"]
+[ext_resource type="Script" uid="uid://div81nuruo0rf" path="res://scripts/SimpleFollowCamera.gd" id="4_camera"]
+[ext_resource type="Texture2D" uid="uid://b5txjs33omnc3" path="res://assets/art/environment/parallax/floor.png" id="4_kr36f"]
+[ext_resource type="Script" uid="uid://owlgo56l6vuj" path="res://scripts/platforms/MovingPlatform.gd" id="5_kr36f"]
+[ext_resource type="Script" uid="uid://uwnob4dqtv2x" path="res://scripts/platforms/DisappearingPlatform.gd" id="6_xafjf"]
+[ext_resource type="PackedScene" uid="uid://cwhp2kdt5q7m8" path="res://components/DebugHUD.tscn" id="7_debug"]
+[ext_resource type="Script" uid="uid://db7fqo5xv4563" path="res://components/CameraZoomTrigger.gd" id="8_zoom"]
+[ext_resource type="AudioStream" uid="uid://dl7o41bk7x3lc" path="res://assets/audio/first_light_particles.ogg" id="9_bgm"]
+[ext_resource type="AudioStream" uid="uid://bvxlmjo05u1i3" path="res://assets/audio/soft_wind_loop.ogg" id="10_wind"]
+
+[sub_resource type="RectangleShape2D" id="shape_ground"]
+size = Vector2(10000, 80)
+
+[sub_resource type="RectangleShape2D" id="shape_wide_floor"]
+size = Vector2(1400, 80)
+
+[sub_resource type="RectangleShape2D" id="shape_std"]
+size = Vector2(350, 50)
+
+[sub_resource type="RectangleShape2D" id="shape_move"]
+size = Vector2(317, 40)
+
+[sub_resource type="RectangleShape2D" id="shape_narrow"]
+size = Vector2(317, 50)
+
+[sub_resource type="RectangleShape2D" id="shape_peak"]
+size = Vector2(600, 60)
+
+[sub_resource type="RectangleShape2D" id="shape_disap"]
+size = Vector2(300, 45)
+
+[sub_resource type="RectangleShape2D" id="shape_wide"]
+size = Vector2(500, 50)
+
+[sub_resource type="RectangleShape2D" id="shape_zoom"]
+size = Vector2(1200, 1000)
+
+[node name="TestLevel02PhantomExp" type="Node2D"]
+
+[node name="Room4" type="Node2D" parent="."]
+
+[node name="panoramabg" type="Sprite2D" parent="Room4"]
+position = Vector2(15700, -100)
+texture = ExtResource("3_7ymbi")
+
+[node name="Floor" type="StaticBody2D" parent="Room4"]
+collision_mask = 0
+
+[node name="FloorSpritePanoroma" type="Sprite2D" parent="Room4/Floor"]
+position = Vector2(15700, -225.00003)
+scale = Vector2(1, 1.4944445)
+texture = ExtResource("4_kr36f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/Floor"]
+position = Vector2(15700, 700)
+shape = SubResource("shape_ground")
+
+[node name="EntryFloor" type="StaticBody2D" parent="Room4"]
+position = Vector2(11600, 597)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/EntryFloor"]
+position = Vector2(-3, 83)
+shape = SubResource("shape_wide_floor")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Room4/EntryFloor"]
+position = Vector2(-2.000061, 0)
+scale = Vector2(0.36458325, 0.0831)
+texture = ExtResource("3_floor")
+
+[node name="Step_A" type="StaticBody2D" parent="Room4"]
+position = Vector2(12300, 377)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/Step_A"]
+position = Vector2(0, 70)
+shape = SubResource("shape_std")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Room4/Step_A"]
+position = Vector2(0.00022411346, 1.6259886)
+scale = Vector2(0.09114569, 0.084605545)
+texture = ExtResource("3_floor")
+
+[node name="MovingPlatformH1" type="AnimatableBody2D" parent="Room4"]
+position = Vector2(12900, 207)
+collision_mask = 0
+script = ExtResource("5_kr36f")
+move_speed = 120.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/MovingPlatformH1"]
+position = Vector2(0.5, 64)
+shape = SubResource("shape_move")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Room4/MovingPlatformH1"]
+scale = Vector2(0.0831, 0.0831)
+texture = ExtResource("3_floor")
+
+[node name="Step_B" type="StaticBody2D" parent="Room4"]
+position = Vector2(13600, 17)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/Step_B"]
+position = Vector2(-2, 68)
+shape = SubResource("shape_std")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Room4/Step_B"]
+position = Vector2(0.00060272217, 0.1260093)
+scale = Vector2(0.09166662, 0.083216675)
+texture = ExtResource("3_floor")
+
+[node name="Step_C" type="StaticBody2D" parent="Room4"]
+position = Vector2(14100, -183)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/Step_C"]
+position = Vector2(-1.5, 67)
+shape = SubResource("shape_narrow")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Room4/Step_C"]
+scale = Vector2(0.0831, 0.0831)
+texture = ExtResource("3_floor")
+
+[node name="Step_D" type="StaticBody2D" parent="Room4"]
+position = Vector2(14600, -363)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/Step_D"]
+position = Vector2(1, 66)
+shape = SubResource("shape_std")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Room4/Step_D"]
+position = Vector2(1.5003695, 0)
+scale = Vector2(0.091927014, 0.0831)
+texture = ExtResource("3_floor")
+
+[node name="MovingPlatformV1" type="AnimatableBody2D" parent="Room4"]
+position = Vector2(15100, -363)
+collision_mask = 0
+script = ExtResource("5_kr36f")
+move_direction = Vector2(0, -1)
+move_distance = 220.0
+move_speed = 70.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/MovingPlatformV1"]
+position = Vector2(0, 63)
+shape = SubResource("shape_move")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Room4/MovingPlatformV1"]
+scale = Vector2(0.0831, 0.0831)
+texture = ExtResource("3_floor")
+
+[node name="PeakPlatform" type="StaticBody2D" parent="Room4"]
+position = Vector2(15600, -583)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/PeakPlatform"]
+shape = SubResource("shape_peak")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Room4/PeakPlatform"]
+position = Vector2(-0.49943542, -81.00001)
+scale = Vector2(0.15703137, 0.10092591)
+texture = ExtResource("3_floor")
+
+[node name="Step_E" type="StaticBody2D" parent="Room4"]
+position = Vector2(16200, -363)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/Step_E"]
+shape = SubResource("shape_std")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Room4/Step_E"]
+position = Vector2(0.22377396, -68)
+scale = Vector2(0.09207071, 0.0831)
+texture = ExtResource("3_floor")
+
+[node name="DisappearingPlatform" type="StaticBody2D" parent="Room4"]
+position = Vector2(16700, -143)
+collision_mask = 0
+script = ExtResource("6_xafjf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/DisappearingPlatform"]
+shape = SubResource("shape_disap")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Room4/DisappearingPlatform"]
+modulate = Color(0.4, 0.85, 1, 1)
+position = Vector2(0, -64)
+scale = Vector2(0.0831, 0.0831)
+texture = ExtResource("3_floor")
+
+[node name="Step_F" type="StaticBody2D" parent="Room4"]
+position = Vector2(17200, 37)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/Step_F"]
+shape = SubResource("shape_wide")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Room4/Step_F"]
+position = Vector2(1.2265625, -68.374)
+scale = Vector2(0.12957087, 0.083679624)
+texture = ExtResource("3_floor")
+
+[node name="MovingPlatformH2" type="AnimatableBody2D" parent="Room4"]
+position = Vector2(17700, 67)
+collision_mask = 0
+script = ExtResource("5_kr36f")
+move_speed = 130.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/MovingPlatformH2"]
+shape = SubResource("shape_move")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Room4/MovingPlatformH2"]
+position = Vector2(0, -64)
+scale = Vector2(0.0831, 0.0831)
+texture = ExtResource("3_floor")
+
+[node name="Step_G" type="StaticBody2D" parent="Room4"]
+position = Vector2(18500, 237)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/Step_G"]
+shape = SubResource("shape_std")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Room4/Step_G"]
+position = Vector2(1.223774, -68)
+scale = Vector2(0.09207071, 0.0831)
+texture = ExtResource("3_floor")
+
+[node name="Step_H" type="StaticBody2D" parent="Room4"]
+position = Vector2(19000, 397)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/Step_H"]
+shape = SubResource("shape_std")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Room4/Step_H"]
+position = Vector2(0.72387505, -69.37399)
+scale = Vector2(0.09181035, 0.08553149)
+texture = ExtResource("3_floor")
+
+[node name="FinaleFloor" type="StaticBody2D" parent="Room4"]
+position = Vector2(19800, 527)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/FinaleFloor"]
+shape = SubResource("shape_wide_floor")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Room4/FinaleFloor"]
+position = Vector2(-0.0007019043, -110.99997)
+scale = Vector2(0.36562568, 0.13703702)
+texture = ExtResource("3_floor")
+
+[node name="CameraZoomTrigger" type="Area2D" parent="."]
+position = Vector2(16000, -300)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("8_zoom")
+target_zoom = 0.4
+zoom_duration = 6.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraZoomTrigger"]
+shape = SubResource("shape_zoom")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(11600, -36)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+scale = Vector2(4.2399993, 1)
+limit_left = 0
+limit_top = -1200
+limit_right = 21000
+limit_bottom = 1500
+position_smoothing_enabled = true
+script = ExtResource("4_camera")
+camera_offset = Vector2(0, 0)
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_bgm")
+volume_db = -8.0
+autoplay = true
+
+[node name="AmbientWind" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_wind")
+volume_db = -12.0
+autoplay = true
+
+[node name="DebugHUD" parent="." instance=ExtResource("7_debug")]

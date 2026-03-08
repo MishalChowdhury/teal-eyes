@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://cu44mljsstmjm"]
+
+[ext_resource type="Script" uid="uid://cd0sa4d78dgxm" path="res://levels/Room.gd" id="1_roomscript"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_phantom"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_tween"]
+[ext_resource type="Texture2D" uid="uid://vgjjp1s8kndv" path="res://assets/art/environment/backgrounds/far_floor.png" id="4_floor"]
+[ext_resource type="Texture2D" uid="uid://7tucq70k5v1h" path="res://assets/art/environment/backgrounds/far_background.png" id="5_background"]
+
+[sub_resource type="Resource" id="Resource_tween_far"]
+script = ExtResource("3_tween")
+duration = 1.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_63wco"]
+size = Vector2(768.49994, 124.999985)
+
+[node name="RoomTemplate_Far" type="Node2D"]
+script = ExtResource("1_roomscript")
+room_id = "template_far"
+default_camera_zoom = 0.3
+camera_priority = 10
+room_bounds = Vector2(7680, 2160)
+
+[node name="PhantomCamera2D" type="Node2D" parent="."]
+top_level = true
+position = Vector2(3840, 547)
+script = ExtResource("2_phantom")
+follow_mode = 2
+zoom = Vector2(0.3, 0.3)
+tween_resource = SubResource("Resource_tween_far")
+follow_offset = Vector2(0, -900)
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="BackgroundPlaceholder" type="ColorRect" parent="Environment"]
+visible = false
+offset_left = -2.0
+offset_top = -3175.0
+offset_right = 7678.0
+offset_bottom = 65.0
+color = Color(0.15, 0.15, 0.2, 1)
+
+[node name="Background" type="Sprite2D" parent="Environment"]
+texture = ExtResource("5_background")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 7680, 4320)
+
+[node name="Floor" type="StaticBody2D" parent="Environment"]
+position = Vector2(3840, 2162)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Floor"]
+position = Vector2(2, 1645.9998)
+scale = Vector2(10, 10)
+shape = SubResource("RectangleShape2D_63wco")
+
+[node name="FloorSprite" type="Sprite2D" parent="Environment/Floor"]
+texture = ExtResource("4_floor")
+centered = false
+offset = Vector2(-3840, -2160)
+region_enabled = true
+region_rect = Rect2(0, 0, 7680, 4320)

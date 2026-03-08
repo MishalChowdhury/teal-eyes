@@ -5,7 +5,8 @@ class_name PlayerMovementData
 ## All configurable values for player movement feel
 
 # Ground Movement
-@export var speed: float = 300.0  ## Maximum horizontal speed (pixels/sec)
+@export var speed: float = 300.0      ## Walk speed (pixels/sec)
+@export var run_speed: float = 550.0  ## Sprint speed (pixels/sec)
 @export var acceleration: float = 1500.0  ## Ground acceleration rate
 @export var friction: float = 1500.0  ## Ground deceleration rate
 

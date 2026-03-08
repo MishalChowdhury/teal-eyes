@@ -66,12 +66,13 @@ func _physics_process(delta: float) -> void:
 
 # ========== Public Interface ==========
 
-func apply_movement(delta: float, use_air_acceleration: bool = false) -> void:
+func apply_movement(delta: float, use_air_acceleration: bool = false, speed_override: float = 0.0) -> void:
 	"""Apply horizontal movement based on current move direction"""
 	var accel := movement_data.air_acceleration if use_air_acceleration else movement_data.acceleration
-	
+	var top_speed := speed_override if speed_override > 0.0 else movement_data.speed
+
 	if _move_direction.x != 0:
-		_velocity.x = move_toward(_velocity.x, _move_direction.x * movement_data.speed, accel * delta)
+		_velocity.x = move_toward(_velocity.x, _move_direction.x * top_speed, accel * delta)
 	else:
 		_velocity.x = move_toward(_velocity.x, 0, movement_data.friction * delta)
 

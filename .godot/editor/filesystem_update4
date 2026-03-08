@@ -1,6 +1,3 @@
-res://levels/MainLevel.tscn
+res://entities/player/Player.gd
+res://levels/TestLevel02Phantom_Experimental.tscn
 res://addons/phantom_camera/themes/theme.tres
-res://components/RoomTransitionManager.gd
-res://components/RoomTransitionTrigger.gd
-res://entities/saree/SareeController.gd
-res://entities/saree/VerletSolver.gd

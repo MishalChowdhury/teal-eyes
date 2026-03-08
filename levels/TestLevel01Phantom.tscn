@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://1ri5cgv7e06r"]
+
+[ext_resource type="PackedScene" uid="uid://bkr1f8qxvn2ej" path="res://entities/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://cd0sa4d78dgxm" path="res://levels/Room.gd" id="1_ujevt"]
+[ext_resource type="PackedScene" uid="uid://t3b3kdwll0qy" path="res://levels/RoomFar_Optimized.tscn" id="6_0bkmq"]
+[ext_resource type="Script" uid="uid://dr1gitycu5dl7" path="res://scripts/debug/FPSCounter.gd" id="9_fps"]
+[ext_resource type="Script" uid="uid://dpqv3wxk8jsgl" path="res://scripts/debug/CameraDebugUI.gd" id="10_camera_debug"]
+[ext_resource type="Script" uid="uid://div81nuruo0rf" path="res://scripts/SimpleFollowCamera.gd" id="11_simple_camera"]
+
+[node name="TestLevel01Phantom" type="Node2D"]
+script = ExtResource("1_ujevt")
+
+[node name="Rooms" type="Node2D" parent="."]
+
+[node name="RoomFar_Optimized" parent="Rooms" instance=ExtResource("6_0bkmq")]
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(1920, 1372)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(3020, 24)
+offset = Vector2(0, -287.5)
+script = ExtResource("11_simple_camera")
+camera_offset = Vector2(0, 0)
+
+[node name="DebugUI" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="FPSCounter" type="Label" parent="DebugUI"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 150.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 24
+text = "FPS: 0"
+script = ExtResource("9_fps")
+
+[node name="CameraDebugUI" type="Label" parent="DebugUI"]
+offset_left = 10.0
+offset_top = 40.0
+offset_right = 300.0
+offset_bottom = 140.0
+script = ExtResource("10_camera_debug")

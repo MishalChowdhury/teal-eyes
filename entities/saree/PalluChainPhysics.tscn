@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://cw8h5m30aqv4p"]
+
+[ext_resource type="Script" path="res://entities/saree/PalluChainPhysics.gd" id="1_chain"]
+[ext_resource type="Script" path="res://entities/saree/PalluRenderer.gd" id="2_renderer"]
+
+[node name="PalluChainPhysics" type="Node2D"]
+script = ExtResource("1_chain")
+segment_count = 10
+segment_length = 40.0
+segment_radius = 10.0
+segment_mass = 1.5
+gravity_scale = 0.4
+linear_damp = 3.0
+angular_damp = 5.0
+joint_softness = 0.5
+joint_bias = 0.3
+debug_draw = true
+
+[node name="PalluRenderer" type="Node2D" parent="."]
+script = ExtResource("2_renderer")
+render_mode = 0
+base_width = 20.0
+tip_width = 60.0
+pallu_color = Color(0.4, 0.7, 0.9, 1)
+render_z_index = 1
